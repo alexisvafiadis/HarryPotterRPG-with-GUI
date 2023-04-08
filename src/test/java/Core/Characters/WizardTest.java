@@ -1,13 +1,12 @@
 package Core.Characters;
 
-import Core.Characters.Characteristics.House;
-import Core.Characters.Wizard;
-import Core.Game.Game;
-import Core.Magic.ActiveEffect;
-import Core.Magic.EffectType;
-import Core.Magic.Potion;
-import Core.Magic.PotionType;
-import Core.Magic.Spells.WingardiumLeviosa;
+import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
+import alexis.isep.harrypotter.Core.Magic.EffectType;
+import alexis.isep.harrypotter.Core.Magic.Potion;
+import alexis.isep.harrypotter.Core.Magic.PotionType;
+import alexis.isep.harrypotter.Core.Magic.Spells.WingardiumLeviosa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

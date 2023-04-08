@@ -1,10 +1,11 @@
 package Core.Characters;
 
-import Core.Characters.Characteristics.House;
-import Core.Characters.Enemies.Basilisk;
-import Core.Characters.Enemies.Dementor;
-import Core.Characters.Enemies.Troll;
-import Core.Game.Game;
+import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
+import alexis.isep.harrypotter.Core.Characters.Enemies.Basilisk;
+import alexis.isep.harrypotter.Core.Characters.Enemies.Dementor;
+import alexis.isep.harrypotter.Core.Characters.Enemies.Troll;
+import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.Core.Game.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

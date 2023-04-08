@@ -1,16 +1,14 @@
 package Core.Magic;
 
-import Core.Characters.AbstractEnemy;
-import Core.Characters.Characteristics.House;
-import Core.Characters.Enemies.Troll;
-import Core.Characters.Wizard;
-import Core.Game.Game;
-import Core.Items.Item;
-import Core.Levels.Essentials.Battle;
-import Core.Levels.Level;
-import Core.Levels.Level1;
-import Core.Magic.Spells.Accio;
-import Core.Magic.Spells.WingardiumLeviosa;
+import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
+import alexis.isep.harrypotter.Core.Characters.Enemies.Troll;
+import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.Core.Items.Item;
+import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
+import alexis.isep.harrypotter.Core.Levels.Level;
+import alexis.isep.harrypotter.Core.Levels.Level1;
+import alexis.isep.harrypotter.Core.Magic.Spells.WingardiumLeviosa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

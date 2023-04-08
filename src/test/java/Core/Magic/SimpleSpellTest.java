@@ -1,15 +1,14 @@
 package Core.Magic;
 
-import Core.Characters.AbstractEnemy;
-import Core.Characters.Characteristics.House;
-import Core.Characters.Enemies.Troll;
-import Core.Characters.Wizard;
-import Core.Game.Game;
-import Core.Items.Item;
-import Core.Levels.Essentials.Battle;
-import Core.Levels.Level;
-import Core.Levels.Level1;
-import Core.Magic.Spells.*;
+import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
+import alexis.isep.harrypotter.Core.Characters.Enemies.Troll;
+import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
+import alexis.isep.harrypotter.Core.Magic.EffectType;
+import alexis.isep.harrypotter.Core.Magic.Spells.Confundus;
+import alexis.isep.harrypotter.Core.Magic.Spells.Protego;
+import alexis.isep.harrypotter.Core.Magic.Spells.Sectumsempra;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
