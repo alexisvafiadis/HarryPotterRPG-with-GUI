@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="192.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane>
+          <ImageView fitHeight="169.0" fitWidth="451.0" pickOnBounds="true">
+              <image>
+                  <Image url="@../images/inventories/SpellChoice-1.jpeg" />
+              </image>
+          </ImageView>
+          <GridPane alignment="CENTER" hgap="17.0" prefHeight="130.0" prefWidth="347.0" vgap="17.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
+                  <ColumnConstraints hgrow="ALWAYS" percentWidth="50" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints percentHeight="50" vgrow="ALWAYS" />
+                  <RowConstraints percentHeight="50" vgrow="ALWAYS" />
+              </rowConstraints>
+              <children>
+                  <Button fx:id="attackButton" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#actionButtonEvent" text="Spell 1">
+                      <font>
+                          <Font name="Avenir Next Condensed Regular" size="24.0" />
+                      </font>
+                  </Button>
+                  <Button fx:id="skill1Button" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#actionButtonEvent" text="Spell 2" GridPane.columnIndex="1">
+                      <font>
+                          <Font name="Avenir Next Condensed Regular" size="24.0" />
+                      </font>
+                  </Button>
+                  <Button fx:id="skill2Button" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#actionButtonEvent" text="Spell 3" GridPane.rowIndex="1">
+                      <font>
+                          <Font name="Avenir Next Condensed Regular" size="24.0" />
+                      </font>
+                  </Button>
+                  <Button fx:id="runAwayButton" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#actionButtonEvent" text="Spell 4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                      <font>
+                          <Font name="Avenir Next Condensed Regular" size="24.0" />
+                      </font>
+                  </Button>
+              </children>
+              <padding>
+                  <Insets bottom="17.0" left="17.0" right="17.0" top="17.0" />
+              </padding>
+          </GridPane>
+      </StackPane>
+      <AnchorPane layoutY="168.0" prefHeight="0.0" prefWidth="451.0" style="-fx-background-color: #c3c0c0;">
+         <children>
+            <Label alignment="CENTER" layoutX="202.0" layoutY="7.0" prefHeight="17.0" prefWidth="48.0" text="X / Y" textAlignment="CENTER" AnchorPane.bottomAnchor="7.666666666666668" AnchorPane.topAnchor="7.0" />
+            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="265.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="171.33333333333331" AnchorPane.topAnchor="9.0">
+             <image>
+                 <Image url="@../images/utility/next-page.png" />
+             </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="169.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="169.0">
+                <image>
+                    <Image url="@../images/utility/previous-page.png" />
+                </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

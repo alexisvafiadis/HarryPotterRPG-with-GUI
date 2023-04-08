@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.Tooltip?>
+
+<StackPane maxHeight="90" maxWidth="90" minHeight="90" minWidth="90" prefHeight="90" prefWidth="90" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <ImageView fitHeight="90" fitWidth="90" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../images/inventories/PotionChoice-5.png" />
+        </image>
+    </ImageView>
+    <GridPane hgap="7" maxHeight="90" maxWidth="90" minHeight="90" minWidth="90" prefHeight="90" prefWidth="90" vgap="7">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="33.33" />
+            <ColumnConstraints percentWidth="33.33" />
+            <ColumnConstraints percentWidth="33.33" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="33.33" />
+            <RowConstraints percentHeight="33.33" />
+            <RowConstraints percentHeight="33.33" />
+        </rowConstraints>
+        <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Circle opacity="1" radius="10">
+            <fill>
+                <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
+                    <stops>
+                        <Stop>
+                            <color>
+                                <Color red="0.1004440113902092" green="0.05856075510382652" blue="0.18421052396297455" />
+                            </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                            <color>
+                                <Color red="0.09285791963338852" green="0.046458739787340164" blue="0.19298245012760162" />
+                            </color>
+                        </Stop>
+                    </stops>
+                </RadialGradient>
+               <!--
+               <RadialGradient centerX="0.49630989271776266" centerY="0.5536277361848753" cycleMethod="REPEAT" radius="0.6030533768748508">
+                  <stops>
+                     <Stop>
+                        <color>
+                           <Color red="0.10883690416812897" green="0.20142950117588043" blue="0.2631579041481018" />
+                        </color>
+                     </Stop>
+                     <Stop offset="0.006711409395973154">
+                        <color>
+                           <Color red="0.10883690416812897" green="0.20142950117588043" blue="0.2631579041481018" />
+                        </color>
+                     </Stop>
+                     <Stop offset="0.3369618595514815">
+                        <color>
+                           <Color red="0.06917370855808258" green="0.1920596957206726" blue="0.3070175349712372" />
+                        </color>
+                     </Stop>
+                     <Stop offset="0.48008402902820974">
+                        <color>
+                           <Color red="0.07431773841381073" green="0.23452728986740112" blue="0.3947368562221527" />
+                        </color>
+                     </Stop>
+                     <Stop offset="0.6207508048234845">
+                        <color>
+                           <Color red="0.07456140220165253" green="0.31688597798347473" blue="0.44736841320991516" />
+                        </color>
+                     </Stop>
+                     <Stop offset="0.747790145686692">
+                        <color>
+                           <Color red="0.07667316496372223" green="0.3632391095161438" blue="0.5175438523292542" />
+                        </color>
+                     </Stop>
+                     <Stop offset="0.8772712391553444">
+                        <color>
+                           <Color red="0.07504872977733612" green="0.39343729615211487" blue="0.5526315569877625" />
+                        </color>
+                     </Stop>
+                     <Stop offset="1.0">
+                        <color>
+                           <Color red="0.06499999761581421" green="0.4257499873638153" blue="0.6499999761581421" />
+                        </color>
+                     </Stop>
+                  </stops>
+               </RadialGradient>-->
+            </fill></Circle>
+            <ImageView fx:id="image00" fitHeight="20" fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+        <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Circle opacity="1" radius="10">
+                <fill>
+                    <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.1004440113902092" green="0.05856075510382652" blue="0.18421052396297455" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="0.09285791963338852" green="0.046458739787340164" blue="0.19298245012760162" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </RadialGradient>
+                </fill>
+            </Circle>
+            <ImageView fx:id="image01" fitHeight="20" fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+        <StackPane GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <Circle opacity="1" radius="10">
+                <fill>
+                    <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.1004440113902092" green="0.05856075510382652" blue="0.18421052396297455" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="0.09285791963338852" green="0.046458739787340164" blue="0.19298245012760162" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </RadialGradient>
+                </fill>
+            </Circle>
+            <ImageView fx:id="image02" fitHeight="20" fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+        <StackPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Circle opacity="1" radius="10">
+                <fill>
+                    <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.1004440113902092" green="0.05856075510382652" blue="0.18421052396297455" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="0.09285791963338852" green="0.046458739787340164" blue="0.19298245012760162" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </RadialGradient>
+                </fill>
+            </Circle>
+            <ImageView fx:id="image03" fitHeight="20" fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+        <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Circle opacity="1" radius="10">
+                <fill>
+                    <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.1004440113902092" green="0.05856075510382652" blue="0.18421052396297455" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="0.09285791963338852" green="0.046458739787340164" blue="0.19298245012760162" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </RadialGradient>
+                </fill>
+            </Circle>
+            <ImageView fx:id="image04" fitHeight="20" fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+        <StackPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Circle opacity="1" radius="10">
+                <fill>
+                    <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.1004440113902092" green="0.05856075510382652" blue="0.18421052396297455" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="0.09285791963338852" green="0.046458739787340164" blue="0.19298245012760162" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </RadialGradient>
+                </fill>
+            </Circle>
+            <ImageView fx:id="image05" fitHeight="20" fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+        <StackPane GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <Circle opacity="1" radius="10">
+                <fill>
+                    <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.1004440113902092" green="0.05856075510382652" blue="0.18421052396297455" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="0.09285791963338852" green="0.046458739787340164" blue="0.19298245012760162" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </RadialGradient>
+                </fill>
+            </Circle>
+            <ImageView fx:id="image06" fitHeight="20" fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+        <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Circle opacity="1" radius="10">
+                <fill>
+                    <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.1004440113902092" green="0.05856075510382652" blue="0.18421052396297455" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="0.09285791963338852" green="0.046458739787340164" blue="0.19298245012760162" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </RadialGradient>
+                </fill>
+            </Circle>
+            <ImageView fx:id="image07" fitHeight="20" fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+        <StackPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Circle opacity="1" radius="10">
+                <fill>
+                    <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
+                        <stops>
+                            <Stop>
+                                <color>
+                                    <Color red="0.1004440113902092" green="0.05856075510382652" blue="0.18421052396297455" />
+                                </color>
+                            </Stop>
+                            <Stop offset="1.0">
+                                <color>
+                                    <Color red="0.09285791963338852" green="0.046458739787340164" blue="0.19298245012760162" />
+                                </color>
+                            </Stop>
+                        </stops>
+                    </RadialGradient>
+                </fill>
+            </Circle>
+            <ImageView fx:id="image08" fitHeight="20" fitWidth="20" preserveRatio="true">
+                <image>
+                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                </image>
+            </ImageView>
+        </StackPane>
+    </GridPane>
+</StackPane>
