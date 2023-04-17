@@ -1,7 +1,7 @@
 package alexis.isep.harrypotter.Core.Levels;
 
 import alexis.isep.harrypotter.Core.Characters.Enemies.DoloresUmbridge;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Levels.Essentials.DoloresUmbridgeBattle;
 import alexis.isep.harrypotter.Core.Magic.Spells.Reducto;
 

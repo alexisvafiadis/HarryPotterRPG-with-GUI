@@ -3,7 +3,7 @@ package alexis.isep.harrypotter.Core.Levels.Essentials;
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Enemies.DoloresUmbridge;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Levels.Level;
 
 public class DoloresUmbridgeBattle extends Battle {

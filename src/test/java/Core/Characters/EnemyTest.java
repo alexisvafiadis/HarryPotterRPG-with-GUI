@@ -5,7 +5,7 @@ import alexis.isep.harrypotter.Core.Characters.Enemies.Basilisk;
 import alexis.isep.harrypotter.Core.Characters.Enemies.Dementor;
 import alexis.isep.harrypotter.Core.Characters.Enemies.Troll;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package alexis.isep.harrypotter.Core.Characters.Enemies;
 
 import alexis.isep.harrypotter.Core.Characters.Boss;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 
 public class DoloresUmbridge extends Boss {
     int distractionLevel;

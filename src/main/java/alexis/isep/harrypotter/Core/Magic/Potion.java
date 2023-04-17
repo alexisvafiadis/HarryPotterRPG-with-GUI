@@ -3,7 +3,7 @@ package alexis.isep.harrypotter.Core.Magic;
 import alexis.isep.harrypotter.Console.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 
 public class Potion {
     Game game;

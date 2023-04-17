@@ -2,7 +2,7 @@ package Core.Levels.Essentials;
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Enemies.Troll;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
 import alexis.isep.harrypotter.Core.Levels.Level1;
 import org.junit.jupiter.api.BeforeEach;

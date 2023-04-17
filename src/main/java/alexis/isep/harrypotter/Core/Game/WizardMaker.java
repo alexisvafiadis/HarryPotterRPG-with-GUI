@@ -10,6 +10,7 @@ import alexis.isep.harrypotter.Core.Items.Wood;
 import alexis.isep.harrypotter.Core.Magic.Spells.Confundus;
 import alexis.isep.harrypotter.Core.Magic.Spells.Engorgio;
 import alexis.isep.harrypotter.Core.Magic.Spells.Expelliarmus;
+import alexis.isep.harrypotter.GUI.Game;
 
 import java.util.HashMap;
 import java.util.Random;

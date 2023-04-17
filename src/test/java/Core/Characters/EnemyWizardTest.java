@@ -3,7 +3,7 @@ package Core.Characters;
 import alexis.isep.harrypotter.Core.Characters.Enemies.*;
 import alexis.isep.harrypotter.Core.Characters.EnemyWizard;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

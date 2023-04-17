@@ -1,28 +1,60 @@
-package alexis.isep.harrypotter.Core.Game;
+package alexis.isep.harrypotter.GUI;
 
 import alexis.isep.harrypotter.Console.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.Core.Game.SortingHat;
+import alexis.isep.harrypotter.Core.Game.WizardMaker;
 import alexis.isep.harrypotter.Core.Levels.*;
 import alexis.isep.harrypotter.Core.Magic.Spells.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 import java.util.Scanner;
 
-public class Game {
+public class Game extends javafx.application.Application{
     private Display display;
     private InputParser inputParser;
     private Wizard player;
     private Level currentLevel;
     private final boolean DEBUG_MODE = false;
 
-    public Game() {
+    private String gameTitle;
+
+    private final boolean GRAPHIC_INTERFACE_MODE = true;
+
+    @Override
+    public void start(Stage stage) throws IOException {
         display = new Display(this);
         inputParser = new InputParser(this, new Scanner(System.in));
         player = new Wizard(this);
+        player.setDefaultAttributes();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/CreateCharacter.fxml"));
+
+        fxmlLoader.setControllerFactory(param -> new CreateCharacterController(this));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/alexis/isep/harrypotter/images/scene/GameIcon.png")));
+        stage.setTitle("Harry Potter At Home");
+        stage.setMaximized(true);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 
     public void start() {
+        display = new Display(this);
+        inputParser = new InputParser(this, new Scanner(System.in));
+        player = new Wizard(this);
         introduce(player);
         if (isInDebugMode()) {
             teachAllSpells();

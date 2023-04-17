@@ -2,6 +2,7 @@ package alexis.isep.harrypotter.Core.Game;
 
 import alexis.isep.harrypotter.Core.Characters.Characteristics.House;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.GUI.Game;
 
 import java.util.HashMap;
 

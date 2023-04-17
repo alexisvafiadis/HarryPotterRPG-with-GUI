@@ -1,6 +1,6 @@
 package alexis.isep.harrypotter.Core.Characters;
 
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Weapon;
 
 public abstract class Boss extends AbstractEnemy {

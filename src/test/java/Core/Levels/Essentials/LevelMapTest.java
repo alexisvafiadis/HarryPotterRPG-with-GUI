@@ -1,6 +1,6 @@
 package Core.Levels.Essentials;
 
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
 import alexis.isep.harrypotter.Core.Levels.Level;
 import alexis.isep.harrypotter.Core.Levels.Level1;

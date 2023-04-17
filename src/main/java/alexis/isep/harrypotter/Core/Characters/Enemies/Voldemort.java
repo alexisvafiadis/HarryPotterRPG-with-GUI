@@ -1,7 +1,7 @@
 package alexis.isep.harrypotter.Core.Characters.Enemies;
 
 import alexis.isep.harrypotter.Core.Characters.EnemyWizard;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.Spells.AvadaKedavra;
 import alexis.isep.harrypotter.Core.Magic.Spells.Crucio;
 import alexis.isep.harrypotter.Core.Magic.Spells.Expelliarmus;

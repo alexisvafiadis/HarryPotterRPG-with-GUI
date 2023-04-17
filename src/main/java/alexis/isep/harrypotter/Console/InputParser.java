@@ -1,6 +1,6 @@
 package alexis.isep.harrypotter.Console;
 
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;

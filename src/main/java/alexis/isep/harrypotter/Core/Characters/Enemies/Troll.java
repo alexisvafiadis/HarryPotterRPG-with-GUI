@@ -1,7 +1,7 @@
 package alexis.isep.harrypotter.Core.Characters.Enemies;
 
 import alexis.isep.harrypotter.Core.Characters.Boss;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.Weapon;
 

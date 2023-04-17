@@ -2,14 +2,16 @@ package alexis.isep.harrypotter.Core.Characters;
 
 import alexis.isep.harrypotter.Core.Characters.Characteristics.House;
 import alexis.isep.harrypotter.Core.Characters.Characteristics.Pet;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Wand;
 import alexis.isep.harrypotter.Core.Items.WandCore;
 import alexis.isep.harrypotter.Core.Items.Wood;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
 import alexis.isep.harrypotter.Core.Magic.Potion;
 import alexis.isep.harrypotter.Core.Magic.Spell;
+import javafx.scene.image.Image;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -84,6 +86,35 @@ public class Wizard extends Character{
 
     public void setHouse(House house) {
         this.house = house;
+    }
+
+    public void setHouse(int houseNumber) {
+        if (houseNumber < 0 || houseNumber > House.values().length ) {
+            throw new IllegalArgumentException();
+        }
+        else {
+            setHouse(House.values()[houseNumber]);
+        }
+    }
+
+    public void setPet(int petNumber) {
+        if (petNumber < 0 || petNumber > Pet.values().length ) {
+            throw new IllegalArgumentException();
+        }
+        else {
+            setPet(Pet.values()[petNumber]);
+        }
+    }
+
+    public int getHouseNumber() {
+        int i = 0;
+        for (House house : House.values()) {
+            if (house.equals(this.house)) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
     }
 
     public LinkedHashMap<String, Spell> getKnownSpells() { return knownSpells; }
@@ -177,5 +208,10 @@ public class Wizard extends Character{
         setName("Player");
         setPet(Pet.CAT);
         setWand(new Wand(WandCore.AFRICAN_MERMAID_HAIR, Wood.REDWOOD, 1, this));
+    }
+
+    public Image getImage() {
+        return new Image(getClass().getResource("/alexis/isep/harrypotter/images/characters/" + getHouse().getIMAGE_NAME()).toString(), true);
+
     }
 }

@@ -3,7 +3,7 @@ package alexis.isep.harrypotter.Core.Levels;
 import alexis.isep.harrypotter.Core.Characters.Characteristics.House;
 import alexis.isep.harrypotter.Core.Characters.Enemies.DeathEater;
 import alexis.isep.harrypotter.Core.Characters.Enemies.Student;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.Spells.Sectumsempra;
 
 import java.util.HashMap;

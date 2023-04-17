@@ -2,7 +2,7 @@ package alexis.isep.harrypotter.Core.Characters;
 
 import alexis.isep.harrypotter.Console.Display;
 import alexis.isep.harrypotter.Console.InputParser;
-import alexis.isep.harrypotter.Core.Game.Game;
+import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Weapon;
 import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
 import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
