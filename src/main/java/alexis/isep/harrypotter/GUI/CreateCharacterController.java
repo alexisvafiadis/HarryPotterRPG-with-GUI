@@ -89,9 +89,10 @@ public class CreateCharacterController {
 
     @FXML
     void createButtonEvent(ActionEvent event) throws IOException {
-        if (event.getSource().equals(cancelButton)) {int player = 0; }
+        if (event.getSource().equals(cancelButton)) {  }
         else {
             game.getPlayer().setName(nameField.getText());
+            game.mainGame();
             //create a new game save
         }
         /*

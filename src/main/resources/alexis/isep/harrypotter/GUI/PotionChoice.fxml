@@ -94,7 +94,7 @@
             </fill></Circle>
             <ImageView fx:id="image00" fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
-                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                    <Image url="@../images/items/StrengtheningSolution1.png" />
                 </image>
             </ImageView>
         </StackPane>
@@ -119,7 +119,7 @@
             </Circle>
             <ImageView fx:id="image01" fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
-                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                    <Image url="@../images/items/StrengtheningSolution1.png" />
                 </image>
             </ImageView>
         </StackPane>
@@ -144,7 +144,7 @@
             </Circle>
             <ImageView fx:id="image02" fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
-                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                    <Image url="@../images/items/StrengtheningSolution1.png" />
                 </image>
             </ImageView>
         </StackPane>
@@ -169,7 +169,7 @@
             </Circle>
             <ImageView fx:id="image03" fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
-                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                    <Image url="@../images/items/StrengtheningSolution1.png" />
                 </image>
             </ImageView>
         </StackPane>
@@ -194,7 +194,7 @@
             </Circle>
             <ImageView fx:id="image04" fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
-                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                    <Image url="@../images/items/StrengtheningSolution1.png" />
                 </image>
             </ImageView>
         </StackPane>
@@ -219,7 +219,7 @@
             </Circle>
             <ImageView fx:id="image05" fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
-                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                    <Image url="@../images/items/StrengtheningSolution1.png" />
                 </image>
             </ImageView>
         </StackPane>
@@ -244,7 +244,7 @@
             </Circle>
             <ImageView fx:id="image06" fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
-                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                    <Image url="@../images/items/StrengtheningSolution1.png" />
                 </image>
             </ImageView>
         </StackPane>
@@ -269,7 +269,7 @@
             </Circle>
             <ImageView fx:id="image07" fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
-                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                    <Image url="@../images/items/StrengtheningSolution1.png" />
                 </image>
             </ImageView>
         </StackPane>
@@ -294,7 +294,7 @@
             </Circle>
             <ImageView fx:id="image08" fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
-                    <Image url="@../images/items/StrengtheningSolution-removebg-preview.png" />
+                    <Image url="@../images/items/StrengtheningSolution1.png" />
                 </image>
             </ImageView>
         </StackPane>

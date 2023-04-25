@@ -4,11 +4,20 @@ import alexis.isep.harrypotter.Console.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.GUI.CreateCharacterController;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.ItemType;
 import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
+import alexis.isep.harrypotter.GUI.LevelController;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,6 +29,7 @@ public abstract class Level {
     protected Display display;
     protected InputParser inputParser;
     protected Wizard player;
+    protected LevelController levelController;
 
     //Level specific attributes
     protected int number;
@@ -95,8 +105,30 @@ public abstract class Level {
     public void wishGoodLuck() {display.displayInfo("Good luck!"); }
 
     public void giveLevelInfo() {
-        display.displayInfo("--- Level " + number + " : " + name + " ---");
-        display.displayInfo("You arrive at the " + place);
+        if (!game.isInGraphicMode()) {
+            display.displayInfo("--- Level " + number + " : " + name + " ---");
+            display.displayInfo("You arrive at the " + place);
+        }
+        else {
+            game.setScene("/alexis/isep/harrypotter/GUI/Level.fxml",param -> new LevelController(this,game,player));
+            game.addDialogPane();
+            /*
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/Level.fxml"));
+                    fxmlLoader.setControllerFactory(param -> new LevelController(this,game,player));
+                    Scene scene = null;
+                    try {
+                        scene = new Scene(fxmlLoader.load());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    game.getStage().setScene(scene);
+                    game.getStage().show();
+                });
+            }).start();
+             */
+        }
     }
 
     public void askForUpgrade() {

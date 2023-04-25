@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="dialogPane" minHeight="200" minWidth="300" prefHeight="200" prefWidth="300" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alexis.isep.harrypotter.GUI.DialogController">
+    <children>
+        <ImageView fx:id="backgroundImage" fitHeight="200.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="false">
+            <image>
+                <Image url="@../images/scene/DialogPane3.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="textLabel" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="69.0" layoutY="70.0" maxHeight="160.0" maxWidth="260.0" minHeight="57.0" minWidth="206.0" prefHeight="57.0" prefWidth="220.0" text="Your text goes here" wrapText="true" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="70.0" />
+    </children>
+</AnchorPane>

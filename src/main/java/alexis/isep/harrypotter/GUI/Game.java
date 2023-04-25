@@ -8,25 +8,30 @@ import alexis.isep.harrypotter.Core.Game.SortingHat;
 import alexis.isep.harrypotter.Core.Game.WizardMaker;
 import alexis.isep.harrypotter.Core.Levels.*;
 import alexis.isep.harrypotter.Core.Magic.Spells.*;
-import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 import java.io.IOException;
 
+import java.net.URL;
 import java.util.Scanner;
 
 public class Game extends javafx.application.Application{
+    private final String GAME_TITLE = "Harry Potter At Home";
     private Display display;
     private InputParser inputParser;
+    private DialogController dialogController;
     private Wizard player;
     private Level currentLevel;
+    private Stage stage;
     private final boolean DEBUG_MODE = false;
-
-    private String gameTitle;
-
     private final boolean GRAPHIC_INTERFACE_MODE = true;
 
     @Override
@@ -39,12 +44,13 @@ public class Game extends javafx.application.Application{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/CreateCharacter.fxml"));
 
         fxmlLoader.setControllerFactory(param -> new CreateCharacterController(this));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/alexis/isep/harrypotter/images/scene/GameIcon.png")));
-        stage.setTitle("Harry Potter At Home");
-        stage.setMaximized(true);
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/alexis/isep/harrypotter/images/scene/Icon.png")));
+        stage.setTitle(GAME_TITLE);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        this.stage = stage;
     }
 
     public static void main(String[] args) {
@@ -56,6 +62,10 @@ public class Game extends javafx.application.Application{
         inputParser = new InputParser(this, new Scanner(System.in));
         player = new Wizard(this);
         introduce(player);
+        mainGame();
+    }
+
+    public void mainGame() {
         if (isInDebugMode()) {
             teachAllSpells();
         }
@@ -66,7 +76,6 @@ public class Game extends javafx.application.Application{
         setLevel(new Level5(this));
         setLevel(new Level6(this));
         setLevel(new Level7(this));
-
         finish();
     }
 
@@ -85,7 +94,6 @@ public class Game extends javafx.application.Application{
     }
 
     public void setLevel(Level level) {
-        currentLevel = null;
         currentLevel = level;
         currentLevel.start();
     }
@@ -141,5 +149,38 @@ public class Game extends javafx.application.Application{
         player.learnSpell(new Tarantallegra(this, player));
         player.learnSpell(new Stupefy(this, player));
         player.learnSpell(new SlugulusErecto(this, player));
+    }
+
+    public boolean isInGraphicMode() {
+        return GRAPHIC_INTERFACE_MODE;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+    public void setScene(String name, Callback<Class<?>, Object> callback) {
+        URL fxmlURL = getClass().getResource(name);
+        if (fxmlURL == null) {
+            throw new RuntimeException("FXML file not found: " + name);
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(fxmlURL);
+        fxmlLoader.setControllerFactory(callback);
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException("Error loading FXML file: " + name, e);
+        }
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void addDialogPane() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/DialogPane.fxml"));
+        dialogController = new DialogController();
+        fxmlLoader.setControllerFactory(param -> dialogController);
+        display.setDialogController(dialogController);
+        stage.getScene().getRoot().getChildrenUnmodifiable().add(new DialogPane());
     }
 }

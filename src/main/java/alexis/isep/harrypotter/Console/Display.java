@@ -1,13 +1,19 @@
 package alexis.isep.harrypotter.Console;
 
 import alexis.isep.harrypotter.Core.Characters.Character;
+import alexis.isep.harrypotter.GUI.DialogController;
 import alexis.isep.harrypotter.GUI.Game;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class Display {
     private Game game;
+    private DialogController dialogController;
     private int DEFAULT_WRITING_DELAY = 26;
     private final int FAST_WRITING_DELAY = 5;
     private final int SLOW_WRITING_DELAY = 40;
@@ -18,19 +24,33 @@ public class Display {
     }
 
     public void slowPrint(String output, String color, boolean nextLine) {
-        System.out.print(color);
-        for (int i = 0; i<output.length(); i++) {
-            char c = output.charAt(i);
-            System.out.print(c);
-            try {
-                TimeUnit.MILLISECONDS.sleep(DEFAULT_WRITING_DELAY);
-            }
-            catch (Exception e) {
+        if (game.isInGraphicMode()) {
+            Timeline timeline = new Timeline();
+            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100), event -> {
+                int charIndex = timeline.getCycleCount();
+                if (charIndex <= output.length()) {
+                    String substring = output.substring(0, charIndex);
+                    dialogController.setText(substring);
+                } else {
+                    timeline.stop();
+                }
+            }));
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.play();
+        } else {
+            System.out.print(color);
+            for (int i = 0; i < output.length(); i++) {
+                char c = output.charAt(i);
+                System.out.print(c);
+                try {
+                    TimeUnit.MILLISECONDS.sleep(DEFAULT_WRITING_DELAY);
+                } catch (Exception e) {
 
+                }
             }
-        }
-        if (nextLine) {
-            System.out.println();
+            if (nextLine) {
+                System.out.println();
+            }
         }
     }
 
@@ -78,4 +98,7 @@ public class Display {
         }
     }
 
+    public void setDialogController(DialogController dialogController) {
+        this.dialogController = dialogController;
+    }
 }

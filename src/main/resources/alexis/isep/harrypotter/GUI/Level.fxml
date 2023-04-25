@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="720" maxWidth="960.0" minHeight="720.0" minWidth="960.0" prefHeight="720.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alexis.isep.harrypotter.GUI.LevelController">
+   <children>
+      <ImageView fx:id="background" fitHeight="720.0" fitWidth="960.0" managed="true" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="0.0">
+
+         <image>
+            <Image url="@../images/scene/Battle.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imageView" fitHeight="380.0" fitWidth="283.0" layoutX="31.0" layoutY="46.0" pickOnBounds="true" preserveRatio="false" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="646.0">
+         <image>
+            <Image url="@../images/characters/HufflepuffWizard.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="levelText" layoutX="347.0" layoutY="100.0" prefHeight="43.0" prefWidth="145.0" text="Level X">
+         <font>
+            <Font name="Rockwell Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="placeText" layoutX="347.0" layoutY="150.0" prefHeight="43.0" prefWidth="145.0" text="Place">
+         <font>
+            <Font name="Rockwell" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="healthText" layoutX="347.0" layoutY="192.0" prefHeight="43.0" prefWidth="145.0" text="Health : ">
+         <font>
+            <Font name="Rockwell" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

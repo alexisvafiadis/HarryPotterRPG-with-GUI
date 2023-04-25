@@ -15,12 +15,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EnemyTest {
-    Wizard wizard;
-    List<AbstractEnemy> enemies;
-    Game game;
-
+    private Wizard wizard;
+    private List<AbstractEnemy> enemies;
+    private Game game;
     @BeforeEach
-    void setUp() {
+    private void setUp() {
         game = new Game();
         wizard = game.getPlayer();
         wizard.setDefaultAttributes();

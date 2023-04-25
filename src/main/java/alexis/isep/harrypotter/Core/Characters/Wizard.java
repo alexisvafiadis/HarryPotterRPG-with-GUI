@@ -9,13 +9,11 @@ import alexis.isep.harrypotter.Core.Items.Wood;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
 import alexis.isep.harrypotter.Core.Magic.Potion;
 import alexis.isep.harrypotter.Core.Magic.Spell;
+import alexis.isep.harrypotter.Core.Magic.PotionType;
 import javafx.scene.image.Image;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class Wizard extends Character{
     //Specific attributes
@@ -209,6 +207,17 @@ public class Wizard extends Character{
         setPet(Pet.CAT);
         setWand(new Wand(WandCore.AFRICAN_MERMAID_HAIR, Wood.REDWOOD, 1, this));
     }
+
+    public Map<PotionType, Integer> getInventory() {
+        Map<PotionType, Integer> inventory = new HashMap<>();
+        for (Potion potion : potions) {
+            PotionType type = potion.getPotionType();
+            int amount = inventory.getOrDefault(type, 0);
+            inventory.put(type, amount + 1);
+        }
+        return inventory;
+    }
+
 
     public Image getImage() {
         return new Image(getClass().getResource("/alexis/isep/harrypotter/images/characters/" + getHouse().getIMAGE_NAME()).toString(), true);
