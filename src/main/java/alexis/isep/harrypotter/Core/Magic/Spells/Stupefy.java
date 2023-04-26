@@ -22,7 +22,7 @@ public class Stupefy extends SimpleSpell {
     }
 
     public void displayInstructions() {
-        inputParser.waitForYes("Focus your mind on the target you wish to stun and visualize the stunning impact.\n" +
+        inputParser.waitForConfirmation("Focus your mind on the target you wish to stun and visualize the stunning impact.\n" +
                 "Say Stupefy with conviction while flicking your wand in a powerful straight motion\n" +
                 "A bright light, usually red in color, will shoot from your wand and hit the target, causing them to become momentarily stunned and unable to move.\n" +
                 "Understood?");

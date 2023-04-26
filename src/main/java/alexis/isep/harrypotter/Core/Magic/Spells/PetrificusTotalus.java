@@ -22,7 +22,7 @@ public class PetrificusTotalus extends SimpleSpell {
     }
 
     public void displayInstructions() {
-        inputParser.waitForYes("Aim your wand at the target and focus on their movement.\n" +
+        inputParser.waitForConfirmation("Aim your wand at the target and focus on their movement.\n" +
                 "Visualize them becoming rigid, and use a commanding tone when casting the spell\n" +
                 "A bright blue light will shoot from your wand and hit the target, causing them to become completely paralyzed and unable to move.\n" +
                 "Understood?");

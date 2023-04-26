@@ -1,6 +1,6 @@
 package alexis.isep.harrypotter.Core.Game;
 
-import alexis.isep.harrypotter.Console.Display;
+import alexis.isep.harrypotter.GUI.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.Characteristics.Pet;
 import alexis.isep.harrypotter.Core.Characters.Wizard;

@@ -134,14 +134,25 @@ public class Wizard extends Character{
     }
 
     public void chooseAndConsumePotion() {
-        HashMap<Integer, String> potionInputs = new HashMap<>();
-        int i = 0;
-        for (Potion potion : potions) {
-            potionInputs.put(i, potion.getPotionType().toString());
-            i += 1;
+        if (game.isInGraphicMode()) {
+            if (hasAnyPotion()) {
+                display.displayInfo("Choose a potion that you want to consume");
+            }
+            else {
+                display.displayInfo("You don't have any potion.");
+            }
         }
-        int choice = inputParser.getNumberInput("Which potion do you want to use?", potionInputs, "for");
-        consumePotion(potions.get(choice));
+        else {
+            HashMap<Integer, String> potionInputs = new HashMap<>();
+            int i = 0;
+            for (Potion potion : potions) {
+                potionInputs.put(i, potion.getPotionType().toString());
+                i += 1;
+            }
+            int choice = inputParser.getNumberInput("Which potion do you want to use?", potionInputs, "for");
+            consumePotion(potions.get(choice));
+        }
+        //No need  to check here because the option of choosing a potion isn't given if the player doesn't have a potion in the first place
     }
 
     public String getName() {

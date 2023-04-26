@@ -23,7 +23,7 @@ public class Reducto extends ItemSpell {
     }
 
     public void displayInstructions() {
-        inputParser.waitForYes("Aim your wand at the object you want to destroy.\n" +
+        inputParser.waitForConfirmation("Aim your wand at the object you want to destroy.\n" +
                 " Say \"Reducto\" with confidence and flick your wand in a quick diagonal motion\n" +
                 "A powerful red blast of light will shoot from your wand and hit the target, causing it to explode or shatter.\n" +
                 "Understood?");

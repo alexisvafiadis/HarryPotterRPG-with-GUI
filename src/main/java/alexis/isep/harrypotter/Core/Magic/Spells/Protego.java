@@ -22,7 +22,7 @@ public class Protego extends SimpleSpell {
     }
 
     public void displayInstructions() {
-        inputParser.waitForYes("Point your wand in the direction of potential attacks and make a circular motion while saying \"Protego\"\n" +
+        inputParser.waitForConfirmation("Point your wand in the direction of potential attacks and make a circular motion while saying \"Protego\"\n" +
                 "A translucent shield will appear, which will protect you from the incoming attack.\n" +
                 "Remember to move quickly and accurately, as the shield will only last for a short time.\n" +
                 "Understood?");

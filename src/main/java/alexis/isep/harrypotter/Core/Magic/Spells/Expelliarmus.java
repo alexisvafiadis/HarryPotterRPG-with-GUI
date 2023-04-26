@@ -29,7 +29,7 @@ public class Expelliarmus extends SimpleSpell {
 
     @Override
     public void displayInstructions() {
-        inputParser.waitForYes("To cast this spell, point your wand at your opponent and say \"Expelliarmus\" clearly.\n" +
+        inputParser.waitForConfirmation("To cast this spell, point your wand at your opponent and say \"Expelliarmus\" clearly.\n" +
                 "If the spell is successful, your opponent's weapon should be knocked out of their hand.\n" +
                 "This spell can be useful for disarming opponents and leaving them vulnerable to attack.\n"
                 + "Understood?");

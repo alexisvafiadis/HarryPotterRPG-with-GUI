@@ -23,7 +23,7 @@ public class Tarantallegra extends SimpleSpell {
 
     @Override
     public void displayInstructions() {
-        inputParser.waitForYes("To cast Tarantallegra, first focus your mind on the target and imagine their feet moving uncontrollably in a dance.\n" +
+        inputParser.waitForConfirmation("To cast Tarantallegra, first focus your mind on the target and imagine their feet moving uncontrollably in a dance.\n" +
                 "While concentrating on your target, hold your wand firmly and perform a swift, upward flicking motion.\n" +
                 "As you flick your wand, confidently and clearly pronounce the incantation Tarantallegra.\n" +
                 "Remember, the key to a successful Tarantallegra spell is maintaining a strong mental image of the target dancing and delivering the incantation with confidence."+

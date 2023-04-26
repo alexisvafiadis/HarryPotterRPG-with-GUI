@@ -1,6 +1,6 @@
 package alexis.isep.harrypotter.Core.Levels.Essentials;
 
-import alexis.isep.harrypotter.Console.Display;
+import alexis.isep.harrypotter.GUI.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
@@ -17,6 +17,8 @@ import alexis.isep.harrypotter.Core.Magic.Spells.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Battle {
     protected Game game;
@@ -46,7 +48,7 @@ public class Battle {
             display.displayHP(player, true);
             display.displayHP(enemy, false);
             askPlayerForAction();
-            enemyAttack();
+            enemyAction();
             finishRound();
         }
         if (!player.isAlive()) {
@@ -58,19 +60,28 @@ public class Battle {
     }
 
     public void askPlayerForAction() {
-        HashMap<Integer, String> actionInputs = new HashMap<>();
-        actionInputs.put(1, "Look around");
-        actionInputs.put(2, "Cast a spell");
-        actionInputs.put(3, "Hide");
-        if (player.hasAnyPotion()) {
-            actionInputs.put(4, "Use a potion");
+        if (game.isInGraphicMode()) {
+            display.displayInfo("What do you want to do? Choose an action.");
         }
-        if (player.hasWeapon()) {
-            int choiceNumber = 4;
-            if (player.hasAnyPotion())  { choiceNumber = 5;}
-            actionInputs.put(choiceNumber, "Attack with your weapon");
+        else {
+            HashMap<Integer, String> actionInputs = new HashMap<>();
+            actionInputs.put(1, "Look around");
+            actionInputs.put(2, "Cast a spell");
+            actionInputs.put(3, "Hide");
+            if (player.hasAnyPotion()) {
+                actionInputs.put(4, "Use a potion");
+            }
+            if (player.hasWeapon()) {
+                int choiceNumber = 4;
+                if (player.hasAnyPotion()) {
+                    choiceNumber = 5;
+                }
+                actionInputs.put(choiceNumber, "Attack with your weapon");
+            }
+            playerAction(inputParser.getNumberToStringInput("What do you want to do?", actionInputs, "to"));
         }
-        String choice = inputParser.getNumberToStringInput("What do you want to do?", actionInputs, "to");
+    }
+    public void playerAction(String choice) {
         switch (choice) {
             case "Look around":
                 lookAround();
@@ -79,9 +90,8 @@ public class Battle {
                 if (player.hasEffect(EffectType.DISARM)) {
                     display.announceFail("You cannot cast a spell because you are disarmed");
                     askPlayerForAction();
-                }
-                else {
-                    castSpell();
+                } else {
+                    askForSpell();
                 }
                 break;
             case "Hide":
@@ -108,7 +118,7 @@ public class Battle {
         return (!enemy.isAlive());
     }
 
-    public void enemyAttack() {
+    public void enemyAction() {
         if (roundNumber % enemy.getAttackDelay() == 0) {
             enemy.act();
         }
@@ -137,8 +147,18 @@ public class Battle {
         }
     }
 
-    public void castSpell() {
-        String spellChoice = inputParser.getNumberToStringInput("What spell do you want to use?", spellInputs, "for");
+    public void askForSpell() {
+        String spellChoice;
+        if (game.isInGraphicMode()) {
+            display.displayInfo("Pick a spell to use.");
+        }
+        else {
+            spellChoice = inputParser.getNumberToStringInput("What spell do you want to use?", spellInputs, "for");
+            castSpell(spellChoice);
+        }
+    }
+
+    public void castSpell(String spellChoice) {
         Spell spell = player.getKnownSpells().get(spellChoice);
         if (spellChoice.equals("Accio")) {
             if (level instanceof Level2) {
@@ -161,22 +181,13 @@ public class Battle {
                 askPlayerForAction();
             }
             else {
-                HashMap<Integer, String> itemInputs = getItemInputs();
-                display.displayInfo(itemInputs.toString());
-                int itemIndex = inputParser.getNumberInput("Choose an item " + ((ItemSpell) spell).getStringForItem(), itemInputs, "for") - 1;
-                Item item = items.get(itemIndex);
-                if (spell instanceof WingardiumLeviosa) {
-                    if (((WingardiumLeviosa) spell).cast(item, enemy)) {
-                        items.remove(item);
-                    }
+                if (game.isInGraphicMode()) {
+                    display.displayInfo("Pick an item to use ");
                 }
-                else if (spell instanceof Engorgio) {
-                    ((Engorgio) spell).cast(item);
-                }
-                else if (spell instanceof Reducto) {
-                    if (((Reducto) spell).cast(item, enemy)) {
-                        items.remove(item);
-                    }
+                else {
+                    HashMap<Integer, String> itemInputs = getItemInputs();
+                    display.displayInfo(itemInputs.toString());
+                    castItemSpell(spellChoice,inputParser.getNumberInput("Choose an item " + ((ItemSpell) spell).getStringForItem(), itemInputs, "for") - 1);
                 }
             }
         }
@@ -190,6 +201,24 @@ public class Battle {
         }
     }
 
+    public void castItemSpell(String spellChoice, int itemIndex) {
+        List<Item> items = level.getItems();
+        Item item = items.get(itemIndex);
+        Spell spell = player.getKnownSpells().get(spellChoice);
+        if (spell instanceof WingardiumLeviosa) {
+            if (((WingardiumLeviosa) spell).cast(item, enemy)) {
+                items.remove(item);
+            }
+        }
+        else if (spell instanceof Engorgio) {
+            ((Engorgio) spell).cast(item);
+        }
+        else if (spell instanceof Reducto) {
+            if (((Reducto) spell).cast(item, enemy)) {
+                items.remove(item);
+            }
+        }
+    }
     public HashMap<Integer, String> getSpellInputs() {
         HashMap<Integer, String> spellInputs = new HashMap<>();
         int i = 1;

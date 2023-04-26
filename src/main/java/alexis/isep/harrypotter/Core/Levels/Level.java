@@ -1,23 +1,15 @@
 package alexis.isep.harrypotter.Core.Levels;
 
-import alexis.isep.harrypotter.Console.Display;
+import alexis.isep.harrypotter.GUI.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.GUI.CreateCharacterController;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.ItemType;
 import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
 import alexis.isep.harrypotter.GUI.LevelController;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.DialogPane;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -132,13 +124,21 @@ public abstract class Level {
     }
 
     public void askForUpgrade() {
-        HashMap<Integer, String> validInputs = new HashMap<>();
-        validInputs.put(1, "Hitpoints");
-        validInputs.put(2, "Attack Damage");
-        validInputs.put(3, "Damage Resistance");
-        validInputs.put(4, "Accuracy");
-        String upgrade_choice = inputParser.getNumberToStringInput("What do you want to upgrade?", validInputs, "for");
-        switch (upgrade_choice) {
+        if (game.isInGraphicMode()) {
+            //TODO: display levelsummary
+        }
+        else {
+            HashMap<Integer, String> validInputs = new HashMap<>();
+            validInputs.put(1, "Hitpoints");
+            validInputs.put(2, "Attack Damage");
+            validInputs.put(3, "Damage Resistance");
+            validInputs.put(4, "Accuracy");
+            upgrade(inputParser.getNumberToStringInput("What do you want to upgrade?", validInputs, "for"));
+        }
+    }
+
+    public void upgrade(String upgradeChoice) {
+        switch (upgradeChoice) {
             case "Hitpoints":
                 game.getPlayer().upgradeHP(HP_UPGRADE);
                 break;

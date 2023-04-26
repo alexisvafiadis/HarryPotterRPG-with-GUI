@@ -1,6 +1,5 @@
 package alexis.isep.harrypotter.GUI;
 
-import alexis.isep.harrypotter.Console.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
@@ -8,31 +7,30 @@ import alexis.isep.harrypotter.Core.Game.SortingHat;
 import alexis.isep.harrypotter.Core.Game.WizardMaker;
 import alexis.isep.harrypotter.Core.Levels.*;
 import alexis.isep.harrypotter.Core.Magic.Spells.*;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import java.io.IOException;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game extends javafx.application.Application{
     private final String GAME_TITLE = "Harry Potter At Home";
     private Display display;
     private InputParser inputParser;
-    private DialogController dialogController;
     private Wizard player;
     private Level currentLevel;
     private Stage stage;
     private final boolean DEBUG_MODE = false;
     private final boolean GRAPHIC_INTERFACE_MODE = true;
+    private List<Class<?>> levels = new ArrayList<>();
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -69,14 +67,24 @@ public class Game extends javafx.application.Application{
         if (isInDebugMode()) {
             teachAllSpells();
         }
-        setLevel(new Level1(this));
-        setLevel(new Level2(this));
-        setLevel(new Level3(this));
-        setLevel(new Level4(this));
-        setLevel(new Level5(this));
-        setLevel(new Level6(this));
-        setLevel(new Level7(this));
-        finish();
+        levels.add(Level.class);
+        levels.add(Level1.class);
+        levels.add(Level2.class);
+        levels.add(Level3.class);
+        levels.add(Level4.class);
+        levels.add(Level5.class);
+        levels.add(Level6.class);
+        levels.add(Level7.class);
+        setLevel(1);
+        if (!isInGraphicMode()) {
+            for (int i = 2 ; i < levels.size(); i++) {
+                nextLevel();
+                finish();
+            }
+        }
+    }
+    public void nextLevel() {
+        setLevel(currentLevel.getNumber());
     }
 
     public void introduce(Wizard wizard) {
@@ -93,8 +101,14 @@ public class Game extends javafx.application.Application{
         return currentLevel;
     }
 
-    public void setLevel(Level level) {
-        currentLevel = level;
+    public void setLevel(int number) {
+        try {
+            currentLevel = (Level) levels.get(number).getConstructor(Game.class).newInstance(this);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
         currentLevel.start();
     }
 
@@ -178,9 +192,12 @@ public class Game extends javafx.application.Application{
 
     public void addDialogPane() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/DialogPane.fxml"));
-        dialogController = new DialogController();
-        fxmlLoader.setControllerFactory(param -> dialogController);
-        display.setDialogController(dialogController);
-        stage.getScene().getRoot().getChildrenUnmodifiable().add(new DialogPane());
+        fxmlLoader.setControllerFactory(param -> display);
+        try {
+            ((AnchorPane) stage.getScene().getRoot()).getChildren().add(fxmlLoader.load());
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

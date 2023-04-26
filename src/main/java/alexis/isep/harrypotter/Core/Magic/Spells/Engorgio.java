@@ -22,7 +22,7 @@ public class Engorgio extends ItemSpell {
 
     @Override
     public void displayInstructions() {
-        inputParser.waitForYes("First, point your wand at the object you want to enlarge and say \"Engorgio\" clearly.\n" +
+        inputParser.waitForConfirmation("First, point your wand at the object you want to enlarge and say \"Engorgio\" clearly.\n" +
                 "If the spell is successful, the object should become larger and more cumbersome.\n" +
                 "This spell can be useful for enlarging objects to block an opponent's path or to create a barrier.\n" +
                 "Be careful not to overuse this spell, as it can also make objects too big to control or to move around easily.\n" +

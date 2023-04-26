@@ -38,7 +38,7 @@ public class Accio extends Spell {
 
     @Override
     public void displayInstructions() {
-        inputParser.waitForYes("First, have your wand at the ready. Then, focus your attention on the object you want to summon. Visualize the object in your mind and concentrate on it.\n" +
+        inputParser.waitForConfirmation("First, have your wand at the ready. Then, focus your attention on the object you want to summon. Visualize the object in your mind and concentrate on it.\n" +
                 "Now, hold out your wand and say \"Accio\" followed by the name of the object you want to summon. For example, \"Accio broomstick!\"\n" +
                 "If the spell is successful, the object should fly towards you. Be ready to catch it, or move out of the way if it's a larger object.\n" +
                 "Practice your casting and timing to improve your success rate with the spell. Remember, the Accio spell only works on objects within your line of sight.\n" +

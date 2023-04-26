@@ -21,7 +21,7 @@ public class Lumos extends Spell {
     }
 
     public void displayInstructions() {
-        inputParser.waitForYes("Hold your wand tightly in your hand.\n" +
+        inputParser.waitForConfirmation("Hold your wand tightly in your hand.\n" +
                 "Focus on the tip of your wand and visualize a bright light appearing there.\n" +
                 "Say Lumos in a clear and firm voice while pointing your wand upward.\n" +
                 "A bright light should appear at the tip of your wand, illuminating the area around you.\n" +

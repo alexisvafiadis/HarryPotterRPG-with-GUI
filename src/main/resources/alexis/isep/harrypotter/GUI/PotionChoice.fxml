@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.control.Tooltip?>
 
-<StackPane maxHeight="90" maxWidth="90" minHeight="90" minWidth="90" prefHeight="90" prefWidth="90" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="90" maxWidth="90" minHeight="90" minWidth="90" prefHeight="90" prefWidth="90" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <ImageView fitHeight="90" fitWidth="90" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@../images/inventories/PotionChoice-5.png" />

@@ -38,7 +38,7 @@ public class Level4 extends Level{
             startBattle(voldemort);
         }
         else {
-            inputParser.waitForYes("Visualize your room in Hogwarts in your head, then touch the Portkey.");
+            inputParser.waitForConfirmation("Visualize your room in Hogwarts in your head, then touch the Portkey.");
             display.displayInfo("The power of the Portkey teleports you back to Hogwarts...");
         }
         finish();

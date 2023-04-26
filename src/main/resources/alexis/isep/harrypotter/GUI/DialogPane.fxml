@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="dialogPane" minHeight="200" minWidth="300" prefHeight="200" prefWidth="300" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alexis.isep.harrypotter.GUI.DialogController">
+<AnchorPane fx:id="dialogPane" minHeight="200" minWidth="300" prefHeight="200" prefWidth="300" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alexis.isep.harrypotter.GUI.Display">
     <children>
         <ImageView fx:id="backgroundImage" fitHeight="200.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="false">
             <image>

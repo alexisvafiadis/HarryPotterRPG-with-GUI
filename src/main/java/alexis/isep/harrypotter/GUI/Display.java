@@ -1,11 +1,14 @@
-package alexis.isep.harrypotter.Console;
+package alexis.isep.harrypotter.GUI;
 
+import alexis.isep.harrypotter.Console.ConsoleColors;
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.GUI.DialogController;
 import alexis.isep.harrypotter.GUI.Game;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 import java.util.HashMap;
@@ -13,10 +16,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Display {
     private Game game;
-    private DialogController dialogController;
     private int DEFAULT_WRITING_DELAY = 26;
     private final int FAST_WRITING_DELAY = 5;
     private final int SLOW_WRITING_DELAY = 40;
+    @FXML
+    Label labelText;
 
     public Display(Game game) {
         this.game = game;
@@ -25,10 +29,10 @@ public class Display {
 
     public void slowPrint(String output, String color, boolean nextLine) {
         if (game.isInGraphicMode()) {
-            Timeline timeline = new Timeline();
+/*            Timeline timeline = new Timeline();
             timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100), event -> {
                 int charIndex = timeline.getCycleCount();
-                if (charIndex <= output.length()) {
+                if (charIndex < output.length()) {
                     String substring = output.substring(0, charIndex);
                     dialogController.setText(substring);
                 } else {
@@ -36,7 +40,7 @@ public class Display {
                 }
             }));
             timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
+            timeline.play();*/
         } else {
             System.out.print(color);
             for (int i = 0; i < output.length(); i++) {
@@ -98,7 +102,7 @@ public class Display {
         }
     }
 
-    public void setDialogController(DialogController dialogController) {
-        this.dialogController = dialogController;
+    public void setText(String text) {
+        labelText.setText(text);
     }
 }

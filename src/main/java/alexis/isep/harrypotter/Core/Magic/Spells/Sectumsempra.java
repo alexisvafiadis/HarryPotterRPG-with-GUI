@@ -21,7 +21,7 @@ public class Sectumsempra extends SimpleSpell {
     }
 
     public void displayInstructions() {
-        inputParser.waitForYes("To use Sectumsempra, you must be confident and precise.\n" +
+        inputParser.waitForConfirmation("To use Sectumsempra, you must be confident and precise.\n" +
                 "Aim your wand at the opponent you want to harm, and say the incantation while making a strong, quick slashing motion with your wand.\n" +
                 "A bright red light will shoot from your wand and strike the target, causing deep and often bloody cuts.\n" +
                 "Understood?");
