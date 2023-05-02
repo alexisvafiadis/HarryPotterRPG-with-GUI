@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alexis.isep.harrypotter.GUI.ItemInventoryController">
+    <center>
+        <Label text="Please choose an item to use with the spell:" />
+        <ChoiceBox fx:id="itemChoiceBox" prefWidth="150.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String>A feather</String>
+                    <String>A book</String>
+                    <String>A wand</String>
+                    <String>A potion</String>
+                </FXCollections>
+            </items>
+        </ChoiceBox>
+        <Button fx:id="submitButton" onAction="#handleConfirm" text="Confirm" />
+    </center>
+</BorderPane>

@@ -15,10 +15,12 @@ public class Level1 extends Level{
     public void start() {
         player.spawn();
         super.start();
-        Troll troll = new Troll(game);
-        troll.spawn();
-        startBattle(troll);
-        finish();
+        display.setOnFinish(event -> {
+            System.out.println("The onFinish event has been fired");
+            Troll troll = new Troll(game);
+            troll.spawn();
+            startBattle(troll);});
+            //finish();
     }
 
     @Override
@@ -30,7 +32,7 @@ public class Level1 extends Level{
 
     @Override
     public void introduce() {
-        giveLevelInfo();
+        showLevelScene();
         display.displayInfo("In this level, you have to defeat the Troll.");
         display.displayInfo("In order to do that, you have to use the Wingardium Leviosa spell to lift and throw items on the Troll's head");
         (new WingardiumLeviosa(game, player)).teach(player);

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="192.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="SpellCollection" prefHeight="192.0" prefWidth="451.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="alexis.isep.harrypotter.GUI.SpellCollectionControl">
    <children>
       <StackPane>
           <ImageView fitHeight="169.0" fitWidth="451.0" pickOnBounds="true">
@@ -30,24 +30,24 @@
                   <RowConstraints percentHeight="50" vgrow="ALWAYS" />
               </rowConstraints>
               <children>
-                  <Button fx:id="attackButton" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#actionButtonEvent" text="Spell 1">
+                  <Button fx:id="spell1Button" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#spellChooseEvent" text="Spell 1">
                       <font>
-                          <Font name="Avenir Next Condensed Regular" size="24.0" />
+                          <Font name="Avenir Next Condensed Regular" size="14.0" />
                       </font>
                   </Button>
-                  <Button fx:id="skill1Button" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#actionButtonEvent" text="Spell 2" GridPane.columnIndex="1">
+                  <Button fx:id="spell2Button" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#spellChooseEvent" text="Spell 2" GridPane.columnIndex="1">
                       <font>
-                          <Font name="Avenir Next Condensed Regular" size="24.0" />
+                          <Font name="Avenir Next Condensed Regular" size="14.0" />
                       </font>
                   </Button>
-                  <Button fx:id="skill2Button" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#actionButtonEvent" text="Spell 3" GridPane.rowIndex="1">
+                  <Button fx:id="spell3Button" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#spellChooseEvent" text="Spell 3" GridPane.rowIndex="1">
                       <font>
-                          <Font name="Avenir Next Condensed Regular" size="24.0" />
+                          <Font name="Avenir Next Condensed Regular" size="14.0" />
                       </font>
                   </Button>
-                  <Button fx:id="runAwayButton" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#actionButtonEvent" text="Spell 4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Button fx:id="spell4Button" maxHeight="Infinity" maxWidth="Infinity" mnemonicParsing="false" onAction="#spellChooseEvent" text="Spell 4" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <font>
-                          <Font name="Avenir Next Condensed Regular" size="24.0" />
+                          <Font name="Avenir Next Condensed Regular" size="14.0" />
                       </font>
                   </Button>
               </children>
@@ -58,13 +58,13 @@
       </StackPane>
       <AnchorPane layoutY="168.0" prefHeight="0.0" prefWidth="451.0" style="-fx-background-color: #c3c0c0;">
          <children>
-            <Label alignment="CENTER" layoutX="202.0" layoutY="7.0" prefHeight="17.0" prefWidth="48.0" text="X / Y" textAlignment="CENTER" AnchorPane.bottomAnchor="7.666666666666668" AnchorPane.topAnchor="7.0" />
-            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="265.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="171.33333333333331" AnchorPane.topAnchor="9.0">
+            <Label fx:id="currentPageLabel" alignment="CENTER" layoutX="202.0" layoutY="7.0" prefHeight="17.0" prefWidth="48.0" text="X / Y" textAlignment="CENTER" AnchorPane.bottomAnchor="7.666666666666668" AnchorPane.topAnchor="7.0" />
+            <ImageView fx:id="nextPage" fitHeight="15.0" fitWidth="15.0" layoutX="265.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="171.33333333333331" AnchorPane.topAnchor="9.0">
              <image>
                  <Image url="@../images/utility/next-page.png" />
              </image>
             </ImageView>
-            <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="169.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="169.0">
+            <ImageView fx:id="previousPage" fitHeight="15.0" fitWidth="15.0" layoutX="169.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="169.0">
                 <image>
                     <Image url="@../images/utility/previous-page.png" />
                 </image>

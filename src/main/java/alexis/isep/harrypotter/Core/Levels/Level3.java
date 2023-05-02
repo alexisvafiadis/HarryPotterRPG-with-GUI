@@ -36,7 +36,7 @@ public class Level3 extends Level{
 
     @Override
     public void introduce() {
-        giveLevelInfo();
+        showLevelScene();
         display.displayInfo("For this level, you have to scare the Dementors away.");
         display.displayInfo("In order to do that, you have to use the spell Expecto Patronum to summon your Patronus.");
         (new Expectopatronum(game, player)).teach(player);

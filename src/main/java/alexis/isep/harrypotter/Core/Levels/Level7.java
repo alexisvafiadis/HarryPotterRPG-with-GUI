@@ -55,7 +55,7 @@ public class Level7 extends Level{
 
     @Override
     public void introduce() {
-        giveLevelInfo();
+        showLevelScene();
         if (player.isAgainstDeathEaters()) {
             display.displayInfo("After successfully fighting the Death Eaters alongside the other students, you have finally reached the final battle.");
             display.displayInfo("Bellatrix Lestrange and Voldemort are waiting for you, ready to put an end to your rebellion once and for all.");

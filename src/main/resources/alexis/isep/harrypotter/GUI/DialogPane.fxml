@@ -4,14 +4,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="dialogPane" minHeight="200" minWidth="300" prefHeight="200" prefWidth="300" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alexis.isep.harrypotter.GUI.Display">
+<AnchorPane fx:id="dialogPane" minHeight="200" minWidth="960.0" prefHeight="200" prefWidth="960.0" AnchorPane.bottomAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alexis.isep.harrypotter.GUI.Display">
     <children>
-        <ImageView fx:id="backgroundImage" fitHeight="200.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fx:id="backgroundImage" fitHeight="${dialogPane.height}" fitWidth="${dialogPane.width}" pickOnBounds="true" preserveRatio="false">
             <image>
                 <Image url="@../images/scene/DialogPane3.png" />
             </image>
         </ImageView>
-        <Label fx:id="textLabel" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="69.0" layoutY="70.0" maxHeight="160.0" maxWidth="260.0" minHeight="57.0" minWidth="206.0" prefHeight="57.0" prefWidth="220.0" text="Your text goes here" wrapText="true" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="70.0" />
+        <Label fx:id="textLabel" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="145.0" layoutY="62.0" maxHeight="160.0" maxWidth="720.0" minHeight="57.0" minWidth="206.0" prefHeight="82.0" prefWidth="669.0" text="Your text goes here" wrapText="true" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="146.0" AnchorPane.topAnchor="62.0">
+         <font>
+            <Font name="Rockwell" size="16.0" />
+         </font></Label>
     </children>
 </AnchorPane>

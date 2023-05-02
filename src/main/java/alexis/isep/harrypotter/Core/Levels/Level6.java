@@ -69,7 +69,7 @@ public class Level6 extends Level{
 
     @Override
     public void introduce() {
-        giveLevelInfo();
+        showLevelScene();
         display.displayInfo("In this level, Hogwarts is under attack by the Death Eaters, a group of dark wizards and witches who are loyal to the evil Lord Voldemort.");
         display.displayInfo("As a student of Hogwarts, your duty is to defend your school and your fellow students from the impending attack.");
         boolean againstDeathEaters = true;

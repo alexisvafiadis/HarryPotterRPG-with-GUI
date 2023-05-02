@@ -1,5 +1,6 @@
 package alexis.isep.harrypotter.Core.Levels;
 
+import alexis.isep.harrypotter.GUI.BattleController;
 import alexis.isep.harrypotter.GUI.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
@@ -9,6 +10,7 @@ import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.ItemType;
 import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
 import alexis.isep.harrypotter.GUI.LevelController;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,45 +98,13 @@ public abstract class Level {
 
     public void wishGoodLuck() {display.displayInfo("Good luck!"); }
 
-    public void giveLevelInfo() {
-        if (!game.isInGraphicMode()) {
-            display.displayInfo("--- Level " + number + " : " + name + " ---");
-            display.displayInfo("You arrive at the " + place);
-        }
-        else {
-            game.setScene("/alexis/isep/harrypotter/GUI/Level.fxml",param -> new LevelController(this,game,player));
-            game.addDialogPane();
-            /*
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/Level.fxml"));
-                    fxmlLoader.setControllerFactory(param -> new LevelController(this,game,player));
-                    Scene scene = null;
-                    try {
-                        scene = new Scene(fxmlLoader.load());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    game.getStage().setScene(scene);
-                    game.getStage().show();
-                });
-            }).start();
-             */
-        }
+    public void showLevelScene() {
+        game.setScene("/alexis/isep/harrypotter/GUI/Level.fxml",param -> new LevelController(this,game,player));
+        game.addDialogPane();
     }
 
     public void askForUpgrade() {
-        if (game.isInGraphicMode()) {
-            //TODO: display levelsummary
-        }
-        else {
-            HashMap<Integer, String> validInputs = new HashMap<>();
-            validInputs.put(1, "Hitpoints");
-            validInputs.put(2, "Attack Damage");
-            validInputs.put(3, "Damage Resistance");
-            validInputs.put(4, "Accuracy");
-            upgrade(inputParser.getNumberToStringInput("What do you want to upgrade?", validInputs, "for"));
-        }
+
     }
 
     public void upgrade(String upgradeChoice) {
@@ -218,6 +188,15 @@ public abstract class Level {
     }
 
     public void startBattle(AbstractEnemy enemy) {
-        new Battle(game, this, player, enemy).start();
+        Battle battle = new Battle(game, this, player, enemy);
+        BattleController battleController = new BattleController(battle);
+        battle.setBattleController(battleController);
+        game.setScene("/alexis/isep/harrypotter/GUI/Battle.fxml",param -> battleController);
+        game.addDialogPane(true);
+        battle.start();
+    }
+
+    public Image getImage() {
+        return (new Image(getClass().getResourceAsStream("/alexis/isep/harrypotter/images/scene/battles/Background" + getNumber() + ".png")));
     }
 }

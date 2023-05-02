@@ -52,7 +52,7 @@ public class Level4 extends Level{
 
     @Override
     public void introduce() {
-        giveLevelInfo();
+        showLevelScene();
         display.displayInfo("Voldemort and Peter Pettigrew are nearby. You should probably get away.");
         display.displayInfo("You have to get close to the Portkey to attract it to you using Accio then use the Portkey");
         display.displayInfo("If you get spotted by Voldemort, you will have to defend yourself.");

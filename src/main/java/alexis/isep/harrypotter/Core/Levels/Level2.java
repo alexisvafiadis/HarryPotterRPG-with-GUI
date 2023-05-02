@@ -35,7 +35,7 @@ public class Level2 extends Level{
 
     @Override
     public void introduce() {
-        giveLevelInfo();
+        showLevelScene();
         display.displayInfo("For this level, you have to defeat the Basilisk. It is a very venomous snake that kills anyone that makes eye contact with it.");
         if (player.getHouse().toString().equals("Gryffindor")) {
             display.displayInfo("In order to do that, you have to use the Gryffindor sword. Here it is.");

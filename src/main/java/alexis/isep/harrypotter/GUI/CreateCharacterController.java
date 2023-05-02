@@ -12,8 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class CreateCharacterController {
-    Game game;
-    Wizard player;
+    private Game game;
+    private Wizard player;
 
     @FXML
     private Label welcomeText;

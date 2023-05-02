@@ -48,7 +48,7 @@ public class Level5 extends Level{
 
     @Override
     public void introduce() {
-        giveLevelInfo();
+        showLevelScene();
         display.displayInfo("In this level, you have to distract Dolores Umbridge until your fellow classmates finish preparing the fireworks.");
         display.displayInfo("She may get mad at you, but don't worry, she will have bigger fish to fry if the party really happens");
         wishGoodLuck();

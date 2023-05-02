@@ -1,5 +1,6 @@
 package alexis.isep.harrypotter.Core.Characters;
 
+import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
 import alexis.isep.harrypotter.GUI.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.GUI.Game;
@@ -8,6 +9,7 @@ import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
 import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
 import alexis.isep.harrypotter.Core.Magic.EffectCategory;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
+import javafx.scene.image.Image;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +20,7 @@ public abstract class Character {
     protected Game game;
     protected Display display;
     protected InputParser inputParser;
+    protected Battle battle;
     protected LevelMap map;
 
     //Specific attributes (need to set!)
@@ -46,6 +49,7 @@ public abstract class Character {
         this.weapon = weapon;
         this.charTile = charTile;
         this.moveStep = moveStep;
+        this.battle = null;
     }
 
     public void spawn(int positionX, int positionY, LevelMap map) {
@@ -134,6 +138,9 @@ public abstract class Character {
     }
 
     public abstract String getName();
+    public Image getImage() {
+        return new Image(getClass().getResource("/alexis/isep/harrypotter/images/characters/" + getName() + ".png").toString(), true);
+    }
 
     public boolean hasEffect(EffectType et) {return (activeEffects.containsKey(et));}
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="createCharacterPane" maxHeight="720" maxWidth="960.0" minHeight="720.0" minWidth="960.0" prefHeight="720.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alexis.isep.harrypotter.GUI.CreateCharacterController">
+<AnchorPane fx:id="createCharacterPane" maxHeight="720" maxWidth="960.0" minHeight="720.0" minWidth="960.0" prefHeight="720.0" prefWidth="960.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="alexis.isep.harrypotter.GUI.CreateCharacterController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="960.0" managed="true" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="0.0">
          <image>

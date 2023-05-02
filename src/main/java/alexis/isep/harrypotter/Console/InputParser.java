@@ -54,21 +54,7 @@ public class InputParser {
     }
 
     public void waitForConfirmation(String question) {
-        if (game.isInGraphicMode()) {
-            display.displayInfo(question + "\n" + "Press enter if you understand.");
-        }
-        else {
-            HashMap<Integer, String> validInputs = new HashMap<>();
-            validInputs.put(1, "Yes");
-            validInputs.put(0, "No");
-            int choice = 1;
-            do {
-                if (choice == 0) {
-                    display.displayInfo("Oh. Let me explain again then.");
-                }
-                choice = getNumberInput(question, validInputs, "for");
-            } while (choice != 1);
-        }
+        display.displayInfo(question + "\n" + "Press enter if you understand.");
     }
 
     public Scanner getSc() {

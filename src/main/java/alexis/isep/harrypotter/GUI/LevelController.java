@@ -14,7 +14,7 @@ public class LevelController {
     private ImageView background;
 
     @FXML
-    private ImageView imageView;
+    private ImageView playerImage;
 
     @FXML
     private Label levelText;
@@ -27,6 +27,8 @@ public class LevelController {
 
     @FXML
     public void initialize() {
+        background.setImage(level.getImage());
+        playerImage.setImage(player.getImage());
         levelText.setText("Level " + level.getNumber());
         placeText.setText(level.getPlace());
         healthText.setText("Health : " + player.getHP());

@@ -28,7 +28,6 @@ public class Game extends javafx.application.Application{
     private Level currentLevel;
     private Stage stage;
     private final boolean DEBUG_MODE = false;
-    private final boolean GRAPHIC_INTERFACE_MODE = true;
     private List<Class<?>> levels = new ArrayList<>();
 
 
@@ -76,12 +75,6 @@ public class Game extends javafx.application.Application{
         levels.add(Level6.class);
         levels.add(Level7.class);
         setLevel(1);
-        if (!isInGraphicMode()) {
-            for (int i = 2 ; i < levels.size(); i++) {
-                nextLevel();
-                finish();
-            }
-        }
     }
     public void nextLevel() {
         setLevel(currentLevel.getNumber());
@@ -91,14 +84,6 @@ public class Game extends javafx.application.Application{
         WizardMaker wizardmaker = new WizardMaker(this);
         SortingHat sortingHat = new SortingHat();
         sortingHat.askHouse(this, wizard);
-    }
-
-    public Wizard getPlayer() {
-        return player;
-    }
-
-    public Level getCurrentLevel() {
-        return currentLevel;
     }
 
     public void setLevel(int number) {
@@ -164,14 +149,6 @@ public class Game extends javafx.application.Application{
         player.learnSpell(new Stupefy(this, player));
         player.learnSpell(new SlugulusErecto(this, player));
     }
-
-    public boolean isInGraphicMode() {
-        return GRAPHIC_INTERFACE_MODE;
-    }
-
-    public Stage getStage() {
-        return stage;
-    }
     public void setScene(String name, Callback<Class<?>, Object> callback) {
         URL fxmlURL = getClass().getResource(name);
         if (fxmlURL == null) {
@@ -190,14 +167,70 @@ public class Game extends javafx.application.Application{
         stage.show();
     }
 
-    public void addDialogPane() {
+    public void addDialogPane(boolean shortened) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/DialogPane.fxml"));
         fxmlLoader.setControllerFactory(param -> display);
         try {
-            ((AnchorPane) stage.getScene().getRoot()).getChildren().add(fxmlLoader.load());
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+            if (shortened) {
+                anchorPane.setMinWidth(anchorPane.getMinWidth() * 0.65);
+                anchorPane.setMinHeight(anchorPane.getMinHeight() * 0.7);
+                anchorPane.setMaxWidth(anchorPane.getMinWidth() * 0.65);
+                anchorPane.setMaxHeight(anchorPane.getMinHeight() * 0.7);
+                anchorPane.setPrefWidth(anchorPane.getMinWidth() * 0.65);
+                anchorPane.setPrefHeight(anchorPane.getMinHeight() * 0.7);
+            }
+            ((AnchorPane) stage.getScene().getRoot()).getChildren().add(anchorPane);
         }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void addDialogPane() { addDialogPane(false);}
+
+    public void showElement(String document, Callback<Class<?>, Object> callback) {
+        FXMLLoader fxmlLoader = loadFXML(document);
+        fxmlLoader.setControllerFactory(callback);
+        try {
+            AnchorPane root = ((AnchorPane) stage.getScene().getRoot());
+            AnchorPane anchorPane = fxmlLoader.load();
+            anchorPane.setLayoutY((root.getHeight() - anchorPane.getHeight()) / 3);
+            anchorPane.setLayoutX((root.getWidth() - anchorPane.getWidth()) / 3.2);
+            root.getChildren().add(anchorPane);
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void closeSubWindows() {
+        String[] arrayWindowsToClose = new String[] {"PotionInventory", "SpellCollection"};
+        List<String> listWindowsToClose = Arrays.asList(arrayWindowsToClose);
+        ((AnchorPane) stage.getScene().getRoot()).getChildren().removeIf((node) -> node != null && listWindowsToClose.contains(node.getId()));
+        //((AnchorPane) stage.getScene().getRoot()).getChildren().remove(((AnchorPane) stage.getScene().getRoot()).getChildren().size() - 1);
+    }
+
+    public FXMLLoader loadFXML(String name) {
+        URL fxmlURL = getClass().getResource("/alexis/isep/harrypotter/GUI/" + name + ".fxml");
+        if (fxmlURL == null) {
+            throw new RuntimeException("FXML file not found: " + name);
+        }
+        else {
+            return new FXMLLoader(fxmlURL);
+        }
+    }
+
+    public Wizard getPlayer() {
+        return player;
+    }
+
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+    public Stage getStage() {
+        return stage;
     }
 }

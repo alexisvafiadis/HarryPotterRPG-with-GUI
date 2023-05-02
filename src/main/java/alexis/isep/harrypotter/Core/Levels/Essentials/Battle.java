@@ -1,10 +1,9 @@
 package alexis.isep.harrypotter.Core.Levels.Essentials;
 
-import alexis.isep.harrypotter.GUI.Display;
+import alexis.isep.harrypotter.GUI.*;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.ItemType;
 import alexis.isep.harrypotter.Core.Items.Weapon;
@@ -17,8 +16,6 @@ import alexis.isep.harrypotter.Core.Magic.Spells.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class Battle {
     protected Game game;
@@ -28,6 +25,7 @@ public class Battle {
     protected Level level;
     protected Wizard player;
     protected AbstractEnemy enemy;
+    protected BattleController battleController;
     protected int roundNumber;
     protected HashMap<Integer, String> spellInputs;
 
@@ -44,66 +42,7 @@ public class Battle {
 
     public void start() {
         displayBattleStartMessage();
-        while (getBattleContinueCondition()) {
-            display.displayHP(player, true);
-            display.displayHP(enemy, false);
-            askPlayerForAction();
-            enemyAction();
-            finishRound();
-        }
-        if (!player.isAlive()) {
-            level.fail();
-        }
-        else {
-            displayBattleWinMessage();
-        }
-    }
-
-    public void askPlayerForAction() {
-        if (game.isInGraphicMode()) {
-            display.displayInfo("What do you want to do? Choose an action.");
-        }
-        else {
-            HashMap<Integer, String> actionInputs = new HashMap<>();
-            actionInputs.put(1, "Look around");
-            actionInputs.put(2, "Cast a spell");
-            actionInputs.put(3, "Hide");
-            if (player.hasAnyPotion()) {
-                actionInputs.put(4, "Use a potion");
-            }
-            if (player.hasWeapon()) {
-                int choiceNumber = 4;
-                if (player.hasAnyPotion()) {
-                    choiceNumber = 5;
-                }
-                actionInputs.put(choiceNumber, "Attack with your weapon");
-            }
-            playerAction(inputParser.getNumberToStringInput("What do you want to do?", actionInputs, "to"));
-        }
-    }
-    public void playerAction(String choice) {
-        switch (choice) {
-            case "Look around":
-                lookAround();
-                break;
-            case "Cast a spell":
-                if (player.hasEffect(EffectType.DISARM)) {
-                    display.announceFail("You cannot cast a spell because you are disarmed");
-                    askPlayerForAction();
-                } else {
-                    askForSpell();
-                }
-                break;
-            case "Hide":
-                player.giveEffect(EffectType.HIDE, new ActiveEffect(1, 0.75));
-                break;
-            case "Use a potion":
-                player.chooseAndConsumePotion();
-                break;
-            case "Attack with your weapon":
-                player.attack(enemy);
-                break;
-        }
+        askPlayerForAction();
     }
 
     public boolean getBattleContinueCondition() {
@@ -125,12 +64,84 @@ public class Battle {
     }
 
     public void finishRound() {
+        game.closeSubWindows();
+        enemyAction();
         enemy.finishRound();
         player.finishRound();
         roundNumber += 1;
+        if (!getBattleContinueCondition()) {
+            if (!player.isAlive()) {
+                level.fail();
+            } else {
+                displayBattleWinMessage();
+                level.finish();
+            }
+        }
+        else {
+            askPlayerForAction();
+        }
+    }
+    public void askPlayerForAction() {
+        display.displayInfo("What do you want to do? Choose an action.");
+        display.setOnFinish((finish) -> {
+            battleController.nextRound();
+        });
     }
 
-    public void lookAround() {
+    public void goBackAndAskPlayerForAction() {
+        game.closeSubWindows();
+        askPlayerForAction();
+    }
+    public void askForSpell() {
+        display.displayInfo("Pick a spell to use.");
+        SpellCollectionControl controller = new SpellCollectionControl(player);
+        controller.setBattle(this);
+        display.setOnFinish((finish) ->
+            game.showElement("SpellCollection", param -> controller));
+    }
+    public void playerAction(String choice) {
+        switch (choice) {
+            case "Look around":
+                playerLookAround();
+                break;
+            case "Cast a spell":
+                if (player.hasEffect(EffectType.DISARM)) {
+                    display.announceFail("You cannot cast a spell because you are disarmed");
+                    askPlayerForAction();
+                } else {
+                    askForSpell();
+                }
+                break;
+            case "Hide":
+                playerHide();
+                break;
+            case "Use a potion":
+                askPlayerForPotion();
+                break;
+            case "Attack":
+                player.attack(enemy);
+                break;
+            default:
+                display.displayError("There seems to be a problem with the action you selected.");
+                askPlayerForAction();
+                break;
+        }
+    }
+
+    public void askPlayerForPotion() {
+        if (player.hasAnyPotion()) {
+            display.displayInfo("Choose a potion that you want to consume");
+            PotionInventoryController potionInventoryController = new PotionInventoryController(player);
+            display.setOnFinish((finish) ->
+                    game.showElement("PotionInventory", param -> potionInventoryController));
+        }
+        else {
+            display.displayInfo("You don't have any potion.");
+            goBackAndAskPlayerForAction();
+        }
+    }
+
+    public void playerLookAround() {
         double random = Math.random();
         if (random < 0.5) {
             PotionType potionType =  generatePotionType();
@@ -145,20 +156,13 @@ public class Battle {
         else {
             display.announceFail("Unfortunately, you haven't found anything.");
         }
+        finishRound();
     }
 
-    public void askForSpell() {
-        String spellChoice;
-        if (game.isInGraphicMode()) {
-            display.displayInfo("Pick a spell to use.");
-        }
-        else {
-            spellChoice = inputParser.getNumberToStringInput("What spell do you want to use?", spellInputs, "for");
-            castSpell(spellChoice);
-        }
+    public void playerHide() {
+        player.giveEffect(EffectType.HIDE, new ActiveEffect(1, 0.75));
     }
-
-    public void castSpell(String spellChoice) {
+    public void playerCastSpell(String spellChoice) {
         Spell spell = player.getKnownSpells().get(spellChoice);
         if (spellChoice.equals("Accio")) {
             if (level instanceof Level2) {
@@ -172,23 +176,19 @@ public class Battle {
                     enemy.die();
                 }
             }
-            else { display.displayInfo("This spell is useless here."); }
+            else {
+                display.displayInfo("This spell is useless here.");
+                finishRound();
+            }
         }
         else if (spell instanceof ItemSpell) {
             List<Item> items = level.getItems();
             if (items.isEmpty()) {
                 display.announceFail("You haven't found any item. Try looking around.");
-                askPlayerForAction();
+                goBackAndAskPlayerForAction();
             }
             else {
-                if (game.isInGraphicMode()) {
-                    display.displayInfo("Pick an item to use ");
-                }
-                else {
-                    HashMap<Integer, String> itemInputs = getItemInputs();
-                    display.displayInfo(itemInputs.toString());
-                    castItemSpell(spellChoice,inputParser.getNumberInput("Choose an item " + ((ItemSpell) spell).getStringForItem(), itemInputs, "for") - 1);
-                }
+                display.displayInfo("Pick an item to use ");
             }
         }
         else if (player.getKnownSpells().get(spellChoice) instanceof SimpleSpell) {
@@ -201,7 +201,7 @@ public class Battle {
         }
     }
 
-    public void castItemSpell(String spellChoice, int itemIndex) {
+    public void playerCastItemSpell(String spellChoice, int itemIndex) {
         List<Item> items = level.getItems();
         Item item = items.get(itemIndex);
         Spell spell = player.getKnownSpells().get(spellChoice);
@@ -288,5 +288,32 @@ public class Battle {
 
     public int getRoundNumber() {
         return roundNumber;
+    }
+
+    public Wizard getPlayer() {
+        return player;
+    }
+
+    public AbstractEnemy getEnemy() {
+        return enemy;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+    public Display getDisplay() {
+        return display;
+    }
+
+    public InputParser getInputParser() {
+        return inputParser;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setBattleController(BattleController battleController) {
+        this.battleController = battleController;
     }
 }
