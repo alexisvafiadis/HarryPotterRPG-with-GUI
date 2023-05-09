@@ -15,7 +15,7 @@ public class Engorgio extends ItemSpell {
     public void cast(Item item) {
         use();
         if (isCastSuccessful()) {
-            displayCastMessage("enlarged this " + item.getItemType().toString());
+            showSuccessfulCast("enlarged this " + item.getItemType().toString());
             item.getItemType().enlarge(ENLARGE_COEFFICIENT);
         }
     }

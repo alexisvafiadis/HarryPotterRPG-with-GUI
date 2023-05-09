@@ -18,7 +18,7 @@ public class WingardiumLeviosa extends ItemSpell {
         }
         use();
         if (isCastSuccessful(target)) {
-            displayCastMessage("rose " + item.getItemType().toString() + " into the air, throwing it on " + target.getName() +"'s head");
+            showSuccessfulCast("rose " + item.getItemType().toString() + " into the air, throwing it on " + target.getName() +"'s head");
             target.damage(calculateDamage(DEFAULT_DAMAGE * item.getItemType().getDamageMultiplier()));
             return true;
         }

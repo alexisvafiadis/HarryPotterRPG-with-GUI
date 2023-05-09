@@ -16,7 +16,7 @@ public class AvadaKedavra extends SimpleSpell {
         use();
         if (isCastSuccessful(target)) {
             target.damage(calculateDamage(DEFAULT_DAMAGE));
-            displayCastMessage("emitted a bright green flash of light, striking " + target.getName() + " and causing them to fall to the ground, lifeless.");
+            showSuccessfulCast("emitted a bright green flash of light, striking " + target.getName() + " and causing them to fall to the ground, lifeless.");
         }
     }
 

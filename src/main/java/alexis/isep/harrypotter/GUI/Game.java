@@ -189,14 +189,14 @@ public class Game extends javafx.application.Application{
 
     public void addDialogPane() { addDialogPane(false);}
 
-    public void showElement(String document, Callback<Class<?>, Object> callback) {
+    public void showElement(String document, Callback<Class<?>, Object> callback, double centerCoeff) {
         FXMLLoader fxmlLoader = loadFXML(document);
         fxmlLoader.setControllerFactory(callback);
         try {
             AnchorPane root = ((AnchorPane) stage.getScene().getRoot());
             AnchorPane anchorPane = fxmlLoader.load();
-            anchorPane.setLayoutY((root.getHeight() - anchorPane.getHeight()) / 3);
-            anchorPane.setLayoutX((root.getWidth() - anchorPane.getWidth()) / 3.2);
+            anchorPane.setLayoutY((root.getHeight() - anchorPane.getHeight()) / centerCoeff);
+            anchorPane.setLayoutX((root.getWidth() - anchorPane.getWidth()) / centerCoeff);
             root.getChildren().add(anchorPane);
             stage.show();
         }
@@ -207,7 +207,7 @@ public class Game extends javafx.application.Application{
     }
 
     public void closeSubWindows() {
-        String[] arrayWindowsToClose = new String[] {"PotionInventory", "SpellCollection"};
+        String[] arrayWindowsToClose = new String[] {"PotionInventory", "SpellCollection","ItemInventory"};
         List<String> listWindowsToClose = Arrays.asList(arrayWindowsToClose);
         ((AnchorPane) stage.getScene().getRoot()).getChildren().removeIf((node) -> node != null && listWindowsToClose.contains(node.getId()));
         //((AnchorPane) stage.getScene().getRoot()).getChildren().remove(((AnchorPane) stage.getScene().getRoot()).getChildren().size() - 1);

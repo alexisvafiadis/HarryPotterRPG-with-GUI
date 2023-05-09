@@ -17,7 +17,7 @@ public class Protego extends SimpleSpell {
         use();
         if (isCastSuccessful()) {
             target.giveEffect(EffectType.SHIELD, new ActiveEffect(EFFECT_DURATION, 0.9));
-            displayCastMessage("created a shimmering, transparent shield that can block spells");
+            showSuccessfulCast("created a shimmering, transparent shield that can block spells");
         }
     }
 

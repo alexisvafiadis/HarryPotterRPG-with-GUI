@@ -16,7 +16,7 @@ public class Sectumsempra extends SimpleSpell {
         use();
         if (isCastSuccessful(target)) {
             target.damage(calculateDamage(DEFAULT_DAMAGE));
-            displayCastMessage("lacerated " + target.getName() + ", causing severe haemorrhaging");
+            showSuccessfulCast("lacerated " + target.getName() + ", causing severe haemorrhaging");
         }
     }
 

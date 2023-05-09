@@ -18,7 +18,7 @@ public class Crucio extends SimpleSpell {
     public void cast(Character target) {
         use();
         if (isCastSuccessful(target)) {
-            displayCastMessage("a burst of bright blue light emerges, striking " + target.getName());
+            showSuccessfulCast("a burst of bright blue light emerges, striking " + target.getName());
             target.giveEffect(EffectType.EXCRUCIATING_PAIN, new ActiveEffect(EFFECT_DURATION, calculateDamage(DAMAGE_AT_THE_END)));
         }
     }

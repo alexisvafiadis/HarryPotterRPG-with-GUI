@@ -16,7 +16,7 @@ public class Accio extends Spell {
         use();
         if (isCastSuccessful()) {
             wizard.setWeapon(weapon);
-            displayCastMessage("summoned a " + weapon.toString());
+            showSuccessfulCast("summoned a " + weapon.toString());
         }
     }
 
@@ -26,7 +26,7 @@ public class Accio extends Spell {
         if (castSuccessful) {
             if (Math.random() < 1 / (Math.pow(wizard.getMap().calculateDistance(wizard,item),4))) {
                 castSuccessful = true;
-                displayCastMessage("summoned a " + item.getItemType().toString());
+                showSuccessfulCast("summoned a " + item.getItemType().toString());
             }
             else {
                 castSuccessful = false;

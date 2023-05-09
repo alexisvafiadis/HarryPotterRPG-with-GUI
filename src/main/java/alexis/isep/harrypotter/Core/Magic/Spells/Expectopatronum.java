@@ -14,7 +14,7 @@ public class Expectopatronum extends Spell {
         use();
         boolean isCastSuccessful = isCastSuccessful();
         if (isCastSuccessful) {
-            displayCastMessage("summoned a glowing, silvery animal called Patronus to repel the Dementors.");
+            showSuccessfulCast("summoned a glowing, silvery animal called Patronus to repel the Dementors.");
         }
         return isCastSuccessful;
     }

@@ -1,38 +1,38 @@
 package alexis.isep.harrypotter.GUI;
 
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
+import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
 import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class BattleController {
+    private final int ANIMATION_COUNT = 18;
     private Battle battle;
     private Wizard player;
     private AbstractEnemy enemy;
-    private List<KeyFrame> keyFrames;
+    private Timeline timeline;
 
     @FXML
     private AnchorPane battlePane;
-
     @FXML
     private ImageView background;
 
@@ -46,16 +46,10 @@ public class BattleController {
     private Text playerWeapon;
 
     @FXML
-    private Text playerType;
-
-    @FXML
     private ProgressBar playerHPBar;
 
     @FXML
     private ImageView playerImage;
-
-    @FXML
-    private Text playerDamage;
 
     @FXML
     private Text enemyName;
@@ -64,19 +58,10 @@ public class BattleController {
     private Text enemyHP;
 
     @FXML
-    private Text enemyLevel;
-
-    @FXML
-    private Text enemyType;
-
-    @FXML
     private ProgressBar enemyHPBar;
 
     @FXML
     private ImageView enemyImage;
-
-    @FXML
-    private Text enemyDamage;
 
     @FXML
     private Button lookAroundButton;
@@ -140,18 +125,6 @@ public class BattleController {
         battle.playerAction(((Button)event.getSource()).getText());
     }
 
-    public void showRoundAttacks() {
-        Timeline timeline = new Timeline();
-        timeline.getKeyFrames().addAll(keyFrames);
-        timeline.play();
-
-        timeline.setOnFinished(e -> {
-            if (!player.isAlive() || !enemy.isAlive()) {
-                usePotionButton.fire();
-            }
-        });
-    }
-
     public void disableAllActionButtons() {
         lookAroundButton.setDisable(true);
         castSpellButton.setDisable(true);
@@ -159,54 +132,111 @@ public class BattleController {
         usePotionButton.setDisable(true);
     }
 
-    public void nextRound() {
-        keyFrames = new ArrayList<>();
+    public void finishRound() {
         lookAroundButton.setDisable(false);
         castSpellButton.setDisable(false);
         situationalButton.setDisable(false);
         usePotionButton.setDisable(false);
     }
 
-    public void playerAttackAnimation(int damage) {
-        if (!player.isAlive()) return;
-        KeyValue oppHPBar = new KeyValue(enemyHPBar.progressProperty(), enemyHPBar.getProgress());
-        KeyValue oppHP = new KeyValue(enemyHP.textProperty(), enemyHP.getText());
+    public void playSpellAnimation(EventHandler<ActionEvent> onFinishEventHandler, boolean fromPlayer) {
+        ImageView attacker, target;
+        if (fromPlayer) {
+            attacker = playerImage;
+            target = enemyImage;
+        }
+        else {
+            attacker = enemyImage;
+            target = playerImage;
+        }
+        Circle spell = new Circle(20, Color.YELLOW);
 
-        KeyFrame framedot0s = new KeyFrame(new Duration(0), oppHP, oppHPBar);
+        // Create a TranslateTransition to move the spell from the player to the target
+        TranslateTransition translate = new TranslateTransition(Duration.seconds(1), spell);
+        translate.setToX(target.getX() - attacker.getX());
+        translate.setToY(target.getY() - attacker.getY());
 
-        KeyValue playerYValue = new KeyValue(playerImage.yProperty(), playerImage.getY());
-        KeyValue playerXValue = new KeyValue(playerImage.xProperty(), playerImage.getX());
+        // Create a RotateTransition to rotate the spell as it moves towards the target
+        RotateTransition rotate = new RotateTransition(Duration.seconds(1), spell);
+        rotate.setByAngle(360);
 
-        KeyFrame framedot100s = new KeyFrame(new Duration(1000), playerXValue, playerYValue);
+        // Add the transitions to a sequential timeline
+        timeline = new Timeline();
+        timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.ZERO, new KeyValue(spell.translateXProperty(), attacker.getX())),
+                new KeyFrame(Duration.ZERO, new KeyValue(spell.translateYProperty(), attacker.getY())),
+                new KeyFrame(Duration.ZERO, new KeyValue(spell.rotateProperty(), 0)),
+                new KeyFrame(Duration.seconds(1), new KeyValue(spell.translateXProperty(), target.getX())),
+                new KeyFrame(Duration.seconds(1), new KeyValue(spell.translateYProperty(), target.getY())),
+                new KeyFrame(Duration.seconds(1), new KeyValue(spell.rotateProperty(), 360))
+        );
 
-        playerXValue = new KeyValue(playerImage.xProperty(), playerImage.getX() + 10);
-        playerYValue = new KeyValue(playerImage.yProperty(), playerImage.getY() - 10);
+        // Add the spell to the scene and play the timeline
+        battlePane.getChildren().add(spell);
+        timeline.setOnFinished(onFinishEventHandler);
+        timeline.play();
+    }
+    public void playAttackAnimation(EventHandler<ActionEvent> onFinishEventHandler, boolean fromPlayer) {
+        ImageView attackerImage, targetImage;
+        ProgressBar attackerBar, targetBar;
+        Text targetHPLabel;
+        Character target;
+        if (fromPlayer) {
+            attackerImage = playerImage;
+            targetImage = enemyImage;
+            targetBar = enemyHPBar;
+            targetHPLabel = enemyHP;
+            target = player;
+        }
+        else {
+            attackerImage = enemyImage;
+            targetImage = playerImage;
+            targetBar = playerHPBar;
+            targetHPLabel = playerHP;
+            target = enemy;
+        }
+        KeyValue targetHPBar = new KeyValue(targetBar.progressProperty(), targetBar.getProgress());
+        KeyValue targetHP = new KeyValue(targetHPLabel.textProperty(), targetHPLabel.getText());
 
-        KeyFrame framedot125s = new KeyFrame(new Duration(1250), playerXValue, playerYValue);
+        KeyFrame framedot0s = new KeyFrame(new Duration(0), targetHP, targetHPBar);
 
-        KeyValue oppDmg = new KeyValue(playerDamage.textProperty(), String.valueOf(damage));
-        KeyValue oppYValue = new KeyValue(enemyImage.yProperty(), enemyImage.getY());
-        KeyValue oppXValue = new KeyValue(enemyImage.xProperty(), enemyImage.getX());
-        playerXValue = new KeyValue(playerImage.xProperty(), playerImage.getX());
-        playerYValue = new KeyValue(playerImage.yProperty(), playerImage.getY());
+        KeyValue attackerYValue = new KeyValue(attackerImage.yProperty(), attackerImage.getY());
+        KeyValue attackerXValue = new KeyValue(attackerImage.xProperty(), attackerImage.getX());
 
-        KeyFrame framedot15s = new KeyFrame(new Duration(1350), oppDmg, oppXValue, oppYValue, playerXValue, playerYValue);
+        KeyFrame framedot1000s = new KeyFrame(new Duration(1000), attackerXValue, attackerYValue);
 
-        oppXValue = new KeyValue(enemyImage.xProperty(), enemyImage.getX() + 10);
-        oppYValue = new KeyValue(enemyImage.yProperty(), enemyImage.getY() - 10);
+        attackerYValue = new KeyValue(attackerImage.yProperty(), attackerImage.getY() + ANIMATION_COUNT);
+        attackerXValue = new KeyValue(attackerImage.xProperty(), attackerImage.getX() - ANIMATION_COUNT);
 
-        KeyFrame framedot175s = new KeyFrame(new Duration(1550), oppXValue, oppYValue, oppHPBar, oppDmg);
+        KeyFrame framedot1250s = new KeyFrame(new Duration(1250), attackerXValue, attackerYValue);
 
-        oppHP = new KeyValue(enemyHP.textProperty(), String.valueOf(enemy.getHP()));
-        oppHPBar = new KeyValue(enemyHPBar.progressProperty(), enemy.getHP() / enemy.getMaxHP());
-        oppXValue = new KeyValue(enemyImage.xProperty(), enemyImage.getX());
-        oppYValue = new KeyValue(enemyImage.yProperty(), enemyImage.getY());
-        oppDmg = new KeyValue(playerDamage.textProperty(), null);
+        KeyValue targetYValue = new KeyValue(targetImage.yProperty(), targetImage.getY());
+        KeyValue targetXValue = new KeyValue(targetImage.xProperty(), targetImage.getX());
+        attackerXValue = new KeyValue(attackerImage.xProperty(), attackerImage.getX());
+        attackerYValue = new KeyValue(attackerImage.yProperty(), attackerImage.getY());
 
-        KeyFrame framedot200s = new KeyFrame(new Duration(1800), oppHPBar, oppXValue, oppYValue, oppDmg, oppHP);
-        Collections.addAll(keyFrames,new KeyFrame[]{framedot0s, framedot15s, framedot100s, framedot125s, framedot175s, framedot200s});
+        KeyFrame framedot1350s = new KeyFrame(new Duration(1350), targetYValue, targetXValue, attackerXValue, attackerYValue);
+
+        targetXValue = new KeyValue(targetImage.xProperty(), targetImage.getX() + ANIMATION_COUNT);
+        targetYValue = new KeyValue(targetImage.yProperty(), targetImage.getY() - ANIMATION_COUNT);
+
+        KeyFrame framedot1550s = new KeyFrame(new Duration(1550), targetXValue, targetYValue, targetHPBar);
+
+        int newHP = (int) Math.ceil(target.getHP());
+        targetHP = new KeyValue(targetHPLabel.textProperty(), String.valueOf(newHP));
+        targetHPBar = new KeyValue(targetBar.progressProperty(), newHP / target.getMaxHP());
+        targetXValue = new KeyValue(targetImage.xProperty(), targetImage.getX());
+        targetYValue = new KeyValue(targetImage.yProperty(), targetImage.getY());
+
+        KeyFrame framedot1800s = new KeyFrame(new Duration(1800), targetHP, targetHPBar, targetXValue, targetYValue);
+        timeline = new Timeline();
+        timeline.getKeyFrames().addAll( framedot0s, framedot1000s, framedot1250s, framedot1350s, framedot1550s, framedot1800s
+        );
+        timeline.setOnFinished(onFinishEventHandler);
+        timeline.play();
     }
 
+    /*
     public void enemyAttackAnimation(int damage) {
         int time = 1800;
 
@@ -247,7 +277,8 @@ public class BattleController {
         plyHP = new KeyValue(playerHP.textProperty(), String.valueOf(player.getHP()));
 
         KeyFrame framedot1800s = new KeyFrame(new Duration(time + 1800), playerXValue, playerYValue, oppDmg, plyHPBar, plyHP);
-        Collections.addAll(keyFrames,new KeyFrame[]{framedot0s, framedot1000s, framedot1250s, framedot1350s, framedot1550s, framedot1800s});
     }
+
+     */
 
 }

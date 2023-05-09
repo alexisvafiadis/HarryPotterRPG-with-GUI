@@ -1,7 +1,9 @@
 package alexis.isep.harrypotter.Core.Magic;
 
+import javafx.scene.image.Image;
+
 public enum PotionType {
-    STRENGHTENING_SOLUTION(EffectType.STRENGTH, 2, 4, 1,"This potion is used to strengthen and fortify objects or people. Useful to increase your physical strength in battle.","StrengtheningSolution1.png"),
+    STRENGTHENING_SOLUTION(EffectType.STRENGTH, 2, 4, 1,"This potion is used to strengthen and fortify objects or people. Useful to increase your physical strength in battle.","StrengtheningSolution1.png"),
     WIGGENWELD_POTION(EffectType.HEAL, 50, 0, 2," This healing potion can be used to heal minor injuries. Useful for survival in battle.","WiggenweldPotion1.png"),
     FELIX_FELICIS_POTION(EffectType.LUCK, 1.5,3,1,"This unique potion grants the drinker temporary good luck. Useful to gain an advantage over opponents in a combat situation.","FelixFelicisPotion2.png"),
     ESSENCE_OF_DITTANY(EffectType.HEAL, 75,0,1,"This powerful healing potion can help to quickly heal wounds and burns and cure poisons. Useful for survival in battle.","EssenceOfDittany1.png"),
@@ -32,7 +34,15 @@ public enum PotionType {
     }
 
     @Override
-    public String toString() { return name().toLowerCase().replace("_", " "); }
+    public String toString() {
+        String[] words = name().split("_");
+        StringBuilder output = new StringBuilder();
+        for (String word : words) {
+            output.append(word.charAt(0)).append(word.substring(1).toLowerCase()).append(" ");
+        }
+        output.deleteCharAt(output.length() - 1);
+        return output.toString();
+    }
 
     public EffectType getEffect() {
         return effect;
@@ -56,5 +66,9 @@ public enum PotionType {
 
     public String getPath() {
         return path;
+    }
+
+    public Image getImage() {
+        return new Image(getClass().getResource("/alexis/isep/harrypotter/images/items/" + name() + ".png").toString(), true);
     }
 }

@@ -48,9 +48,13 @@ public class Display {
         colors.add(color);
     }
 
-    public void setOnFinish(EventHandler<ActionEvent> e) {
+    public void setOnFinish(EventHandler<ActionEvent> onFinishEventHandler) {
+        if (messages.size() == 0) {
+            return;
+        }
         timeline = new Timeline();
         currentMessage = messages.get(0);
+        textLabel.setTextFill(colors.get(0));
         messageIndex = 0;
         charIndex = 0;
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(4), event -> {
@@ -72,7 +76,7 @@ public class Display {
                 }
             }
         }));
-        timeline.setOnFinished(e);
+        timeline.setOnFinished(onFinishEventHandler);
         int cycleCount = 0;
         for (String message : messages) {
             cycleCount += message.length();

@@ -22,7 +22,7 @@ public class Expelliarmus extends SimpleSpell {
             use();
             if (isCastSuccessful(target)) {
                 target.giveEffect(EffectType.DISARM, new ActiveEffect(EFFECT_DURATION, 1));
-                displayCastMessage(null);
+                showSuccessfulCast(null);
             }
         }
     }

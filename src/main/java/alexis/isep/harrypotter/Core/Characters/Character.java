@@ -71,15 +71,24 @@ public abstract class Character {
             if (hasWeapon() && !hasEffect(EffectType.DISARM)) {
                 damage += weapon.getAttackDamage();
             }
+            final boolean fromPlayer;
+            final String information;
             if (this instanceof Wizard) {
                 damage = ((Wizard) this).amplifyDamage(damage);
-                display.displayInfo("You have damaged " + target.getName());
+                information = "You have damaged " + target.getName();
+                fromPlayer = true;
             }
-            if (target instanceof Wizard) {
+            else {
                 damage = ((Wizard) target).defendDamage(damage);
-                display.displayInfo("You have been attacked by " + getName());
+                information = "You have been attacked by " + getName();
+                fromPlayer = false;
             }
             target.damage(damage);
+            battle.getBattleController().playAttackAnimation((e) -> {
+                display.displayInfo(information);
+                battle.handleCharacterAction(this,fromPlayer);
+            }, fromPlayer
+            );
         }
     }
 
@@ -301,5 +310,14 @@ public abstract class Character {
     public ActiveEffect getActiveEffect(EffectType effectType) {
         return activeEffects.get(effectType);
     }
+
+    public void setBattle(Battle battle) { this.battle = battle; }
+
+    public boolean isInBattle() { return (battle != null);}
+
+    public Battle getBattle() {
+        return battle;
+    }
+
 
 }

@@ -211,4 +211,17 @@ public class Wizard extends Character{
     public Image getImage() {
         return new Image(getClass().getResource("/alexis/isep/harrypotter/images/characters/" + getHouse().getIMAGE_NAME()).toString(), true);
     }
+
+    public List<Potion> getPotions() {
+        return potions;
+    }
+
+    public Potion getPotion(PotionType type) {
+        for (Potion potion : potions) {
+            if (potion.getPotionType().equals(type)) {
+                return potion;
+            }
+        }
+        return null;
+    }
 }

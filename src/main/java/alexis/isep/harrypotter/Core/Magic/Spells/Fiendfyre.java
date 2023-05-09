@@ -19,7 +19,7 @@ public class Fiendfyre extends SimpleSpell {
         use();
         if (isCastSuccessful(target)) {
             target.damage(calculateDamage(DAMAGE));
-            displayCastMessage("the cursed flames erupted, consuming everything in their path with an inferno of heat and destruction.");
+            showSuccessfulCast("the cursed flames erupted, consuming everything in their path with an inferno of heat and destruction.");
             target.giveEffect(EffectType.BURN, new ActiveEffect(EFFECT_DURATION, calculateDamage(DAMAGE)));
         }
     }

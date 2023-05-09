@@ -1,5 +1,6 @@
 package alexis.isep.harrypotter.Core.Levels.Essentials;
 
+import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.GUI.*;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
@@ -36,6 +37,8 @@ public class Battle {
         this.level = level;
         this.player = player;
         this.enemy = enemy;
+        player.setBattle(this);
+        enemy.setBattle(this);
         roundNumber = 1;
         spellInputs = getSpellInputs();
     }
@@ -58,14 +61,20 @@ public class Battle {
     }
 
     public void enemyAction() {
-        if (roundNumber % enemy.getAttackDelay() == 0) {
-            enemy.act();
-        }
+        game.closeSubWindows();
+        display.setOnFinish((e) -> {
+            if (roundNumber % enemy.getAttackDelay() == 0) {
+                enemy.act();
+            }
+            else {
+                display.displayInfo(enemy.getName() + " is preparing for its next attack.");
+                finishRound();
+            }
+        });
     }
 
     public void finishRound() {
-        game.closeSubWindows();
-        enemyAction();
+        display.setOnFinish((e) -> {
         enemy.finishRound();
         player.finishRound();
         roundNumber += 1;
@@ -80,11 +89,12 @@ public class Battle {
         else {
             askPlayerForAction();
         }
+        });
     }
     public void askPlayerForAction() {
         display.displayInfo("What do you want to do? Choose an action.");
         display.setOnFinish((finish) -> {
-            battleController.nextRound();
+            battleController.finishRound();
         });
     }
 
@@ -97,7 +107,7 @@ public class Battle {
         SpellCollectionControl controller = new SpellCollectionControl(player);
         controller.setBattle(this);
         display.setOnFinish((finish) ->
-            game.showElement("SpellCollection", param -> controller));
+            game.showElement("SpellCollection", param -> controller,3.1));
     }
     public void playerAction(String choice) {
         switch (choice) {
@@ -133,11 +143,10 @@ public class Battle {
             display.displayInfo("Choose a potion that you want to consume");
             PotionInventoryController potionInventoryController = new PotionInventoryController(player);
             display.setOnFinish((finish) ->
-                    game.showElement("PotionInventory", param -> potionInventoryController));
+                    game.showElement("PotionInventory", param -> potionInventoryController,3));
         }
         else {
-            display.displayInfo("You don't have any potion.");
-            goBackAndAskPlayerForAction();
+            warnAndGoBack("You don't have any potion.");
         }
     }
 
@@ -156,17 +165,21 @@ public class Battle {
         else {
             display.announceFail("Unfortunately, you haven't found anything.");
         }
-        finishRound();
+        enemyAction();
     }
 
     public void playerHide() {
         player.giveEffect(EffectType.HIDE, new ActiveEffect(1, 0.75));
+        enemyAction();
     }
     public void playerCastSpell(String spellChoice) {
         Spell spell = player.getKnownSpells().get(spellChoice);
         if (spellChoice.equals("Accio")) {
             if (level instanceof Level2) {
                 ((Accio) spell).cast(Weapon.BASILISK_FANG);
+            }
+            else {
+                warnUselessSpellAndGoBack();
             }
         }
         else if (spellChoice.equals("Expecto Patronum")) {
@@ -177,18 +190,18 @@ public class Battle {
                 }
             }
             else {
-                display.displayInfo("This spell is useless here.");
-                finishRound();
+                warnUselessSpellAndGoBack();
             }
         }
         else if (spell instanceof ItemSpell) {
             List<Item> items = level.getItems();
             if (items.isEmpty()) {
-                display.announceFail("You haven't found any item. Try looking around.");
-                goBackAndAskPlayerForAction();
+                warnAndGoBack("You haven't found any item yet.");
             }
             else {
+                game.closeSubWindows();
                 display.displayInfo("Pick an item to use ");
+                display.setOnFinish((e) -> game.showElement("ItemInventory",param -> new ItemInventoryController(this,spellChoice),2.3));
             }
         }
         else if (player.getKnownSpells().get(spellChoice) instanceof SimpleSpell) {
@@ -286,6 +299,24 @@ public class Battle {
         display.announceSuccess("Well done, you have killed " + enemy.getName());
     }
 
+    public void warnAndGoBack(String message) {
+        display.announceFail(message);
+        display.setOnFinish((e) -> goBackAndAskPlayerForAction());
+    }
+
+    public void handleCharacterAction(Character character, boolean fromPlayer) {
+        if (fromPlayer) {
+            enemyAction();
+        }
+        else {
+            finishRound();
+        }
+    }
+
+    public void warnUselessSpellAndGoBack() {
+        warnAndGoBack("Sorry, this spell is useless here.");
+    }
+
     public int getRoundNumber() {
         return roundNumber;
     }
@@ -315,5 +346,9 @@ public class Battle {
 
     public void setBattleController(BattleController battleController) {
         this.battleController = battleController;
+    }
+
+    public BattleController getBattleController() {
+        return battleController;
     }
 }

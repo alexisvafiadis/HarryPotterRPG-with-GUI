@@ -14,7 +14,7 @@ public class Lumos extends Spell {
     public void cast(LevelMap map) {
         use();
         if (isCastSuccessful()) {
-            displayCastMessage("see your wand light up and illuminate the area around you, revealing new hidden details.");
+            showSuccessfulCast("see your wand light up and illuminate the area around you, revealing new hidden details.");
             display.displayInfo("Map of the Level: ");
             map.display();
         }

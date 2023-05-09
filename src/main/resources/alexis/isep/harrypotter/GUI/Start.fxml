@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../component/rel/scene/Start.png" />
+            <Image url="@../images/scene/LoadGame.png" />
          </image>
       </ImageView>
       <Button layoutX="330.0" layoutY="381.0" mnemonicParsing="false" onAction="#startButtonEvent" style="-fx-background-radius: 10%; -fx-border-color: none; -fx-background-color: #430000;" text="START" textAlignment="CENTER" textFill="WHITE">

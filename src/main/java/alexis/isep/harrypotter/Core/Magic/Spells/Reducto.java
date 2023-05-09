@@ -15,7 +15,7 @@ public class Reducto extends ItemSpell {
     public boolean cast(Item item, Character target) {
         use();
         if (isCastSuccessful(target)) {
-            displayCastMessage(item.getItemType().toString() + " exploded into countless pieces, sending debris flying everywhere, and hurting " + target.getName());
+            showSuccessfulCast(item.getItemType().toString() + " exploded into countless pieces, sending debris flying everywhere, and hurting " + target.getName());
             target.damage(calculateDamage(DEFAULT_DAMAGE * item.getItemType().getDamageMultiplier()));
             return true;
         }

@@ -63,7 +63,8 @@ public abstract class Spell {
             return false;
         }
         double probability;
-        if (wizard instanceof Wizard) {
+        boolean fromPlayer = (wizard instanceof Wizard);
+        if (fromPlayer) {
             probability = getMasteryScore() * ((Wizard) wizard).getAccuracy();
         }
         else if (wizard instanceof EnemyWizard){
@@ -88,33 +89,38 @@ public abstract class Spell {
             }
             probability = probability * target.getVulnerabilityToMagic();
         }
-        boolean b = (Math.random() < probability) ;
-        if (!b) {
+        boolean castSuccessful = (Math.random() < probability) ;
+        if (!castSuccessful) {
             if (wizard instanceof Wizard) {
                 display.announceFail(game.getMessageStartHave(wizard) + " " + CAST_MESSAGE_FAIL + " " + getName());
             }
             else {
                 display.displayInfo(game.getMessageStartHave(wizard) + " " + CAST_MESSAGE_FAIL + " " + getName());
             }
+            wizard.getBattle().handleCharacterAction(wizard,fromPlayer);
         }
-        return b;
+        return castSuccessful;
     }
 
     public boolean isCastSuccessful() {
         return isCastSuccessful(null);
     }
 
-    public void displayCastMessage(String specificCastMessage) {
+    public void showSuccessfulCast(String specificCastMessage) {
         String castMessage = game.getMessageStartHave(wizard) + " " + CAST_MESSAGE_SUCCESS + " " + getName();
         if (specificCastMessage != null) {
             castMessage = castMessage + " and " + specificCastMessage;
         }
-        if (wizard instanceof Wizard) {
+        final boolean fromPlayer = (wizard instanceof Wizard);
+        if (fromPlayer) {
             display.announceSuccess(castMessage);
         }
         else {
             display.displayInfo(castMessage);
         }
+        wizard.getBattle().getBattleController().playSpellAnimation((e) -> {
+            wizard.getBattle().handleCharacterAction(wizard,fromPlayer);
+        }, fromPlayer);
     }
 
     public void teach(Wizard player) {
@@ -174,6 +180,7 @@ public abstract class Spell {
     }
 
     public double calculateDamage(double damage) {
+        //character target defend
         if (wizard instanceof Wizard) {
             return ((Wizard) wizard).amplifySpellDamage(damage);
         }

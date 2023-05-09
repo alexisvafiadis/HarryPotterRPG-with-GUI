@@ -42,7 +42,7 @@ class BattleTest {
     @Test
     void finishRound() {
         int previousRoundNumber = battle.getRoundNumber();
-        battle.finishRound();
+        battle.enemyAction();
         assertTrue(battle.getRoundNumber() == previousRoundNumber + 1);
     }
 

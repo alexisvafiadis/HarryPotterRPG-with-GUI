@@ -18,7 +18,7 @@ public class Imperius extends SimpleSpell {
         use();
         if (isCastSuccessful(target)) {
             target.giveEffect(EffectType.UNDER_CONTROL, new ActiveEffect(EFFECT_DURATION, 0.7));
-            displayCastMessage(target.getName() + "'s eyes glaze over");
+            showSuccessfulCast(target.getName() + "'s eyes glaze over");
         }
     }
 
