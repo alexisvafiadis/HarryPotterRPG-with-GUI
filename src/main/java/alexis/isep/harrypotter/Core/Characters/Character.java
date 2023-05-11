@@ -37,7 +37,7 @@ public abstract class Character {
     protected Integer positionY;
     protected double HP;
     protected boolean alive;
-    Map<EffectType, ActiveEffect> activeEffects;
+    protected Map<EffectType, ActiveEffect> activeEffects;
 
     public Character(Game game, double maxHP, double physicalDamage, double vulnerabilityToMagic, Weapon weapon, char charTile, int moveStep) {
         this.game = game;
@@ -66,22 +66,20 @@ public abstract class Character {
     }
 
     public void attack(Character target) {
+        final boolean fromPlayer = (this instanceof Wizard);
         if (canAttack(target)) {
             double damage = getPhysicalDamage();
             if (hasWeapon() && !hasEffect(EffectType.DISARM)) {
                 damage += weapon.getAttackDamage();
             }
-            final boolean fromPlayer;
             final String information;
-            if (this instanceof Wizard) {
+            if (fromPlayer) {
                 damage = ((Wizard) this).amplifyDamage(damage);
                 information = "You have damaged " + target.getName();
-                fromPlayer = true;
             }
             else {
                 damage = ((Wizard) target).defendDamage(damage);
                 information = "You have been attacked by " + getName();
-                fromPlayer = false;
             }
             target.damage(damage);
             battle.getBattleController().playAttackAnimation((e) -> {
@@ -89,6 +87,9 @@ public abstract class Character {
                 battle.handleCharacterAction(this,fromPlayer);
             }, fromPlayer
             );
+        }
+        else {
+            battle.handleCharacterAction(this,fromPlayer);
         }
     }
 
@@ -140,6 +141,9 @@ public abstract class Character {
         else {
             HP = HP + hp_restore;
         }
+        if (isInBattle()) {
+            battle.getBattleController().playUpdateHPAnimation(this instanceof Wizard);
+        }
     }
 
     public boolean isAlive() {
@@ -182,9 +186,10 @@ public abstract class Character {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+        this.currentWeapon = weapon;
     }
 
-    public boolean hasWeapon() { return (weapon != null); }
+    public boolean hasWeapon() { return (currentWeapon != null); }
 
     public boolean canDoSomething() {
         for (EffectType effectType : activeEffects.keySet()) {

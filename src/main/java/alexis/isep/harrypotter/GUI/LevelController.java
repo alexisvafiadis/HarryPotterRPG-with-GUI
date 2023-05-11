@@ -18,9 +18,11 @@ public class LevelController {
 
     @FXML
     private Label levelText;
-
     @FXML
     private Label placeText;
+
+    @FXML
+    private Label playerInfoText;
 
     @FXML
     private Label healthText;
@@ -32,6 +34,8 @@ public class LevelController {
         levelText.setText("Level " + level.getNumber());
         placeText.setText(level.getPlace());
         healthText.setText("Health : " + player.getHP());
+        playerInfoText.setText(player.getName() + " (" + player.getHouse() + ")");
+        healthText.setText("Health : " + player.getHP() + "/" + player.getMaxHP());
     }
 
     public LevelController(Level level, Game game, Wizard player) {

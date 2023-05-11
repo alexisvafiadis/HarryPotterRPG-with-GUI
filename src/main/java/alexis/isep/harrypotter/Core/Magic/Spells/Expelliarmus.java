@@ -6,12 +6,13 @@ import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
 import alexis.isep.harrypotter.Core.Magic.SimpleSpell;
+import javafx.scene.paint.Color;
 
 public class Expelliarmus extends SimpleSpell {
     private final int EFFECT_DURATION = 3;
 
     public Expelliarmus(Game game, Character wizard) {
-        super(game, wizard, "Expelliarmus", 5, 1, 0.66, 0.29);
+        super(game, wizard, "Expelliarmus", Color.GOLD, 5, 1, 0.66, 0.29);
     }
 
     public void cast(Character target) {
@@ -31,7 +32,6 @@ public class Expelliarmus extends SimpleSpell {
     public void displayInstructions() {
         inputParser.waitForConfirmation("To cast this spell, point your wand at your opponent and say \"Expelliarmus\" clearly.\n" +
                 "If the spell is successful, your opponent's weapon should be knocked out of their hand.\n" +
-                "This spell can be useful for disarming opponents and leaving them vulnerable to attack.\n"
-                + "Understood?");
+                "This spell can be useful for disarming opponents and leaving them vulnerable to attack.");
     }
 }

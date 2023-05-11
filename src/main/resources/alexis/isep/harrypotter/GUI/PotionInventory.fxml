@@ -30,7 +30,7 @@
             <RowConstraints percentHeight="33.33" />
             <RowConstraints percentHeight="33.33" />
         </rowConstraints>
-        <StackPane onMouseClicked="#potionChooseEventHandler" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <StackPane  GridPane.columnIndex="0" GridPane.rowIndex="0">
             <Circle opacity="1" radius="32">
             <fill>
                 <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
@@ -54,7 +54,7 @@
                 </image>
             </ImageView>
         </StackPane>
-        <StackPane onMouseClicked="#potionChooseEventHandler" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <StackPane  GridPane.columnIndex="1" GridPane.rowIndex="0">
             <Circle opacity="1" radius="32">
                 <fill>
                     <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
@@ -79,7 +79,7 @@
                 </image>
             </ImageView>
         </StackPane>
-        <StackPane onMouseClicked="#potionChooseEventHandler" GridPane.columnIndex="2" GridPane.rowIndex="0">
+        <StackPane  GridPane.columnIndex="2" GridPane.rowIndex="0">
             <Circle opacity="1" radius="32">
                 <fill>
                     <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
@@ -104,7 +104,7 @@
                 </image>
             </ImageView>
         </StackPane>
-        <StackPane onMouseClicked="#potionChooseEventHandler" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <StackPane  GridPane.columnIndex="0" GridPane.rowIndex="1">
             <Circle opacity="1" radius="32">
                 <fill>
                     <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
@@ -129,7 +129,7 @@
                 </image>
             </ImageView>
         </StackPane>
-        <StackPane onMouseClicked="#potionChooseEventHandler" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <StackPane  GridPane.columnIndex="1" GridPane.rowIndex="1">
             <Circle opacity="1" radius="32">
                 <fill>
                     <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
@@ -154,7 +154,7 @@
                 </image>
             </ImageView>
         </StackPane>
-        <StackPane onMouseClicked="#potionChooseEventHandler" GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <StackPane  GridPane.columnIndex="2" GridPane.rowIndex="1">
             <Circle opacity="1" radius="32">
                 <fill>
                     <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
@@ -179,7 +179,7 @@
                 </image>
             </ImageView>
         </StackPane>
-        <StackPane onMouseClicked="#potionChooseEventHandler" GridPane.columnIndex="0" GridPane.rowIndex="2">
+        <StackPane  GridPane.columnIndex="0" GridPane.rowIndex="2">
             <Circle opacity="1" radius="32">
                 <fill>
                     <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
@@ -204,7 +204,7 @@
                 </image>
             </ImageView>
         </StackPane>
-        <StackPane onMouseClicked="#potionChooseEventHandler" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <StackPane  GridPane.columnIndex="1" GridPane.rowIndex="2">
             <Circle opacity="1" radius="32">
                 <fill>
                     <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">
@@ -229,7 +229,7 @@
                 </image>
             </ImageView>
         </StackPane>
-        <StackPane onMouseClicked="#potionChooseEventHandler" GridPane.columnIndex="2" GridPane.rowIndex="2">
+        <StackPane  GridPane.columnIndex="2" GridPane.rowIndex="2">
             <Circle opacity="1" radius="32">
                 <fill>
                     <RadialGradient centerX="0.47785973636866497" centerY="0.5347002913899226" cycleMethod="REPEAT" radius="0.9236640638977517">

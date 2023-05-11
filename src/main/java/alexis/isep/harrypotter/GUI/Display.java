@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -29,17 +31,30 @@ public class Display {
     private List<Color> colors;
     private List<String> messages;
     private String currentMessage;
-    private int DEFAULT_WRITING_DELAY = 26;
-    private final int FAST_WRITING_DELAY = 5;
-    private final int SLOW_WRITING_DELAY = 20;
+    private int DEFAULT_WRITING_DELAY = 40;
+    private final int FAST_WRITING_DELAY = 15;
+    private final int VERY_FAST_WRITING_DELAY = 2;
     @FXML
     private Label textLabel;
+    @FXML
+    private AnchorPane dialogPane;
 
     public Display(Game game) {
         this.game = game;
         messages = new ArrayList<>();
         colors = new ArrayList<>();
-        if (game.isInDebugMode()) { DEFAULT_WRITING_DELAY = 1; }
+    }
+
+    public void adaptTextSize(double resizeCoeff) {
+        double leftAnchor = 0.16 / resizeCoeff;
+        double topAnchor = 0.3 / resizeCoeff;
+        AnchorPane.setLeftAnchor(textLabel, dialogPane.getPrefWidth() * leftAnchor);
+        AnchorPane.setTopAnchor(textLabel, dialogPane.getPrefHeight() * topAnchor);
+        AnchorPane.setBottomAnchor(textLabel, dialogPane.getPrefHeight() * topAnchor);
+        AnchorPane.setRightAnchor(textLabel, dialogPane.getPrefWidth() * leftAnchor);
+        textLabel.setMaxWidth(500);
+        textLabel.setMaxHeight(500);
+        textLabel.setWrapText(true);
     }
 
     public void slowPrint(String output, Color color, boolean nextLine) {
@@ -53,13 +68,13 @@ public class Display {
             return;
         }
         timeline = new Timeline();
-        currentMessage = messages.get(0);
-        textLabel.setTextFill(colors.get(0));
         messageIndex = 0;
         charIndex = 0;
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(4), event -> {
+        currentMessage = messages.get(messageIndex);
+        textLabel.setTextFill(colors.get(messageIndex));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(FAST_WRITING_DELAY), event -> {
             if (charIndex < currentMessage.length()) {
-                String substring = currentMessage.substring(0, charIndex);
+                String substring = currentMessage.substring(0, charIndex + 1);
                 setText(substring);
                 charIndex++;
             } else {
@@ -112,6 +127,21 @@ public class Display {
 
     public void displayError(String error) {slowPrint(error, Color.ORANGERED); }
 
+    public void askForNumberToStringInput(String request, HashMap<Integer, String> validInputs, String linkword) {
+        displayRequest(request);
+        displayInfo("Please enter : ");
+        for (int key : validInputs.keySet()) {
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT + key + " " + ConsoleColors.RESET + linkword + " " + ConsoleColors.WHITE_BOLD_BRIGHT + validInputs.get(key));
+        }
+    }
+
+    public void setText(String text) {
+        textLabel.setText(text);
+    }
+
+    public void hide() {
+        dialogPane.setVisible(false);
+    }
     public void displayHP(Character character, boolean own) {
         Color color;
         String message;
@@ -124,17 +154,5 @@ public class Display {
             message = character.getName() + "'s HP : " + Math.round(character.getHP());
         }
         slowPrint(message, color);
-    }
-
-    public void askForNumberToStringInput(String request, HashMap<Integer, String> validInputs, String linkword) {
-        displayRequest(request);
-        displayInfo("Please enter : ");
-        for (int key : validInputs.keySet()) {
-            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT + key + " " + ConsoleColors.RESET + linkword + " " + ConsoleColors.WHITE_BOLD_BRIGHT + validInputs.get(key));
-        }
-    }
-
-    public void setText(String text) {
-        textLabel.setText(text);
     }
 }

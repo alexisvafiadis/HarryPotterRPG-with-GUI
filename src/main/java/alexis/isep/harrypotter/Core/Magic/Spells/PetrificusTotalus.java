@@ -5,12 +5,13 @@ import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
 import alexis.isep.harrypotter.Core.Magic.SimpleSpell;
+import javafx.scene.paint.Color;
 
 public class PetrificusTotalus extends SimpleSpell {
     private final int EFFECT_DURATION = 2;
 
     public PetrificusTotalus(Game game, Character wizard) {
-        super(game, wizard, "Petrificus Totalus", 5, 1, 0.52, 0.27);
+        super(game, wizard, "Petrificus Totalus", Color.LIGHTGRAY, 5, 1, 0.52, 0.27);
     }
 
     public void cast(Character target) {
@@ -24,7 +25,6 @@ public class PetrificusTotalus extends SimpleSpell {
     public void displayInstructions() {
         inputParser.waitForConfirmation("Aim your wand at the target and focus on their movement.\n" +
                 "Visualize them becoming rigid, and use a commanding tone when casting the spell\n" +
-                "A bright blue light will shoot from your wand and hit the target, causing them to become completely paralyzed and unable to move.\n" +
-                "Understood?");
+                "A bright gray light will shoot from your wand and hit the target, causing them to become completely paralyzed and unable to move.");
     }
 }

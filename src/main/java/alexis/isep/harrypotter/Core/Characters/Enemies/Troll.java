@@ -7,7 +7,7 @@ import alexis.isep.harrypotter.Core.Items.Weapon;
 
 public class Troll extends Boss {
     public Troll(Game game) {
-        super(game, 110, 16, 1, Weapon.CLUB,'T',1,2);
+        super(game, 1, 16, 1, Weapon.CLUB,'T',1,2);
         setCustomBattleStartMessage("Grrrrr... Stomp! Stomp!");
     }
 

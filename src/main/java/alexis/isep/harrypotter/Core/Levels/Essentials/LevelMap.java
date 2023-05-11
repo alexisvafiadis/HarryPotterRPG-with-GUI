@@ -2,6 +2,7 @@ package alexis.isep.harrypotter.Core.Levels.Essentials;
 
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Items.Item;
+import javafx.scene.image.Image;
 
 public class LevelMap {
     private int width;
@@ -46,6 +47,10 @@ public class LevelMap {
             }
             System.out.println();
         }
+    }
+
+    public Image getImageTile(String characterName) {
+        return new Image(getClass().getResource("/alexis/isep/harrypotter/images/characters/" + characterName + " Icon.png").toString(), true);
     }
 
     //Check if position is inside the map or already taken by another character/item

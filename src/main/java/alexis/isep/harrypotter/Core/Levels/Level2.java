@@ -19,7 +19,6 @@ public class Level2 extends Level{
         Basilisk basilisk = new Basilisk(game);
         basilisk.spawn();
         startBattle(basilisk);
-        finish();
     }
 
     @Override

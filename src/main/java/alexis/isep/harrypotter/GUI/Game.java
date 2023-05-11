@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.*;
 
 public class Game extends javafx.application.Application{
+    private final String GAME_ROOT = "/alexis/isep/harrypotter/";
     private final String GAME_TITLE = "Harry Potter At Home";
     private Display display;
     private InputParser inputParser;
@@ -28,7 +29,7 @@ public class Game extends javafx.application.Application{
     private Level currentLevel;
     private Stage stage;
     private final boolean DEBUG_MODE = false;
-    private List<Class<?>> levels = new ArrayList<>();
+    private final List<Class<?>> levels = new ArrayList<>();
 
 
     @Override
@@ -36,11 +37,13 @@ public class Game extends javafx.application.Application{
         display = new Display(this);
         inputParser = new InputParser(this, new Scanner(System.in));
         player = new Wizard(this);
+        WizardMaker wizardmaker = new WizardMaker(this);
+        CreateCharacterController createCharacterController = new CreateCharacterController(this,wizardmaker);
+        wizardmaker.setCreateCharacterController(createCharacterController);
         player.setDefaultAttributes();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/CreateCharacter.fxml"));
-
-        fxmlLoader.setControllerFactory(param -> new CreateCharacterController(this));
+        fxmlLoader.setControllerFactory(param -> createCharacterController);
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/alexis/isep/harrypotter/images/scene/Icon.png")));
         stage.setTitle(GAME_TITLE);
@@ -48,18 +51,12 @@ public class Game extends javafx.application.Application{
         stage.setScene(scene);
         stage.show();
         this.stage = stage;
+        addDialogPane(0.5);
+        wizardmaker.askForCharacterCreation();
     }
 
     public static void main(String[] args) {
         launch();
-    }
-
-    public void start() {
-        display = new Display(this);
-        inputParser = new InputParser(this, new Scanner(System.in));
-        player = new Wizard(this);
-        introduce(player);
-        mainGame();
     }
 
     public void mainGame() {
@@ -77,13 +74,7 @@ public class Game extends javafx.application.Application{
         setLevel(1);
     }
     public void nextLevel() {
-        setLevel(currentLevel.getNumber());
-    }
-
-    public void introduce(Wizard wizard) {
-        WizardMaker wizardmaker = new WizardMaker(this);
-        SortingHat sortingHat = new SortingHat();
-        sortingHat.askHouse(this, wizard);
+        setLevel(currentLevel.getNumber() + 1);
     }
 
     public void setLevel(int number) {
@@ -95,18 +86,6 @@ public class Game extends javafx.application.Application{
             throw new RuntimeException(e);
         }
         currentLevel.start();
-    }
-
-    public Display getDisplay() {
-        return display;
-    }
-
-    public InputParser getInputParser() {
-        return inputParser;
-    }
-
-    public boolean isInDebugMode() {
-        return DEBUG_MODE;
     }
 
     public String getMessageStartHave(Character character) {
@@ -156,7 +135,9 @@ public class Game extends javafx.application.Application{
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlURL);
-        fxmlLoader.setControllerFactory(callback);
+        if (callback != null) {
+            fxmlLoader.setControllerFactory(callback);
+        }
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load());
@@ -167,36 +148,20 @@ public class Game extends javafx.application.Application{
         stage.show();
     }
 
-    public void addDialogPane(boolean shortened) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/DialogPane.fxml"));
-        fxmlLoader.setControllerFactory(param -> display);
-        try {
-            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
-            if (shortened) {
-                anchorPane.setMinWidth(anchorPane.getMinWidth() * 0.65);
-                anchorPane.setMinHeight(anchorPane.getMinHeight() * 0.7);
-                anchorPane.setMaxWidth(anchorPane.getMinWidth() * 0.65);
-                anchorPane.setMaxHeight(anchorPane.getMinHeight() * 0.7);
-                anchorPane.setPrefWidth(anchorPane.getMinWidth() * 0.65);
-                anchorPane.setPrefHeight(anchorPane.getMinHeight() * 0.7);
-            }
-            ((AnchorPane) stage.getScene().getRoot()).getChildren().add(anchorPane);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void addDialogPane() { addDialogPane(false);}
-
-    public void showElement(String document, Callback<Class<?>, Object> callback, double centerCoeff) {
+    public void showElement(String document, Callback<Class<?>, Object> callback, double layoutX, double layoutY, AnchorPane root) {
         FXMLLoader fxmlLoader = loadFXML(document);
         fxmlLoader.setControllerFactory(callback);
         try {
-            AnchorPane root = ((AnchorPane) stage.getScene().getRoot());
             AnchorPane anchorPane = fxmlLoader.load();
-            anchorPane.setLayoutY((root.getHeight() - anchorPane.getHeight()) / centerCoeff);
-            anchorPane.setLayoutX((root.getWidth() - anchorPane.getWidth()) / centerCoeff);
+            if (root == null) {
+                root = ((AnchorPane) stage.getScene().getRoot());
+                anchorPane.setLayoutY((root.getHeight() - anchorPane.getHeight()) / layoutY);
+                anchorPane.setLayoutX((root.getWidth() - anchorPane.getWidth()) / layoutX);
+            }
+            else {
+                anchorPane.setLayoutX(layoutX);
+                anchorPane.setLayoutY(layoutY);
+            }
             root.getChildren().add(anchorPane);
             stage.show();
         }
@@ -204,6 +169,10 @@ public class Game extends javafx.application.Application{
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public void showElement(String document, Callback<Class<?>, Object> callback, double centerCoeff) {
+        showElement(document, callback, centerCoeff, centerCoeff,null);
     }
 
     public void closeSubWindows() {
@@ -223,8 +192,38 @@ public class Game extends javafx.application.Application{
         }
     }
 
+    public void addDialogPane(double resizeCoeff) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/DialogPane.fxml"));
+        fxmlLoader.setControllerFactory(param -> display);
+        try {
+            AnchorPane anchorPane = (AnchorPane) fxmlLoader.load();
+            boolean shortened = (resizeCoeff != 1);
+            if (shortened) {
+                anchorPane.setMinWidth(anchorPane.getMinWidth() * resizeCoeff);
+                anchorPane.setMinHeight(anchorPane.getMinHeight() * resizeCoeff);
+                anchorPane.setMaxWidth(anchorPane.getMinWidth() * resizeCoeff);
+                anchorPane.setMaxHeight(anchorPane.getMinHeight() * resizeCoeff);
+                anchorPane.setPrefWidth(anchorPane.getMinWidth() * resizeCoeff);
+                anchorPane.setPrefHeight(anchorPane.getMinHeight() * resizeCoeff);
+            }
+            display.adaptTextSize(resizeCoeff);
+            ((AnchorPane) stage.getScene().getRoot()).getChildren().add(anchorPane);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Wizard getPlayer() {
         return player;
+    }
+
+    public Display getDisplay() {
+        return display;
+    }
+
+    public InputParser getInputParser() {
+        return inputParser;
     }
 
     public Level getCurrentLevel() {
@@ -232,5 +231,13 @@ public class Game extends javafx.application.Application{
     }
     public Stage getStage() {
         return stage;
+    }
+
+    public boolean isInDebugMode() {
+        return DEBUG_MODE;
+    }
+
+    public String getGameRoot() {
+        return GAME_ROOT;
     }
 }

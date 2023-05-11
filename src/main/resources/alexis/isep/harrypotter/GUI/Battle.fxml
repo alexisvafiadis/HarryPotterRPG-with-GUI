@@ -76,9 +76,9 @@
                 <Font name="Avenir Next Regular" size="16.0" />
             </font>
         </Text>
-        <Text fx:id="playerWeapon" layoutX="130.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="None" textAlignment="RIGHT" wrappingWidth="49.21875">
+        <Text fx:id="playerWeapon" layoutX="130.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="None" wrappingWidth="234.81878662109364">
             <font>
-                <Font name="Avenir Next Regular" size="16.0" />
+                <Font name="System Bold" size="16.0" />
             </font>
         </Text>
         <Text fx:id="enemyName" layoutX="596.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of enemy" wrappingWidth="213.0">
@@ -97,9 +97,9 @@
             <Font name="Avenir Next Regular" size="16.0" />
          </font>
       </Text>
-      <Text fx:id="playerWeapon1" layoutX="666.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="None" textAlignment="RIGHT" wrappingWidth="49.21875">
+      <Text fx:id="enemyWeapon" layoutX="666.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="None" wrappingWidth="234.81878662109375">
          <font>
-            <Font name="Avenir Next Regular" size="16.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
       </Text>
     </children>

@@ -1,6 +1,7 @@
 package alexis.isep.harrypotter.GUI;
 
 import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.Core.Game.WizardMaker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class CreateCharacterController {
     private Game game;
     private Wizard player;
+    private WizardMaker wizardMaker;
 
     @FXML
     private Label welcomeText;
@@ -51,10 +53,21 @@ public class CreateCharacterController {
     @FXML
     private Button nextPet;
 
+    public CreateCharacterController(Game game, WizardMaker wizardmaker) {
+        this.game = game;
+        this.player = game.getPlayer();
+        this.wizardMaker = wizardmaker;
+    }
+
     @FXML
     void initialize() {
         createCharacterButton.setDisable(true);
         update();
+        nameField.setDisable(true);
+    }
+
+    public void enableInput() {
+        nameField.setDisable(false);
     }
 
     @FXML
@@ -92,7 +105,7 @@ public class CreateCharacterController {
         if (event.getSource().equals(cancelButton)) {  }
         else {
             game.getPlayer().setName(nameField.getText());
-            game.mainGame();
+            wizardMaker.finishIntroduction();
             //create a new game save
         }
         /*
@@ -107,10 +120,5 @@ public class CreateCharacterController {
         imageView.setImage(player.getImage());
         houseLabel.setText(player.getHouse().toString());
         petLabel.setText(player.getPet().toString());
-    }
-
-    public CreateCharacterController(Game game) {
-        this.game = game;
-        this.player = game.getPlayer();
     }
 }

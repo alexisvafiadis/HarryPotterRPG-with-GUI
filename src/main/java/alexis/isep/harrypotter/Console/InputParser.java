@@ -54,7 +54,7 @@ public class InputParser {
     }
 
     public void waitForConfirmation(String question) {
-        display.displayInfo(question + "\n" + "Press enter if you understand.");
+        display.displayInfo(question );//+ press enter to continue, in the future
     }
 
     public Scanner getSc() {

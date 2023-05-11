@@ -3,12 +3,17 @@ package alexis.isep.harrypotter.Core.Levels;
 import alexis.isep.harrypotter.Core.Characters.Characteristics.House;
 import alexis.isep.harrypotter.Core.Characters.Enemies.DeathEater;
 import alexis.isep.harrypotter.Core.Characters.Enemies.Student;
+import alexis.isep.harrypotter.Core.Characters.EnemyWizard;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.Spells.Sectumsempra;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Level6 extends Level{
+    private List<EnemyWizard> enemies;
+    private int currentBattleIndex;
 
     public Level6(Game game) {
         super(game, "The Half-blood Prince","Astronomy Tower", 6, true);
@@ -16,41 +21,41 @@ public class Level6 extends Level{
 
     @Override
     public void start() {
+        enemies = new ArrayList<>();
+        currentBattleIndex = 0;
         player.spawn();
         super.start();
         if (player.isAgainstDeathEaters())  {
-            DeathEater alecto = new DeathEater(game, "Alecto Carrow", 110, 1, 1.6, 4.2, "I'll make sure you regret ever crossing the Dark Lord.");
-            alecto.spawn();
-            startBattle(alecto);
-            DeathEater malfoy = new DeathEater(game, "Lucius Malfoy", 125, 0.9, 1.85, 3.3, "My loyalty lies with the Dark Lord.");
-            malfoy.spawn();
-            startBattle(malfoy);
-            display.displayInfo("You are able to rest for a little and gain back some health...");
-            player.heal(60);
-            DeathEater yaxley = new DeathEater(game, "Corban Yaxley", 190, 0.7, 1, 4.7, "I serve the Dark Lord and nothing else. You will not break through my defense.");
-            yaxley.spawn();
-            startBattle(yaxley);
-            DeathEater dolohov = new DeathEater(game, "Antonin Dolohov", 130, 0.85, 2.15, 3.8, "I'll take pleasure in taking you down!");
-            dolohov.spawn();
-            startBattle(dolohov);
+            enemies.add(new DeathEater(game, "Alecto Carrow", 110, 1, 1.6, 4.2, "I'll make sure you regret ever crossing the Dark Lord."));
+            enemies.add(new DeathEater(game, "Lucius Malfoy", 125, 0.9, 1.85, 3.3, "My loyalty lies with the Dark Lord."));
+            enemies.add(new DeathEater(game, "Corban Yaxley", 190, 0.7, 1, 4.7, "I serve the Dark Lord and nothing else. You will not break through my defense."));
+            enemies.add(new DeathEater(game, "Antonin Dolohov", 130, 0.85, 2.15, 3.8, "I'll take pleasure in taking you down!"));
+
         }
         else {
-            Student cho = new Student(game, "Cho Chang", 90, 1, 1, 4.4, "I won't let you hurt my friends or my school.");
-            cho.spawn();
-            startBattle(cho);
-            Student neville = new Student(game, "Neville Longbottom", 140,1.05,1.05,2.9, "I'm not the same boy you used to know. I've learned a few things since then.");
-            neville.spawn();
-            startBattle(neville);
-            display.displayInfo("You are able to rest for a little bit and gain back some health...");
-            player.heal(60);
-            Student ginny = new Student(game, "Ginny Weasley", 100, 0.85, 1.2, 3.4, "I may be small, but I can pack a punch.");
-            ginny.spawn();
-            startBattle(ginny);
-            Student cedric = new Student(game, "Cedric Diggory", 155, 0.8, 1.45, 4, "Let's make this a fair fight, shall we?");
-            cedric.spawn();
-            startBattle(cedric);
+            enemies.add(new Student(game, "Cho Chang", 90, 1, 1, 4.4, "I won't let you hurt my friends or my school."));
+            enemies.add(new Student(game, "Neville Longbottom", 140,1.05,1.05,2.9, "I'm not the same boy you used to know. I've learned a few things since then."));
+            enemies.add(new Student(game, "Ginny Weasley", 100, 0.85, 1.2, 3.4, "I may be small, but I can pack a punch."));
+            enemies.add(new Student(game, "Cedric Diggory", 155, 0.8, 1.45, 4, "Let's make this a fair fight, shall we?"));
         }
         finish();
+    }
+
+    public void fightNextOpponentIfAny() {
+        if (currentBattleIndex == 2) {
+            display.displayInfo("As your next opponents are shocked by your abilities, you are able to rest for a little and gain back some health...");
+            player.heal(70);
+        }
+        if (currentBattleIndex >= enemies.size()) {
+            finish();
+            return;
+        }
+        EnemyWizard enemy = enemies.get(currentBattleIndex);
+        enemy.spawn();
+        currentBattleIndex++;
+        startBattle(enemy, (e) -> {
+            fightNextOpponentIfAny();
+        });
     }
 
     @Override

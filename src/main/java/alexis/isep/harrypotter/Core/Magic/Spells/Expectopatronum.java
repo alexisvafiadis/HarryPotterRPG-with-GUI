@@ -3,11 +3,12 @@ package alexis.isep.harrypotter.Core.Magic.Spells;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.Spell;
+import javafx.scene.paint.Color;
 
 public class Expectopatronum extends Spell {
 
     public Expectopatronum(Game game, Wizard wizard) {
-        super(game, wizard, "Expecto Patronum", 5, 1, 0.05, 0);
+        super(game, wizard, "Expecto Patronum", Color.WHITE, 5, 1, 0.05, 0);
     }
 
     public boolean cast() {

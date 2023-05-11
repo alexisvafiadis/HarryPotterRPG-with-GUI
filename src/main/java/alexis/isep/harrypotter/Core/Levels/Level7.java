@@ -17,7 +17,7 @@ public class Level7 extends Level{
         if (player.isAgainstDeathEaters()) {
             BellatrixLestrange bellatrix = new BellatrixLestrange(game);
             bellatrix.spawn();
-            new Battle(game,this,player,bellatrix);
+/*            new Battle(game,this,player,bellatrix);
             Voldemort voldemort = new Voldemort(game);
             voldemort.spawn();
             new Battle(game,this,player,voldemort);
@@ -31,7 +31,7 @@ public class Level7 extends Level{
             new Battle(game, this, player, ron);
             HermioneGranger hermione = new HermioneGranger(game);
             hermione.spawn();
-            new Battle(game, this, player, hermione);
+            new Battle(game, this, player, hermione);*/
         }
         finish();
     }

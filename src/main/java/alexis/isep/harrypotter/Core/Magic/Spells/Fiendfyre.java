@@ -5,13 +5,14 @@ import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
 import alexis.isep.harrypotter.Core.Magic.SimpleSpell;
+import javafx.scene.paint.Color;
 
 public class Fiendfyre extends SimpleSpell {
     private final double DAMAGE = 30;
     private final int EFFECT_DURATION = 3;
 
     public Fiendfyre(Game game, Character wizard) {
-        super(game, wizard, "Fiendfyre", 5, 1, 0.19, 0.15);
+        super(game, wizard, "Fiendfyre", Color.DARKRED,5, 1, 0.19, 0.15);
         setForbidden(true);
     }
 

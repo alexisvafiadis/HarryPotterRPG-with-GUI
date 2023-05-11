@@ -19,12 +19,20 @@ public class Level3 extends Level{
         player.spawn();
         super.start();
         expectoPatronumUsed = false;
-        while (!expectoPatronumUsed) {
-            Dementor dementor = new Dementor(game);
-            dementor.spawn();
-            startBattle(dementor);
-        }
-        finish();
+        dementorBattleUntilExpectoPatronum();
+    }
+
+    public void dementorBattleUntilExpectoPatronum() {
+        Dementor dementor = new Dementor(game);
+        dementor.spawn();
+
+        startBattle(dementor, (e) -> {
+            if (expectoPatronumUsed) {
+                finish();
+            } else {
+                dementorBattleUntilExpectoPatronum(); // Recursive call to start the next battle
+            }
+        });
     }
 
     @Override

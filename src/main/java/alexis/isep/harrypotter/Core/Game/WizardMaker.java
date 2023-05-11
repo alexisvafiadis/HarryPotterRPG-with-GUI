@@ -1,5 +1,8 @@
 package alexis.isep.harrypotter.Core.Game;
 
+import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
+import alexis.isep.harrypotter.GUI.BattleController;
+import alexis.isep.harrypotter.GUI.CreateCharacterController;
 import alexis.isep.harrypotter.GUI.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.Characteristics.Pet;
@@ -16,40 +19,38 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class WizardMaker {
-    Game game;
-    Display display;
-    InputParser inputParser;
-    Wizard player;
+    private Game game;
+    private Display display;
+    private Wizard player;
+    private CreateCharacterController createCharacterController;
 
     public WizardMaker(Game game) {
         this.game = game;
         display = game.getDisplay();
-        inputParser = game.getInputParser();
         player = game.getPlayer();
-        askName();
-        display.displayInfo("Welcome to Hogwarts, " + player.getName());
-        display.displayInfo("Now let's get some things sorted.");
-        askPet();
+    }
+
+    public void setCreateCharacterController(CreateCharacterController createCharacterController) {
+        this.createCharacterController = createCharacterController;
+    }
+
+    public void askForCharacterCreation() {
+        display.displayInfo("Hello young wizard!");
+        display.displayInfo("Let's get some things sorted out before you can start your journey.");
+        display.displayInfo("Complete the information above then click on the button to create your character.");
+        display.setOnFinish((e) -> createCharacterController.enableInput());
+    }
+
+    public void finishIntroduction() {
+        game.setScene("/alexis/isep/harrypotter/GUI/Introduction.fxml",null);
+        game.addDialogPane(1);
+        display.displayInfo("Welcome to Hogwarts, " + player.getName() + "!");
+        display.displayInfo("You chose the pet " + player.getPet() + ". I hope you two will get along!");
         makeWand();
         teachBasicSpells();
+        display.setOnFinish((e) -> game.mainGame());
     }
 
-    public void askName() {
-        display.displayRequest("Hello, what would you like your wizard name to be?");
-        player.setName(inputParser.getSc().nextLine());
-    }
-
-    public void askPet() {
-        HashMap<Integer, String> validInputs = new HashMap<>();
-        validInputs.put(1, "Owl");
-        validInputs.put(2, "Cat");
-        validInputs.put(3, "Rat");
-        validInputs.put(4, "Toad");
-
-        String petName = inputParser.getNumberToStringInput("Choose your pet.", validInputs, "for");
-        display.displayInfo("You chose the pet " + petName + ". I hope you two will get along!");
-        game.getPlayer().setPet(Pet.valueOf(petName.toUpperCase()));
-    }
 
     public void makeWand() {
         display.displayInfo("It's now time to give you your wand. Let me search for the right one for you... ");
@@ -59,7 +60,7 @@ public class WizardMaker {
         int woodIndex = random.nextInt(Wood.values().length);
         Wood wood = Wood.values()[woodIndex];
         player.setWand(new Wand(wandCore, wood, 1,player));
-        display.displayInfo("... Found it! It's an amazing wand, made of " + wandCore.toString() + " and " + wood.toString());
+        display.displayInfo("........            \n Found it! It's an amazing wand, made of " + wandCore.toString() + " and " + wood.toString());
         display.displayInfo("I'm sure you'll make great use of it.");
     }
 

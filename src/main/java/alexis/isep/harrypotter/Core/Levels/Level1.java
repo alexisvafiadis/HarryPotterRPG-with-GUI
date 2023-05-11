@@ -20,7 +20,6 @@ public class Level1 extends Level{
             Troll troll = new Troll(game);
             troll.spawn();
             startBattle(troll);});
-            //finish();
     }
 
     @Override
@@ -33,8 +32,8 @@ public class Level1 extends Level{
     @Override
     public void introduce() {
         showLevelScene();
-        display.displayInfo("In this level, you have to defeat the Troll.");
-        display.displayInfo("In order to do that, you have to use the Wingardium Leviosa spell to lift and throw items on the Troll's head");
+        display.displayInfo("For this level, you unfortunately run into the Troll, and you have to defeat it to survive.");
+        display.displayInfo("In order to do that, you have to use the spell called Wingardium Leviosa to lift and throw items on the Troll's head");
         (new WingardiumLeviosa(game, player)).teach(player);
         wishGoodLuck();
     }

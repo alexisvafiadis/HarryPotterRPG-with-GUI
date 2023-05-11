@@ -5,12 +5,13 @@ import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
 import alexis.isep.harrypotter.Core.Magic.SimpleSpell;
+import javafx.scene.paint.Color;
 
 public class Protego extends SimpleSpell {
     private final int EFFECT_DURATION = 2;
 
     public Protego(Game game, Character wizard) {
-        super(game, wizard, "Protego", 5, 1, 0.63, 0.29);
+        super(game, wizard, "Protego", Color.LIGHTBLUE, 5, 1, 0.63, 0.29);
     }
 
     public void cast(Character target) {
@@ -24,7 +25,6 @@ public class Protego extends SimpleSpell {
     public void displayInstructions() {
         inputParser.waitForConfirmation("Point your wand in the direction of potential attacks and make a circular motion while saying \"Protego\"\n" +
                 "A translucent shield will appear, which will protect you from the incoming attack.\n" +
-                "Remember to move quickly and accurately, as the shield will only last for a short time.\n" +
-                "Understood?");
+                "Remember to stay careful and act quickly, as the shield will only last for a short time.");
     }
 }

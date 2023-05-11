@@ -5,13 +5,14 @@ import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
 import alexis.isep.harrypotter.Core.Magic.SimpleSpell;
+import javafx.scene.paint.Color;
 
 public class Crucio extends SimpleSpell {
     private final double DAMAGE_AT_THE_END = 40;
     private final int EFFECT_DURATION = 3;
 
     public Crucio(Game game, Character wizard) {
-        super(game, wizard, "Crucio", 5, 1, 0.22, 0.19);
+        super(game, wizard, "Crucio", Color.RED, 5, 1, 0.22, 0.19);
         setForbidden(true);
     }
 

@@ -4,12 +4,13 @@ import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Item;
+import javafx.scene.paint.Color;
 
 public class Reducto extends ItemSpell {
     private final double DEFAULT_DAMAGE = 25;
 
     public Reducto(Game game, Wizard wizard) {
-        super(game, wizard, "Reducto", 5, 1, 0.48, 0.26,"to explode");
+        super(game, wizard, "Reducto", Color.DARKORANGE, 5, 1, 0.48, 0.26,"to explode");
     }
 
     public boolean cast(Item item, Character target) {
@@ -25,7 +26,6 @@ public class Reducto extends ItemSpell {
     public void displayInstructions() {
         inputParser.waitForConfirmation("Aim your wand at the object you want to destroy.\n" +
                 " Say \"Reducto\" with confidence and flick your wand in a quick diagonal motion\n" +
-                "A powerful red blast of light will shoot from your wand and hit the target, causing it to explode or shatter.\n" +
-                "Understood?");
+                "A powerful orange blast of light will shoot from your wand and hit the target, causing it to explode or shatter.\n");
     }
 }

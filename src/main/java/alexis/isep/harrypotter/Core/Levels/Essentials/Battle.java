@@ -13,6 +13,8 @@ import alexis.isep.harrypotter.Core.Levels.Level2;
 import alexis.isep.harrypotter.Core.Levels.Level3;
 import alexis.isep.harrypotter.Core.Magic.*;
 import alexis.isep.harrypotter.Core.Magic.Spells.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -29,14 +31,16 @@ public class Battle {
     protected BattleController battleController;
     protected int roundNumber;
     protected HashMap<Integer, String> spellInputs;
+    protected EventHandler<ActionEvent> onFinishedEventHandler;
 
-    public Battle(Game game, Level level, Wizard player, AbstractEnemy enemy) {
+    public Battle(Game game, Level level, Wizard player, AbstractEnemy enemy, EventHandler<ActionEvent> onFinishedEventHandler) {
         this.game = game;
         this.display = game.getDisplay();
         this.inputParser = game.getInputParser();
         this.level = level;
         this.player = player;
         this.enemy = enemy;
+        this.onFinishedEventHandler = onFinishedEventHandler;
         player.setBattle(this);
         enemy.setBattle(this);
         roundNumber = 1;
@@ -83,7 +87,7 @@ public class Battle {
                 level.fail();
             } else {
                 displayBattleWinMessage();
-                level.finish();
+                display.setOnFinish(onFinishedEventHandler);
             }
         }
         else {

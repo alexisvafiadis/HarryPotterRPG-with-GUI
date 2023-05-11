@@ -1,16 +1,16 @@
 package alexis.isep.harrypotter.Core.Levels;
 
-import alexis.isep.harrypotter.GUI.BattleController;
-import alexis.isep.harrypotter.GUI.Display;
+import alexis.isep.harrypotter.GUI.*;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.ItemType;
 import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
-import alexis.isep.harrypotter.GUI.LevelController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,10 +88,17 @@ public abstract class Level {
      */
 
     public void finish() {
+        LevelSummaryController levelSummaryController = new LevelSummaryController(this);
+        game.setScene("/alexis/isep/harrypotter/GUI/LevelSummary.fxml",param -> levelSummaryController);
+        game.addDialogPane(1);
         if (!levelCompleted) {
             conclude();
             display.announceSuccess("Congratulations, you have completed the level " + number + "!");
             askForUpgrade();
+            display.setOnFinish((e) -> {
+                display.hide();
+                levelSummaryController.enableContinueButton();
+            });
             levelCompleted = true;
         }
     }
@@ -100,11 +107,20 @@ public abstract class Level {
 
     public void showLevelScene() {
         game.setScene("/alexis/isep/harrypotter/GUI/Level.fxml",param -> new LevelController(this,game,player));
-        game.addDialogPane();
+        game.addDialogPane(1);
+        AnchorPane anchorPane = ((AnchorPane) ((AnchorPane) game.getStage().getScene().getRoot()).getChildren().get(1));
+        game.showElement("PotionInventory",param->new PotionInventoryController(player,false),420,165,anchorPane);
     }
 
     public void askForUpgrade() {
+        display.displayInfo("You can now upgrade one of your attributes. \nChoose wisely.");
+    }
 
+    public void upgradeAndNextLevel(String upgradeChoice) {
+        upgrade(upgradeChoice);
+        display.setOnFinish((e) -> {
+            game.nextLevel();
+        });
     }
 
     public void upgrade(String upgradeChoice) {
@@ -158,45 +174,35 @@ public abstract class Level {
         return outdoors;
     }
 
-    public void askForDirections() {
-        HashMap<Integer, String> directionInputs = new HashMap<>();
-        directionInputs.put(1, "move forwards");
-        directionInputs.put(2, "move backwards");
-        directionInputs.put(3, "move to the left");
-        directionInputs.put(4, "move to the right");
-        String directionChoice = inputParser.getNumberToStringInput("Where do you want to go?", directionInputs, "to");
-        boolean canMove = false;
-        switch (directionChoice) {
-            case "move forwards":
-                canMove = player.moveForwards();
-                break;
-            case "move backwards":
-                canMove = player.moveBackwards();
-                break;
-            case "move to the left":
-                canMove = player.moveLeft();
-                break;
-            case "move to the right":
-                canMove = player.moveRight();
-                break;
+    public void startBattle(AbstractEnemy enemy, EventHandler<ActionEvent> onBattleFinishEventHandler, Battle battle) {
+        if (battle == null) {
+            battle = new Battle(game, this, player, enemy, onBattleFinishEventHandler);
         }
-        if (canMove) {
-            display.displayInfo("You successfully " + directionChoice);
-        } else {
-            display.announceFail("You cannot move there, sorry. Choose another direction");
-        }
-    }
-
-    public void startBattle(AbstractEnemy enemy) {
-        Battle battle = new Battle(game, this, player, enemy);
         BattleController battleController = new BattleController(battle);
         battle.setBattleController(battleController);
         game.setScene("/alexis/isep/harrypotter/GUI/Battle.fxml",param -> battleController);
-        game.addDialogPane(true);
+        game.addDialogPane(0.63);
         battle.start();
+    }
+
+    public void startBattle(AbstractEnemy abstractEnemy,  EventHandler<ActionEvent> onBattleFinishEventHandler) {
+        startBattle(abstractEnemy, onBattleFinishEventHandler, null);
+    }
+
+    //If no event handler is specified, then the battle is the last battle of the level and the finish function will be called
+    public void startBattle(AbstractEnemy enemy) {
+        startBattle(enemy,(e) -> this.finish());
     }
 
     public Image getImage() {
         return (new Image(getClass().getResourceAsStream("/alexis/isep/harrypotter/images/scene/battles/Background" + getNumber() + ".png")));
+    }
+
+    public Wizard getPlayer() {
+        return player;
+    }
+
+    public Game getGame() {
+        return game;
     }
 }

@@ -21,9 +21,16 @@ public class PotionInventoryController {
     @FXML
     private GridPane potionGridPane;
     private Wizard player;
+    private boolean duringBattle;
 
     public PotionInventoryController(Wizard player) {
         this.player = player;
+        duringBattle = true;
+    }
+
+    public PotionInventoryController(Wizard player, boolean duringBattle) {
+        this.player = player;
+        this.duringBattle = duringBattle;
     }
 
     @FXML
@@ -47,7 +54,10 @@ public class PotionInventoryController {
             t.setFont(javafx.scene.text.Font.font(14));
             Tooltip.install(potionStackPane, t);
             potionImageView.setImage(potionType.getImage());
-            potionImageView.setId(potionType.name());
+            if (duringBattle) {
+                potionImageView.setId(potionType.name());
+                potionStackPane.setOnMouseClicked(this::potionChooseEventHandler);
+            }
             i++;
         }
         for (i = potionCounts.size() ; i < 9 ; i++) {
@@ -58,9 +68,17 @@ public class PotionInventoryController {
 
     @FXML
     public void potionChooseEventHandler(MouseEvent mouseEvent) {
-        System.out.println(((StackPane) mouseEvent.getSource()).getChildren().get(1).getId());
-        PotionType potionType = PotionType.valueOf(((StackPane) mouseEvent.getSource()).getChildren().get(1).getId());
-        if (potionType == null) {return;}
+        String imageID = ((StackPane) mouseEvent.getSource()).getChildren().get(1).getId();
+        System.out.println("ID of image :" + imageID);
+        PotionType potionType;
+        try {
+            potionType = PotionType.valueOf(((StackPane) mouseEvent.getSource()).getChildren().get(1).getId());
+
+        }
+        catch(IllegalArgumentException e) {
+            System.out.println("ID of image doesn't match any PotionType");
+            return;
+        }
         player.consumePotion(player.getPotion(potionType));
         player.getBattle().enemyAction();
     }

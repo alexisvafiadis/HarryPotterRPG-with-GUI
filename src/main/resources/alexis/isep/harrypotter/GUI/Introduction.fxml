@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="720" maxWidth="960.0" minHeight="720.0" minWidth="960.0" prefHeight="720.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="background" fitHeight="720.0" fitWidth="960.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="73.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../images/scene/Introduction.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="playerImage" fitHeight="331.0" fitWidth="226.0" layoutX="360.0" layoutY="178.0" pickOnBounds="true" preserveRatio="false">
+         <image>
+            <Image url="@../images/characters/Flitwick.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

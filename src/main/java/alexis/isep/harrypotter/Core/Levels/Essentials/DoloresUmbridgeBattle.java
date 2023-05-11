@@ -5,12 +5,14 @@ import alexis.isep.harrypotter.Core.Characters.Enemies.DoloresUmbridge;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Levels.Level;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class DoloresUmbridgeBattle extends Battle {
     final int NB_OF_ROUNDS_BEFORE_WIN = 15;
 
-    public DoloresUmbridgeBattle(Game game, Level level, Wizard player, AbstractEnemy enemy) {
-        super(game, level, player, enemy);
+    public DoloresUmbridgeBattle(Game game, Level level, Wizard player, AbstractEnemy enemy, EventHandler<ActionEvent> e) {
+        super(game, level, player, enemy,e);
     }
 
     @Override

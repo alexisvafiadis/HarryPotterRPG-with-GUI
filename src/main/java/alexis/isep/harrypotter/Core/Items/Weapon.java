@@ -15,6 +15,6 @@ public enum Weapon {
         return attackDamage;
     }
 
-    public String toString() { return name().toLowerCase().replace("_", " "); }
+    public String toString() { return name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase().replace("_", " "); }
 
     }

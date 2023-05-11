@@ -4,6 +4,8 @@ import alexis.isep.harrypotter.Core.Characters.Enemies.DoloresUmbridge;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Levels.Essentials.DoloresUmbridgeBattle;
 import alexis.isep.harrypotter.Core.Magic.Spells.Reducto;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class Level5 extends Level{
     private DoloresUmbridge doloresUmbridge;
@@ -20,7 +22,10 @@ public class Level5 extends Level{
         super.start();
         doloresUmbridge = new DoloresUmbridge(game);
         doloresUmbridge.spawn();
-        new DoloresUmbridgeBattle(game, this, player, doloresUmbridge).start();
+        new DoloresUmbridgeBattle(game, this, player, doloresUmbridge,(e) -> handleDoloresUmbridgeBattle()).start();
+    }
+
+    public void handleDoloresUmbridgeBattle() {
         if (!doloresUmbridge.isDistracted()) {
             display.announceFail("You weren't able to distract Dolores Umbridge for enough time.");
             fail();
@@ -31,8 +36,8 @@ public class Level5 extends Level{
         }
         else {
             display.announceSuccess("Well done, you have distracted Dolores Umbridge for enough time!");
+            finish();
         }
-        finish();
     }
 
     @Override

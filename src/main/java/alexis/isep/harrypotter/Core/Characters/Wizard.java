@@ -12,7 +12,6 @@ import alexis.isep.harrypotter.Core.Magic.Spell;
 import alexis.isep.harrypotter.Core.Magic.PotionType;
 import javafx.scene.image.Image;
 
-import java.net.URL;
 import java.util.*;
 
 public class Wizard extends Character{
@@ -21,8 +20,8 @@ public class Wizard extends Character{
     private Pet pet;
     private Wand wand;
     private House house;
-    private LinkedHashMap<String, Spell> knownSpells;
-    private List<Potion> potions;
+    private final LinkedHashMap<String, Spell> knownSpells;
+    private final List<Potion> potions;
     private boolean againstDeathEaters;
 
     //Stats
@@ -60,30 +59,6 @@ public class Wizard extends Character{
         }
         damage = damage * house.getDAMAGE_VULNERABILITY();
         return damage;
-    }
-
-    public Pet getPet() {
-        return pet;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
-
-    public Wand getWand() {
-        return wand;
-    }
-
-    public void setWand(Wand wand) {
-        this.wand = wand;
-    }
-
-    public House getHouse() {
-        return house;
-    }
-
-    public void setHouse(House house) {
-        this.house = house;
     }
 
     public void setHouse(int houseNumber) {
@@ -209,7 +184,11 @@ public class Wizard extends Character{
 
     @Override
     public Image getImage() {
-        return new Image(getClass().getResource("/alexis/isep/harrypotter/images/characters/" + getHouse().getIMAGE_NAME()).toString(), true);
+        return new Image(getClass().getResource(game.getGameRoot() + "images/characters/" + getHouse().getIMAGE_NAME()).toString(), true);
+    }
+
+    public Image getPetImage() {
+        return new Image(getClass().getResource(game.getGameRoot() + "images/pets/" + getPet().name()).toString(), true);
     }
 
     public List<Potion> getPotions() {
@@ -223,5 +202,29 @@ public class Wizard extends Character{
             }
         }
         return null;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    public Wand getWand() {
+        return wand;
+    }
+
+    public void setWand(Wand wand) {
+        this.wand = wand;
+    }
+
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
     }
 }

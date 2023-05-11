@@ -6,6 +6,7 @@ import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Characters.EnemyWizard;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
 import alexis.isep.harrypotter.GUI.Game;
+import javafx.scene.paint.Color;
 
 public abstract class Spell {
     //Global
@@ -15,6 +16,8 @@ public abstract class Spell {
 
     //Spell-specific
     protected String name;
+    private Color color;
+
     protected int range;
     protected float cooldown;
     private double learningExponent;
@@ -29,12 +32,13 @@ public abstract class Spell {
     final private String CAST_MESSAGE_SUCCESS = "successfully cast";
     final private String CAST_MESSAGE_FAIL = "failed to cast";
 
-    public Spell(Game game, Character wizard, String name, int range, float cooldown, double learningExponent, double defaultMasteryScore) {
+    public Spell(Game game, Character wizard, String name, Color color, int range, float cooldown, double learningExponent, double defaultMasteryScore) {
         this.game = game;
         this.wizard = wizard;
         this.display = game.getDisplay();
         this.inputParser = game.getInputParser();
         this.name = name;
+        this.color = color;
         //Range and cooldowns aren't used yet, but could be useful if the game becomes a bit more complex when making the graphic interface
         this.range = range;
         this.cooldown = cooldown;
@@ -118,7 +122,7 @@ public abstract class Spell {
         else {
             display.displayInfo(castMessage);
         }
-        wizard.getBattle().getBattleController().playSpellAnimation((e) -> {
+        wizard.getBattle().getBattleController().playSpellAnimation(this,(e) -> {
             wizard.getBattle().handleCharacterAction(wizard,fromPlayer);
         }, fromPlayer);
     }
@@ -195,5 +199,9 @@ public abstract class Spell {
 
     public void setForbidden(boolean forbidden) {
         isForbidden = forbidden;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }
