@@ -1,6 +1,7 @@
 package alexis.isep.harrypotter.Core.Characters;
 
 import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
+import alexis.isep.harrypotter.Core.Levels.Level4;
 import alexis.isep.harrypotter.GUI.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.GUI.Game;
@@ -84,12 +85,29 @@ public abstract class Character {
             target.damage(damage);
             battle.getBattleController().playAttackAnimation((e) -> {
                 display.displayInfo(information);
-                battle.handleCharacterAction(this,fromPlayer);
+                finishRoundAction(fromPlayer);
             }, fromPlayer
             );
         }
         else {
-            battle.handleCharacterAction(this,fromPlayer);
+            finishRoundAction(fromPlayer);
+        }
+    }
+    public void finishRoundAction(boolean isPlayer) {
+        battle.handleCharacterAction(this,isPlayer);
+    }
+    public void finishRoundAction() {
+        battle.handleCharacterAction(this,(this instanceof Wizard));
+    }
+
+    public void decideWhichRoundAction() {
+        if (isInBattle()) {
+            finishRoundAction();
+        }
+        else {
+            if (game.getCurrentLevel() instanceof Level4) {
+                ((Level4) game.getCurrentLevel()).finishRound();
+            }
         }
     }
 
@@ -98,7 +116,7 @@ public abstract class Character {
     }
 
     public void damage(double damage) {
-        if (HP <= damage) { die();}
+        if (HP <= damage) { die(); HP = 0;}
         else { HP = HP - damage; }
     }
 
@@ -214,27 +232,6 @@ public abstract class Character {
         else {
             return false;
         }
-        /*
-        if (getEffectProbability(EffectType.LAUGH)) {
-
-        }
-        else if (getEffectProbability(EffectType.CONFUSION)) {
-            display.displayInfo(getName() + " couldn't do anything because they are confused.");
-            return false;
-        }
-        else if (getEffectProbability(EffectType.STUN)) {
-            display.displayInfo(getName() + " couldn't do anything because they are momentarily stunned");
-            return false;
-        }
-        else if (target.getEffectProbability(EffectType.HIDE)) {
-            display.announceSuccess("Well done, " + getName() + " couldn't find you!");
-            return false;
-        }
-        else if (target.getEffectProbability(EffectType.SHIELD)) {
-            display.displayInfo(target.getName() + "'s shield protected them from " + getName() +"'s attack");
-            return false;
-        }
-         */
     }
 
     public boolean getEffectProbability(EffectType et) {
@@ -291,9 +288,9 @@ public abstract class Character {
 
     public boolean moveBackwards() {  return moveTo(positionX, positionY - moveStep); }
 
-    public boolean moveRight() {  return moveTo(positionX + moveStep, positionY); }
+    public boolean moveRight() {  return moveTo(positionX - moveStep, positionY); }
 
-    public boolean moveLeft() { return moveTo(positionX - moveStep, positionY); }
+    public boolean moveLeft() { return moveTo(positionX + moveStep, positionY); }
 
     public boolean moveTo(Integer positionX, Integer positionY) {
         if (this.positionX != null && this.positionY != null) {
@@ -324,5 +321,7 @@ public abstract class Character {
         return battle;
     }
 
-
+    public void setHP(double HP) {
+        this.HP = HP;
+    }
 }

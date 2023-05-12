@@ -87,7 +87,7 @@ public class BattleController {
         updatePlayerWeapon();
         updateEnemyWeapon();
         setHP();
-
+        disableAllActionButtons(true);
         List<Integer> levelsWithWeapon = Arrays.asList(2, 3);
         if (levelsWithWeapon.contains(battle.getLevel().getNumber())) {
             situationalButton.setDisable(true);
@@ -162,22 +162,15 @@ public class BattleController {
     @FXML
     void actionButtonEvent(ActionEvent event) {
         if (!(event.getSource() instanceof Button)) {return ;}
-        disableAllActionButtons();
+        disableAllActionButtons(true);
         battle.playerAction(((Button)event.getSource()).getText());
     }
 
-    public void disableAllActionButtons() {
-        lookAroundButton.setDisable(true);
-        castSpellButton.setDisable(true);
-        situationalButton.setDisable(true);
-        usePotionButton.setDisable(true);
-    }
-
-    public void finishRound() {
-        lookAroundButton.setDisable(false);
-        castSpellButton.setDisable(false);
-        situationalButton.setDisable(false);
-        usePotionButton.setDisable(false);
+    public void disableAllActionButtons(boolean disable) {
+        lookAroundButton.setDisable(disable);
+        castSpellButton.setDisable(disable);
+        situationalButton.setDisable(disable);
+        usePotionButton.setDisable(disable);
     }
 
     public void playSpellAnimation(Spell spell, EventHandler<ActionEvent> onFinishEventHandler, boolean fromPlayer) {
@@ -187,15 +180,19 @@ public class BattleController {
             return;
         }
         ImageView attacker, target;
+        int attackerXFactor, attackerYFactor;
         if (fromPlayer) {
             attacker = playerImage;
             target = enemyImage;
+            attackerXFactor = 1;
+            attackerYFactor = 4;
         }
         else {
             attacker = enemyImage;
             target = playerImage;
+            attackerXFactor = 8;
+            attackerYFactor = 8;
         }
-
         double toX, toY, rotateDuration, rotateAngle;
         boolean offensive = !(spell instanceof Protego);
         if (offensive) {
@@ -215,12 +212,8 @@ public class BattleController {
 
         // Create a TranslateTransition to move the spell from the player to the target
         TranslateTransition translate = new TranslateTransition(Duration.seconds(1.45), spellShape);
-        System.out.println(getRealImageX(attacker));
-        System.out.println(getRealImageY(attacker));
-        System.out.println(getRealImageX(target));
-        System.out.println(getRealImageY(target));
-        translate.setFromX(getRealImageX(attacker));
-        translate.setFromY(getRealImageY(attacker));
+        translate.setFromX(getRealImageX(attacker,attackerXFactor));
+        translate.setFromY(getRealImageY(attacker,attackerYFactor));
         translate.setToX(toX);
         translate.setToY(toY);
 
@@ -238,20 +231,27 @@ public class BattleController {
         rotate.play();
     }
 
-    public double getRealImageX(ImageView imageView) {
+    public double getRealImageX(ImageView imageView, double factor) {
         Bounds bounds = imageView.localToScene(imageView.getBoundsInLocal());
-        return bounds.getMinX() + bounds.getWidth() / 2.0;
+        return bounds.getMinX() + bounds.getWidth() / factor;
     }
 
-    public double getRealImageY(ImageView imageView) {
+    public double getRealImageY(ImageView imageView, double factor) {
         Bounds bounds = imageView.localToScene(imageView.getBoundsInLocal());
-        return bounds.getMinY() + bounds.getHeight() / 2.0;
+        return bounds.getMinY() + bounds.getHeight() / factor;
+    }
+
+    public double getRealImageX(ImageView imageView) {
+        return getRealImageX(imageView, 2);
+    }
+    public double getRealImageY(ImageView imageView) {
+        return getRealImageY(imageView, 2);
     }
 
     public void playAttackAnimation(EventHandler<ActionEvent> onFinishEventHandler, boolean fromPlayer) {
         battle.getGame().closeSubWindows();
         ImageView attackerImage, targetImage;
-        ProgressBar attackerBar, targetBar;
+        ProgressBar targetBar;
         Text targetHPLabel;
         Character target;
         if (fromPlayer) {

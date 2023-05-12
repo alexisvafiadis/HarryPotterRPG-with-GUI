@@ -64,6 +64,7 @@ public abstract class Spell {
     //Doesn't display if the cast is successful because some spells may need extra requirements for a spell to be successful
     public boolean isCastSuccessful(Character target) {
         if (target != null && !wizard.canAttack(target)) {
+            wizard.decideWhichRoundAction();
             return false;
         }
         double probability;
@@ -95,15 +96,19 @@ public abstract class Spell {
         }
         boolean castSuccessful = (Math.random() < probability) ;
         if (!castSuccessful) {
-            if (wizard instanceof Wizard) {
-                display.announceFail(game.getMessageStartHave(wizard) + " " + CAST_MESSAGE_FAIL + " " + getName());
-            }
-            else {
-                display.displayInfo(game.getMessageStartHave(wizard) + " " + CAST_MESSAGE_FAIL + " " + getName());
-            }
-            wizard.getBattle().handleCharacterAction(wizard,fromPlayer);
+            displayCustomFailMessage(CAST_MESSAGE_FAIL + " " + getName());
+            wizard.decideWhichRoundAction();
         }
         return castSuccessful;
+    }
+
+    public void displayCustomFailMessage(String message) {
+        if (wizard instanceof Wizard) {
+            display.announceFail(game.getMessageStartHave(wizard) + " " + message);
+        }
+        else {
+            display.displayInfo(game.getMessageStartHave(wizard) + message);
+        }
     }
 
     public boolean isCastSuccessful() {
@@ -122,9 +127,11 @@ public abstract class Spell {
         else {
             display.displayInfo(castMessage);
         }
-        wizard.getBattle().getBattleController().playSpellAnimation(this,(e) -> {
-            wizard.getBattle().handleCharacterAction(wizard,fromPlayer);
-        }, fromPlayer);
+        if (wizard.isInBattle()) {
+            wizard.getBattle().getBattleController().playSpellAnimation(this, (e) -> {
+                wizard.finishRoundAction(fromPlayer);
+            }, fromPlayer);
+        }
     }
 
     public void teach(Wizard player) {

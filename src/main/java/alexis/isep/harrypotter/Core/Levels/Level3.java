@@ -6,7 +6,7 @@ import alexis.isep.harrypotter.Core.Magic.Spells.Expectopatronum;
 import alexis.isep.harrypotter.Core.Magic.Spells.Lumos;
 
 public class Level3 extends Level{
-    boolean expectoPatronumUsed;
+    private boolean expectoPatronumUsed;
 
     public Level3(Game game) {
         super(game, "The Prisoner of Azkaban","the Great Lake", 3, true);

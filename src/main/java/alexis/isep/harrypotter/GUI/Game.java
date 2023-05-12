@@ -21,7 +21,6 @@ import java.net.URL;
 import java.util.*;
 
 public class Game extends javafx.application.Application{
-    private final String GAME_ROOT = "/alexis/isep/harrypotter/";
     private final String GAME_TITLE = "Harry Potter At Home";
     private Display display;
     private InputParser inputParser;
@@ -30,6 +29,7 @@ public class Game extends javafx.application.Application{
     private Stage stage;
     private final boolean DEBUG_MODE = false;
     private final List<Class<?>> levels = new ArrayList<>();
+    public static final String GAME_ROOT = "/alexis/isep/harrypotter/";
 
 
     @Override
@@ -71,7 +71,8 @@ public class Game extends javafx.application.Application{
         levels.add(Level5.class);
         levels.add(Level6.class);
         levels.add(Level7.class);
-        setLevel(1);
+        teachAllSpells();
+        setLevel(4);
     }
     public void nextLevel() {
         setLevel(currentLevel.getNumber() + 1);
@@ -133,7 +134,6 @@ public class Game extends javafx.application.Application{
         if (fxmlURL == null) {
             throw new RuntimeException("FXML file not found: " + name);
         }
-
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlURL);
         if (callback != null) {
             fxmlLoader.setControllerFactory(callback);
@@ -176,7 +176,7 @@ public class Game extends javafx.application.Application{
     }
 
     public void closeSubWindows() {
-        String[] arrayWindowsToClose = new String[] {"PotionInventory", "SpellCollection","ItemInventory"};
+        String[] arrayWindowsToClose = new String[] {"PotionInventory", "SpellCollection","ItemInventory","LevelMap"};
         List<String> listWindowsToClose = Arrays.asList(arrayWindowsToClose);
         ((AnchorPane) stage.getScene().getRoot()).getChildren().removeIf((node) -> node != null && listWindowsToClose.contains(node.getId()));
         //((AnchorPane) stage.getScene().getRoot()).getChildren().remove(((AnchorPane) stage.getScene().getRoot()).getChildren().size() - 1);

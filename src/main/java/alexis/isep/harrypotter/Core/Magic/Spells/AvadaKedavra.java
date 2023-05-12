@@ -6,10 +6,10 @@ import alexis.isep.harrypotter.Core.Magic.SimpleSpell;
 import javafx.scene.paint.Color;
 
 public class AvadaKedavra extends SimpleSpell {
-    private final double DEFAULT_DAMAGE = 1000;
+    private final double DEFAULT_DAMAGE = 130;
 
     public AvadaKedavra(Game game, Character wizard) {
-        super(game, wizard, "Avada Kedavra", Color.GREEN, 5, 1, 0.2, 0.1);
+        super(game, wizard, "Avada Kedavra", Color.GREEN, 5, 1, 0.2, 0.088);
         setForbidden(true);
     }
 

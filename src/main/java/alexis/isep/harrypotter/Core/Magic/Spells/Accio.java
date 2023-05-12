@@ -1,6 +1,7 @@
 package alexis.isep.harrypotter.Core.Magic.Spells;
 
 import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.Core.Levels.Level4;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.Weapon;
@@ -23,16 +24,14 @@ public class Accio extends Spell {
 
     public boolean cast(Item item) {
         use();
+        if (!(Math.random() < 1 / (Math.pow(wizard.getMap().calculateDistance(wizard,item),4)))) {
+            display.announceFail("Accio failed. You might be too far.");
+            wizard.decideWhichRoundAction();
+            return false;
+        }
         boolean castSuccessful = isCastSuccessful();
         if (castSuccessful) {
-            if (Math.random() < 1 / (Math.pow(wizard.getMap().calculateDistance(wizard,item),4))) {
-                castSuccessful = true;
-                showSuccessfulCast("summoned a " + item.getItemType().toString());
-            }
-            else {
-                castSuccessful = false;
-                display.announceFail("Accio failed. You might be too far.");
-            }
+            showSuccessfulCast("summoned a " + item.getItemType().toString());
         }
         return castSuccessful;
     }
@@ -40,7 +39,7 @@ public class Accio extends Spell {
     @Override
     public void displayInstructions() {
         inputParser.waitForConfirmation("First, have your wand at the ready. Then, focus your attention on the object you want to summon. Visualize the object in your mind and concentrate on it.\n" +
-                "Finally, hold out your wand and say \"Accio\" followed by the name of the object you want to summon.\n" +
-                "If the spell is successful, the object should fly towards you. Remember, the Accio spell only works on objects within your line of sight.");
+                "Finally, hold out your wand and say \"Accio\" followed by the name of the object you want to summon.\n");
+        display.displayInfo("If the spell is successful, the object should fly towards you. Remember, the Accio spell only works on objects within your line of sight.");
     }
 }

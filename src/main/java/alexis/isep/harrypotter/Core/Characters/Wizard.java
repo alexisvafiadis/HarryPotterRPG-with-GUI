@@ -188,7 +188,8 @@ public class Wizard extends Character{
     }
 
     public Image getPetImage() {
-        return new Image(getClass().getResource(game.getGameRoot() + "images/pets/" + getPet().name()).toString(), true);
+        System.out.println(game.getGameRoot() + "images/pets/" + getPet().name());
+        return new Image(getClass().getResource(game.getGameRoot() + "images/pets/" + getPet().name() + ".png").toString(), true);
     }
 
     public List<Potion> getPotions() {

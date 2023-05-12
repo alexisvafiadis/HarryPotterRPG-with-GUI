@@ -17,7 +17,8 @@ public class Expelliarmus extends SimpleSpell {
 
     public void cast(Character target) {
         if (!target.hasWeapon() && !(target instanceof EnemyWizard)) {
-            display.announceFail(target.getName() + " doesn't have a weapon");
+            displayCustomFailMessage("failed to cast Expelliarmus because " + target.getName() + " doesn't have a weapon.");
+            wizard.decideWhichRoundAction();
         }
         else {
             use();

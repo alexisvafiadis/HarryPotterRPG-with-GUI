@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 
 public class ChoiceGridController {
     private Level4 level;
+    private int step;
 
     @FXML
     private Button button1;
@@ -26,10 +27,42 @@ public class ChoiceGridController {
     }
 
     @FXML
+    void initialize() {
+        disableAllActionButtons();
+        button1.setText("Move");
+        button2.setText("Cast Lumos");
+        button3.setText("Cast Accio");
+        button4.setText("");
+    }
+
+    public void askForAction() {
+        step = 1;
+        button1.setText("Move");
+        button2.setText("Cast Lumos");
+        button3.setText("Cast Accio");
+        button4.setText("");
+        enableAllActionButtons(false);
+    }
+
+    public void askForDirections() {
+        step = 2;
+        button1.setText("Forwards");
+        button2.setText("Backwards");
+        button3.setText("Left");
+        button4.setText("Right");
+        enableAllActionButtons(true);
+    }
+
+    @FXML
     void handleActionButtonEvent(ActionEvent event) {
         if (!(event.getSource() instanceof Button)) {return ;}
         disableAllActionButtons();
-        level.chooseAction(((Button)event.getSource()).getText());
+        if (step == 1) {
+            level.chooseAction(((Button) event.getSource()).getText());
+        }
+        else if (step == 2) {
+            level.chooseDirection(((Button) event.getSource()).getText());
+        }
     }
     public void disableAllActionButtons() {
         button1.setDisable(true);
@@ -38,10 +71,10 @@ public class ChoiceGridController {
         button4.setDisable(true);
     }
 
-    public void enableAllActionButtons() {
+    public void enableAllActionButtons(boolean fourthButtonEnabled) {
         button1.setDisable(false);
         button2.setDisable(false);
         button3.setDisable(false);
-        button4.setDisable(false);
+        if (fourthButtonEnabled) button4.setDisable(false);
     }
 }

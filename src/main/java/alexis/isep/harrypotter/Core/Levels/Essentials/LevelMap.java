@@ -2,14 +2,25 @@ package alexis.isep.harrypotter.Core.Levels.Essentials;
 
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Items.Item;
+import alexis.isep.harrypotter.Core.Levels.Level4;
+import alexis.isep.harrypotter.GUI.Game;
+import alexis.isep.harrypotter.GUI.LevelMapController;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 public class LevelMap {
+    private Level4 level4;
     private int width;
     private int height;
     private char[][] grid;
+    private LevelMapController mapController;
 
-    public LevelMap(int width, int height) {
+    public LevelMap(Level4 level4, int width, int height) {
+        this.level4 = level4;
         this.width = width;
         this.height = height;
         grid = new char[width][height];
@@ -40,13 +51,22 @@ public class LevelMap {
         }
     }
 
-    public void display() {
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                System.out.print(grid[i][j] + "  ");
-            }
-            System.out.println();
-        }
+    public void generate() {
+        Game game = level4.getGame();
+        mapController = new LevelMapController(this, level4);
+        game.showElement("LevelMap", param -> mapController,480,125,level4.getLevelController().getInfoAnchorPane());
+        mapController.hide();
+    }
+
+    public void display(int LIGHT_DURATION) {
+        mapController.createGrid(width,height,grid);
+        Timeline timeline = new Timeline();
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(LIGHT_DURATION), (e) -> {
+            mapController.hide();
+            level4.finishRound();
+        });
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
     }
 
     public Image getImageTile(String characterName) {
@@ -69,4 +89,6 @@ public class LevelMap {
     public double calculateDistance(Character character1, Character character2) {
         return Math.sqrt(Math.pow((character1.getPositionX() - character2.getPositionX()), 2) + Math.pow((character1.getPositionY() - character2.getPositionY()), 2));
     }
+
+
 }

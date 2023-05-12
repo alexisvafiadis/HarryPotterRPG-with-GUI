@@ -43,6 +43,9 @@ public class Battle {
         this.onFinishedEventHandler = onFinishedEventHandler;
         player.setBattle(this);
         enemy.setBattle(this);
+        if (game.isInDebugMode()) {
+            enemy.setHP(1);
+        }
         roundNumber = 1;
         spellInputs = getSpellInputs();
     }
@@ -84,9 +87,11 @@ public class Battle {
         roundNumber += 1;
         if (!getBattleContinueCondition()) {
             if (!player.isAlive()) {
+                finish();
                 level.fail();
             } else {
                 displayBattleWinMessage();
+                finish();
                 display.setOnFinish(onFinishedEventHandler);
             }
         }
@@ -98,8 +103,13 @@ public class Battle {
     public void askPlayerForAction() {
         display.displayInfo("What do you want to do? Choose an action.");
         display.setOnFinish((finish) -> {
-            battleController.finishRound();
+            battleController.disableAllActionButtons(false);
         });
+    }
+
+    public void finish() {
+        player.setBattle(null);
+        enemy.setBattle(null);
     }
 
     public void goBackAndAskPlayerForAction() {

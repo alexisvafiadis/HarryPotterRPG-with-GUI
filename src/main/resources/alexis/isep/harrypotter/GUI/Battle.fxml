@@ -18,12 +18,12 @@
                 <Image url="@../images/scene/battles/Background1.png" />
             </image>
         </ImageView>
-        <ImageView fx:id="enemyImage" fitHeight="330.0" fitWidth="275.0" layoutX="614.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="enemyImage" fitHeight="330.0" fitWidth="275.0" layoutX="614.0" layoutY="153.0" pickOnBounds="true" preserveRatio="false" />
         <ImageView fitHeight="130.0" fitWidth="360.0" layoutX="571.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/characters/HPBox.png" />
             </image></ImageView>
-        <ImageView fx:id="playerImage" fitHeight="330.0" fitWidth="275.0" layoutX="78.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="playerImage" fitHeight="330.0" fitWidth="275.0" layoutX="78.0" layoutY="104.0" pickOnBounds="true" preserveRatio="false" />
         <ImageView fitHeight="130.0" fitWidth="360.0" layoutX="36.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/characters/HPBox.png" />

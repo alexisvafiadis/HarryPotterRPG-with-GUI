@@ -8,8 +8,11 @@ import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.ItemType;
 import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
 import alexis.isep.harrypotter.Core.Magic.Spells.*;
+import alexis.isep.harrypotter.GUI.PotionInventoryController;
+import javafx.scene.layout.AnchorPane;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class Level4 extends Level{
     private final int MIN_POTTER_VOLDEMORT_DISTANCE = 4;
@@ -26,59 +29,48 @@ public class Level4 extends Level{
     }
     @Override
     public void start() {
-        map = new LevelMap(10,10);
+        map = new LevelMap(this,10,10);
         player.spawn(5,0,map);
         portkey = new Item(ItemType.PORTKEY, 7,9, map, 'P');
         hasPortkey = false;
         super.start();
+        map.generate();
+        levelController.hideInventoryText();
         voldemort = new Voldemort(game);
         voldemort.spawn(3,5,map);
-        choiceGridController = new ChoiceGridController(this);
-        game.showElement("ChoiceGrid", param -> choiceGridController,2);
         display.setOnFinish((e) -> askForAction());
     }
 
+    @Override
+    public void showMainElements(AnchorPane anchorPane) {
+        choiceGridController = new ChoiceGridController(this);
+        game.showElement("ChoiceGrid", param -> choiceGridController,430,400,anchorPane);
+    }
+
     public void finishRound() {
-        if (!seenByVoldemort() && !hasPortkey) {
-            askForAction();
-        }
-        else if (seenByVoldemort()) {
-            startBattle(voldemort);
-        }
-        else {
-            inputParser.waitForConfirmation("Visualize your room in Hogwarts in your head, then touch the Portkey.");
-            display.displayInfo("The power of the Portkey teleports you back to Hogwarts...");
-            display.setOnFinish((e) -> finish());
-        }
+        display.setOnFinish((e) -> {
+            if (!seenByVoldemort() && !hasPortkey) {
+                if (Math.random() < 0.5) {
+                    voldemort.moveLeft();
+                }
+                else {
+                    voldemort.moveRight();
+                }
+                display.displayInfo("Voldemort is moving, be careful..");
+                askForAction();
+            } else if (seenByVoldemort()) {
+                startBattle(voldemort);
+            } else {
+                inputParser.waitForConfirmation("Visualize your room in Hogwarts in your head, then touch the Portkey.");
+                display.displayInfo("The power of the Portkey teleports you back to Hogwarts...");
+                display.setOnFinish((levelFinish) -> finish());
+            }
+        });
     }
 
     public void askForDirections() {
-        HashMap<Integer, String> directionInputs = new HashMap<>();
-        directionInputs.put(1, "move forwards");
-        directionInputs.put(2, "move backwards");
-        directionInputs.put(3, "move to the left");
-        directionInputs.put(4, "move to the right");
-        String directionChoice = inputParser.getNumberToStringInput("Where do you want to go?", directionInputs, "to");
-        boolean canMove = false;
-        switch (directionChoice) {
-            case "move forwards":
-                canMove = player.moveForwards();
-                break;
-            case "move backwards":
-                canMove = player.moveBackwards();
-                break;
-            case "move to the left":
-                canMove = player.moveLeft();
-                break;
-            case "move to the right":
-                canMove = player.moveRight();
-                break;
-        }
-        if (canMove) {
-            display.displayInfo("You successfully " + directionChoice);
-        } else {
-            display.announceFail("You cannot move there, sorry. Choose another direction");
-        }
+        display.displayInfo("Where do you want to go?");
+        display.setOnFinish((e) -> choiceGridController.askForDirections());
     }
 
     public boolean seenByVoldemort() {
@@ -87,7 +79,7 @@ public class Level4 extends Level{
 
     public void askForAction() {
         display.displayInfo("What do you want to do?");
-        display.setOnFinish((e) -> choiceGridController.enableAllActionButtons());
+        display.setOnFinish((e) -> choiceGridController.askForAction());
     }
 
     public void chooseAction(String actionChoice) {
@@ -95,20 +87,41 @@ public class Level4 extends Level{
             case "Move":
                 askForDirections();
                 break;
-            case "Try to use Accio on the Portkey":
+            case "Cast Accio":
                 if ((((Accio) player.getKnownSpells().get("Accio")).cast(portkey))) {
                     hasPortkey = true;
+                    finishRound();
                 }
                 break;
-            case "Use Lumos":
+            case "Cast Lumos":
                 ((Lumos) player.getKnownSpells().get("Lumos")).cast(map);
                 break;
         }
     }
 
-    public void goBackAndAskForAction() {
-        game.closeSubWindows();
-        askForAction();
+    public void chooseDirection(String directionChoice) {
+        boolean canMove = false;
+        switch (directionChoice) {
+            case "Forwards":
+                canMove = player.moveForwards();
+                break;
+            case "Backwards":
+                canMove = player.moveBackwards();
+                break;
+            case "Left":
+                canMove = player.moveLeft();
+                break;
+            case "Right":
+                canMove = player.moveRight();
+                break;
+        }
+        if (canMove) {
+            display.displayInfo("You successfully move " + directionChoice.toLowerCase());
+            finishRound();
+        } else {
+            display.announceFail("You cannot move there, sorry. Choose another direction");
+            display.setOnFinish((e) -> askForDirections());
+        }
     }
 
     @Override

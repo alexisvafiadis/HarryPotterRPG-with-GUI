@@ -13,7 +13,7 @@
             <Image url="@../images/scene/Battle.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="112.0" prefHeight="536.0" prefWidth="721.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="infoAnchorPane" opacity="0.9" layoutX="112.0" prefHeight="536.0" prefWidth="721.0" style="-fx-background-color: white;">
          <children>
             <Label fx:id="levelText" alignment="CENTER" layoutX="225.0" layoutY="3.0" prefHeight="43.0" prefWidth="290.0" text="Level X">
                <font>
@@ -25,7 +25,7 @@
                   <Font name="Rockwell" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="healthText" alignment="CENTER" layoutX="77.0" layoutY="462.0" prefHeight="30.0" prefWidth="134.0" text="Health : ">
+            <Label fx:id="healthText" alignment="CENTER" layoutX="31.0" layoutY="462.0" prefHeight="30.0" prefWidth="226.0" text="Health : ">
                <font>
                   <Font name="Rockwell" size="16.0" />
                </font>
@@ -40,12 +40,12 @@
                   <Font name="Rockwell" size="18.0" />
                </font>
             </Label>
-            <ImageView fx:id="petImage" fitHeight="99.0" fitWidth="95.0" layoutX="266.0" layoutY="335.0" pickOnBounds="true">
+            <ImageView preserveRatio="true" fx:id="petImage" fitHeight="99.0" fitWidth="95.0" layoutX="266.0" layoutY="335.0" pickOnBounds="true">
                <image>
                   <Image url="@../images/pets/OWL.png" />
                </image>
             </ImageView>
-            <Label fx:id="playerInfoText" alignment="CENTER" layoutX="50.0" layoutY="434.0" prefHeight="30.0" prefWidth="188.0" text="Name from House">
+            <Label fx:id="playerInfoText" alignment="CENTER" layoutX="30.0" layoutY="434.0" prefHeight="30.0" prefWidth="226.0" text="Name from House">
                <font>
                   <Font name="Rockwell" size="16.0" />
                </font>

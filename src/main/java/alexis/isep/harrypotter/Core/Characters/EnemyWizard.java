@@ -1,5 +1,6 @@
 package alexis.isep.harrypotter.Core.Characters;
 
+import alexis.isep.harrypotter.Core.Levels.Level4;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
 import alexis.isep.harrypotter.Core.Magic.SimpleSpell;
@@ -29,6 +30,12 @@ public abstract class EnemyWizard extends AbstractEnemy {
     public void act() {
         if (hasEffect(EffectType.DISARM)) {
             display.displayInfo(getName() + " cannot cast a spell because they are disarmed");
+            if (isInBattle()) {
+                finishRoundAction(false);
+            }
+            else {
+                ((Level4) game.getCurrentLevel()).finishRound();
+            }
         }
         else {
             SimpleSpell spell = generateSpell();

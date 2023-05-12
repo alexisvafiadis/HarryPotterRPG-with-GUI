@@ -22,7 +22,7 @@ public class Level5 extends Level{
         super.start();
         doloresUmbridge = new DoloresUmbridge(game);
         doloresUmbridge.spawn();
-        new DoloresUmbridgeBattle(game, this, player, doloresUmbridge,(e) -> handleDoloresUmbridgeBattle()).start();
+        startBattle(new DoloresUmbridgeBattle(game, this, player, doloresUmbridge,(e) -> handleDoloresUmbridgeBattle()));
     }
 
     public void handleDoloresUmbridgeBattle() {

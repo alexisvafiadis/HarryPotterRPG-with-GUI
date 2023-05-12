@@ -65,6 +65,7 @@ public class Display {
 
     public void setOnFinish(EventHandler<ActionEvent> onFinishEventHandler) {
         if (messages.size() == 0) {
+            onFinishEventHandler.handle(null);
             return;
         }
         timeline = new Timeline();
@@ -72,7 +73,7 @@ public class Display {
         charIndex = 0;
         currentMessage = messages.get(messageIndex);
         textLabel.setTextFill(colors.get(messageIndex));
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(FAST_WRITING_DELAY), event -> {
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(VERY_FAST_WRITING_DELAY), event -> {
             if (charIndex < currentMessage.length()) {
                 String substring = currentMessage.substring(0, charIndex + 1);
                 setText(substring);

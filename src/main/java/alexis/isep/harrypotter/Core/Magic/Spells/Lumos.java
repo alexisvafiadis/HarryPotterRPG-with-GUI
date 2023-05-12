@@ -7,6 +7,7 @@ import alexis.isep.harrypotter.Core.Magic.Spell;
 import javafx.scene.paint.Color;
 
 public class Lumos extends Spell {
+    private final int LIGHT_DURATION = 3;
 
     public Lumos(Game game, Character wizard) {
         super(game, wizard, "Lumos", Color.LIGHTYELLOW,5, 1, 1, 0.45);
@@ -15,9 +16,8 @@ public class Lumos extends Spell {
     public void cast(LevelMap map) {
         use();
         if (isCastSuccessful()) {
-            showSuccessfulCast("see your wand light up and illuminate the area around you, revealing new hidden details.");
-            display.displayInfo("Map of the Level: ");
-            map.display();
+            showSuccessfulCast("see your wand light up and temporarily illuminate the area around you, revealing new hidden details.");
+            display.setOnFinish((e) -> { map.display(LIGHT_DURATION); });
         }
     }
 

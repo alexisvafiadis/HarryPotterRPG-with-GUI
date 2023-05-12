@@ -10,11 +10,11 @@ import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 public abstract class Level {
@@ -105,13 +105,6 @@ public abstract class Level {
 
     public void wishGoodLuck() {display.displayInfo("Good luck!"); }
 
-    public void showLevelScene() {
-        game.setScene("/alexis/isep/harrypotter/GUI/Level.fxml",param -> new LevelController(this,game,player));
-        game.addDialogPane(1);
-        AnchorPane anchorPane = ((AnchorPane) ((AnchorPane) game.getStage().getScene().getRoot()).getChildren().get(1));
-        game.showElement("PotionInventory",param->new PotionInventoryController(player,false),420,165,anchorPane);
-    }
-
     public void askForUpgrade() {
         display.displayInfo("You can now upgrade one of your attributes. \nChoose wisely.");
     }
@@ -185,6 +178,11 @@ public abstract class Level {
         battle.start();
     }
 
+    //If the battle is already specific, no need for the other arguments
+    public void startBattle(Battle battle) {
+        startBattle(null, null, battle);
+    }
+
     public void startBattle(AbstractEnemy abstractEnemy,  EventHandler<ActionEvent> onBattleFinishEventHandler) {
         startBattle(abstractEnemy, onBattleFinishEventHandler, null);
     }
@@ -204,5 +202,19 @@ public abstract class Level {
 
     public Game getGame() {
         return game;
+    }
+
+    public LevelController getLevelController() {
+        return levelController;
+    }
+
+    public void showLevelScene() {
+        levelController = new LevelController(this,game,player);
+        game.setScene("/alexis/isep/harrypotter/GUI/Level.fxml",param -> levelController);
+        game.addDialogPane(1);
+    }
+
+    public void showMainElements(AnchorPane anchorPane) {
+        game.showElement("PotionInventory",param->new PotionInventoryController(player,false),420,165,anchorPane);
     }
 }
