@@ -166,6 +166,10 @@ public abstract class Level {
     }
 
     public void startBattle(AbstractEnemy enemy, EventHandler<ActionEvent> onBattleFinishEventHandler, Battle battle) {
+        if (levelController != null) {
+            levelController.stopMusic();
+            levelController = null;
+        }
         if (battle == null) {
             battle = new Battle(game, this, player, enemy, onBattleFinishEventHandler);
         }

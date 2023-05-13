@@ -132,6 +132,7 @@ public class Battle {
     public void finish() {
         player.setBattle(null);
         enemy.setBattle(null);
+        battleController.stopMusic();
     }
 
     public void goBackAndAskPlayerForAction() {

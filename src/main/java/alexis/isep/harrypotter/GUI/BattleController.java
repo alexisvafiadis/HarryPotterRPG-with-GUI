@@ -18,14 +18,18 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 public class BattleController {
     private final int ANIMATION_COUNT = 18;
+    private MediaPlayer backgroundMusicPlayer;
     private Battle battle;
     private Wizard player;
     private AbstractEnemy enemy;
@@ -89,6 +93,7 @@ public class BattleController {
             situationalButton.setDisable(true);
             situationalButton.setText("Attack");
         }
+        playBattleMusic();
     }
 
     public void playBattleMusic() {
@@ -100,9 +105,39 @@ public class BattleController {
             musicFile = "WizardBattle.mp3";
         }
 
-/*        Media sound = new Media(new File("src/main/resources/alexis/isep/harrypotter/sounds/music/" + musicFile).toURI().toString());
+        Media sound = new Media(new File(Game.SOUND_ROOT + "music/" + musicFile).toURI().toString());
+        backgroundMusicPlayer = new MediaPlayer(sound);
+        backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        backgroundMusicPlayer.setAutoPlay(true);
+    }
+
+    public void playSoundEffect(String soundFile, boolean isMusic, Runnable runnable) {
+        String prefix;
+        if (isMusic) {
+            prefix = "music/";
+        }
+        else {
+            prefix = "effects/";
+        }
+        Media sound = new Media(new File(Game.SOUND_ROOT + prefix + soundFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.play();*/
+        if (runnable != null) {
+            mediaPlayer.setOnEndOfMedia(runnable);
+        }
+        mediaPlayer.setOnPlaying(() -> {
+            if (backgroundMusicPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                backgroundMusicPlayer.pause(); // Adjust the background music volume
+            }
+        });
+        mediaPlayer.setOnEndOfMedia(() -> {
+            backgroundMusicPlayer.play();
+            mediaPlayer.dispose();
+        });
+        mediaPlayer.setAutoPlay(true);
+    }
+
+    public void playSoundEffect(String soundFile, boolean isMusic) {
+        playSoundEffect(soundFile, isMusic, null);
     }
 
     public void updatePlayerWeapon() {
@@ -150,10 +185,11 @@ public class BattleController {
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.ZERO, new KeyValue(HPBar.progressProperty(), HPBar.getProgress())),
                 new KeyFrame(Duration.ZERO, new KeyValue(HPLabel.textProperty(), HPLabel.getText())),
-                new KeyFrame(Duration.millis(1800), new KeyValue(HPLabel.textProperty(), String.valueOf(newHP))),
-                new KeyFrame(Duration.millis(1800), new KeyValue(HPBar.progressProperty(), newHP / character.getMaxHP()))
+                new KeyFrame(Duration.millis(1000), new KeyValue(HPLabel.textProperty(), String.valueOf(newHP))),
+                new KeyFrame(Duration.millis(1200), new KeyValue(HPBar.progressProperty(), newHP / character.getMaxHP()))
         );
         timeline.play();
+        playSoundEffect("Damage.mp3", false);
     }
 
     @FXML
@@ -226,6 +262,7 @@ public class BattleController {
         battlePane.getChildren().add(spellShape);
         translate.play();
         rotate.play();
+        playSoundEffect("Spell.wav", false);
     }
 
     public double getRealImageX(ImageView imageView, double factor) {
@@ -268,29 +305,28 @@ public class BattleController {
         KeyValue targetHPBar = new KeyValue(targetBar.progressProperty(), targetBar.getProgress());
         KeyValue targetHP = new KeyValue(targetHPLabel.textProperty(), targetHPLabel.getText());
 
-        KeyFrame framedot0s = new KeyFrame(new Duration(0), targetHP, targetHPBar);
 
         KeyValue attackerYValue = new KeyValue(attackerImage.yProperty(), attackerImage.getY());
         KeyValue attackerXValue = new KeyValue(attackerImage.xProperty(), attackerImage.getX());
 
-        KeyFrame framedot1000s = new KeyFrame(new Duration(1000), attackerXValue, attackerYValue);
+        KeyFrame framedot0s = new KeyFrame(new Duration(0), targetHP, targetHPBar, attackerXValue, attackerYValue);
 
         attackerYValue = new KeyValue(attackerImage.yProperty(), attackerImage.getY() + ANIMATION_COUNT);
         attackerXValue = new KeyValue(attackerImage.xProperty(), attackerImage.getX() - ANIMATION_COUNT);
 
-        KeyFrame framedot1250s = new KeyFrame(new Duration(1250), attackerXValue, attackerYValue);
+        KeyFrame framedot1250s = new KeyFrame(new Duration(250), attackerXValue, attackerYValue);
 
         KeyValue targetYValue = new KeyValue(targetImage.yProperty(), targetImage.getY());
         KeyValue targetXValue = new KeyValue(targetImage.xProperty(), targetImage.getX());
         attackerXValue = new KeyValue(attackerImage.xProperty(), attackerImage.getX());
         attackerYValue = new KeyValue(attackerImage.yProperty(), attackerImage.getY());
 
-        KeyFrame framedot1350s = new KeyFrame(new Duration(1350), targetYValue, targetXValue, attackerXValue, attackerYValue);
+        KeyFrame framedot1350s = new KeyFrame(new Duration(350), targetYValue, targetXValue, attackerXValue, attackerYValue);
 
         targetXValue = new KeyValue(targetImage.xProperty(), targetImage.getX() + ANIMATION_COUNT);
         targetYValue = new KeyValue(targetImage.yProperty(), targetImage.getY() - ANIMATION_COUNT);
 
-        KeyFrame framedot1550s = new KeyFrame(new Duration(1550), targetXValue, targetYValue, targetHPBar);
+        KeyFrame framedot1550s = new KeyFrame(new Duration(550), targetXValue, targetYValue, targetHPBar);
 
         int newHP = (int) Math.ceil(target.getHP());
         KeyValue newtargetHP = new KeyValue(targetHPLabel.textProperty(), String.valueOf(newHP));
@@ -299,16 +335,22 @@ public class BattleController {
         targetYValue = new KeyValue(targetImage.yProperty(), targetImage.getY());
         System.out.println("New HP : " + newHP);
 
-        KeyFrame framedot1800s = new KeyFrame(new Duration(1800), newtargetHP, newtargetHPBar, targetXValue, targetYValue);
+        KeyFrame framedot1800s = new KeyFrame(new Duration(800), newtargetHP, newtargetHPBar, targetXValue, targetYValue);
         timeline = new Timeline();
-        timeline.getKeyFrames().addAll( framedot0s, framedot1000s, framedot1250s, framedot1350s, framedot1550s, framedot1800s
+        timeline.getKeyFrames().addAll( framedot0s, framedot1250s, framedot1350s, framedot1550s, framedot1800s
         );
         timeline.setOnFinished(onFinishEventHandler);
         timeline.play();
+        playSoundEffect("Attack.mp3", false);
     }
 
     public int convertToInt(double a) {
         return (int) Math.ceil(a);
     }
 
+    public void stopMusic() {
+        if (backgroundMusicPlayer != null) {
+            backgroundMusicPlayer.stop();
+        }
+    }
 }

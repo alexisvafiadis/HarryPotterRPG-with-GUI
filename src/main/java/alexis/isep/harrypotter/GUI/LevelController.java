@@ -6,9 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
+import java.io.File;
+
 public class LevelController {
+    private MediaPlayer backgroundMusicPlayer;
     private Level level;
     private Game game;
     private Wizard player;
@@ -43,6 +48,7 @@ public class LevelController {
 
     @FXML
     public void initialize() {
+        playLevelMusic();
         petImage.setImage(player.getPetImage());
         background.setImage(level.getImage());
         playerImage.setImage(player.getImage());
@@ -71,5 +77,19 @@ public class LevelController {
 
     public AnchorPane getInfoAnchorPane() {
         return infoAnchorPane;
+    }
+
+    public void playLevelMusic() {
+        String musicFile = "Game.mp3";
+        Media sound = new Media(new File(Game.SOUND_ROOT + "music/" + musicFile).toURI().toString());
+        backgroundMusicPlayer = new MediaPlayer(sound);
+        backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        backgroundMusicPlayer.play();
+    }
+
+    public void stopMusic() {
+        if (backgroundMusicPlayer != null) {
+            backgroundMusicPlayer.stop();
+        }
     }
 }

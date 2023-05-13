@@ -23,7 +23,7 @@ import java.util.*;
 public class Game extends javafx.application.Application{
     private final String GAME_TITLE = "Harry Potter At Home";
     //SET DEBUG MODE TO TRUE TO GO FASTER AND TEST THE GAME AND FALSE TO PLAY NORMALLY
-    private final boolean DEBUG_MODE = false;
+    private final boolean DEBUG_MODE = true;
     private Display display;
     private InputParser inputParser;
     private Wizard player;
@@ -31,7 +31,7 @@ public class Game extends javafx.application.Application{
     private Stage stage;
     private final List<Class<?>> levels = new ArrayList<>();
     public static final String GAME_ROOT = "/alexis/isep/harrypotter/";
-
+    public static final String SOUND_ROOT = "src/main/resources/alexis/isep/harrypotter/sounds/";
 
     @Override
     public void start(Stage stage) throws IOException {
