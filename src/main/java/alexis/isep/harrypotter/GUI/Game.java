@@ -23,7 +23,7 @@ import java.util.*;
 public class Game extends javafx.application.Application{
     private final String GAME_TITLE = "Harry Potter At Home";
     //SET DEBUG MODE TO TRUE TO GO FASTER AND TEST THE GAME AND FALSE TO PLAY NORMALLY
-    private final boolean DEBUG_MODE = true;
+    private final boolean DEBUG_MODE = false;
     private Display display;
     private InputParser inputParser;
     private Wizard player;
@@ -35,13 +35,10 @@ public class Game extends javafx.application.Application{
 
     @Override
     public void start(Stage stage) throws IOException {
-        display = new Display(this);
-        inputParser = new InputParser(this, new Scanner(System.in));
-        player = new Wizard(this);
+        start();
         WizardMaker wizardmaker = new WizardMaker(this);
         CreateCharacterController createCharacterController = new CreateCharacterController(this,wizardmaker);
         wizardmaker.setCreateCharacterController(createCharacterController);
-        player.setDefaultAttributes();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/alexis/isep/harrypotter/GUI/CreateCharacter.fxml"));
         fxmlLoader.setControllerFactory(param -> createCharacterController);
@@ -54,6 +51,13 @@ public class Game extends javafx.application.Application{
         this.stage = stage;
         addDialogPane(0.5);
         wizardmaker.askForCharacterCreation();
+    }
+
+    public void start() {
+        display = new Display(this);
+        inputParser = new InputParser(this, new Scanner(System.in));
+        player = new Wizard(this);
+        player.setDefaultAttributes();
     }
 
     public static void main(String[] args) {
@@ -75,7 +79,7 @@ public class Game extends javafx.application.Application{
         levels.add(Level5.class);
         levels.add(Level6.class);
         levels.add(Level7.class);
-        setLevel(6);
+        setLevel(1);
     }
     public void nextLevel() {
         if (currentLevel.getNumber() == levels.size() - 1) {

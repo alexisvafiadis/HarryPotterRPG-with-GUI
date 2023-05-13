@@ -6,7 +6,6 @@ public enum EffectType {
     SLUG_VOMITING(EffectCategory.INABILITY,"now feeling really nauseous","already nauseous","no longer nauseous", "vomiting slugs"),
     DANCING(EffectCategory.INABILITY,"now feeling their legs spasm widly out of control","already dancing","in full control of their legs again","too busy dancing"),
     STUN(EffectCategory.INABILITY,"now stunned", "already stunned","no longer stunned","completely stunned"),
-    DISARM(EffectCategory.INABILITY,"now disarmed","already disarmed","armed again","disarmed"),
 
     STRENGTH(EffectCategory.STAT_BOOST,"becoming stronger", "already affected by strength","no longer affected by an effect of strength",""),
     RESISTANCE(EffectCategory.STAT_BOOST,"becoming more resistant", "already affected by resistance","no longer affected by an effect of resistance",""),
@@ -23,6 +22,8 @@ public enum EffectType {
 
     HEAL(EffectCategory.HEAL,"healed by","","",""),
     //INVISIBILITY("now invisible","already invisible","no longer invisible");
+
+    DISARM(EffectCategory.CUSTOM,"now disarmed","already disarmed","armed again","disarmed"),
     ;
     private EffectCategory effectCategory;
     private String startMessage;

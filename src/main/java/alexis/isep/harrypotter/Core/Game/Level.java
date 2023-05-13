@@ -35,7 +35,7 @@ public abstract class Level {
 
     //Constants
     protected final double HP_UPGRADE = 35;
-    protected final double SPELL_DAMAGE_UPGRADE = 0.27;
+    protected final double SPELL_DAMAGE_UPGRADE = 0.28;
     protected final double DAMAGE_RESISTANCE_UPGRADE = 0.27;
     protected final double ACCURACY_UPGRADE = 0.32;
 

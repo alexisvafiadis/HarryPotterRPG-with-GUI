@@ -18,7 +18,7 @@ public class Stupefy extends SimpleSpell {
         use();
         if (isCastSuccessful(target)) {
             showSuccessfulCast(" hit " + target.getName() + " with a blast of red light, dropping to the ground.");
-            target.giveEffect(EffectType.STUN, new ActiveEffect(EFFECT_DURATION, 0.7));
+            target.giveEffect(EffectType.STUN, new ActiveEffect(EFFECT_DURATION, 0.59));
         }
     }
 

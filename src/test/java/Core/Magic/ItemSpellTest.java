@@ -31,7 +31,7 @@ public class ItemSpellTest {
         enemy.spawn();
         Level level = new Level1(game);
         level.initialize();
-        battle = new Battle(game, level, wizard, enemy);
+        battle = new Battle(game, level, wizard, enemy,(e) -> System.out.println("test"));
         wingardiumLeviosa = new WingardiumLeviosa(game, wizard);
         wingardiumLeviosa.setNbOfUses(1000);
     }

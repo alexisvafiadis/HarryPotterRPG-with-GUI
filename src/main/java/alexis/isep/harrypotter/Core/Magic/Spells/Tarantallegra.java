@@ -18,7 +18,7 @@ public class Tarantallegra extends SimpleSpell {
         use();
         if (isCastSuccessful(target)) {
             showSuccessfulCast(null);
-            target.giveEffect(EffectType.DANCING, new ActiveEffect(EFFECT_DURATION, 0.6));
+            target.giveEffect(EffectType.DANCING, new ActiveEffect(EFFECT_DURATION, 0.64));
         }
     }
 

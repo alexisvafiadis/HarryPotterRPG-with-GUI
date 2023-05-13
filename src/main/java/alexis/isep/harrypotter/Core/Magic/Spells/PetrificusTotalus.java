@@ -11,7 +11,7 @@ public class PetrificusTotalus extends SimpleSpell {
     private final int EFFECT_DURATION = 2;
 
     public PetrificusTotalus(Game game, Character wizard) {
-        super(game, wizard, "Petrificus Totalus", Color.LIGHTGRAY, 5, 1, 0.52, 0.27);
+        super(game, wizard, "Petrificus Totalus", Color.LIGHTGRAY, 5, 1, 0.39, 0.27);
     }
 
     public void cast(Character target) {

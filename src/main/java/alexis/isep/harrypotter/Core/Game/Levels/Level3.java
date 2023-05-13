@@ -38,8 +38,8 @@ public class Level3 extends Level {
 
     @Override
     public void conclude() {
-        display.congratulate("Good job, you have scared the Dementors away!");
-        display.displayInfo("Now let me teach you a spell that you'll probably need soon : Lumos");
+        display.congratulate("Good job, you scared the Dementors away thanks to your Patronus!");
+        display.displayInfo("Now let me teach you a spell that you'll probably need soon : Lumos.");
         (new Lumos(game, player)).teach(player);
     }
 

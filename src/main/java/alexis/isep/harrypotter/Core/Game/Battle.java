@@ -20,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Battle {
+    private final double HIDING_EFFECTIVENESS = 0.75;
     protected Game game;
     protected Display display;
     protected InputParser inputParser;
@@ -204,7 +205,7 @@ public class Battle {
     }
 
     public void playerHide() {
-        player.giveEffect(EffectType.HIDE, new ActiveEffect(1, 0.75));
+        player.giveEffect(EffectType.HIDE, new ActiveEffect(1, HIDING_EFFECTIVENESS));
         enemyAction();
     }
     public void playerCastSpell(String spellChoice) {

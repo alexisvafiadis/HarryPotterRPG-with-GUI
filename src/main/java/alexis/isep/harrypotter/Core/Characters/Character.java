@@ -186,6 +186,10 @@ public abstract class Character {
         }
         else {
             display.displayInfo(game.getMessageStartBe((this)) + " " + effectType.getStartMessage());
+            //If the character is an enemy wizard and the spell is defensive, the effect will last one more round because enemies attack after the player
+            if ((this instanceof EnemyWizard) && (effectType.getEffectCategory().equals(EffectCategory.PROTECTION))) {
+                activeEffect.incrementNbOfRoundsLeft();
+            }
             activeEffects.put(effectType, activeEffect);
             if (effectType.equals(EffectType.DISARM)) {
                 currentWeapon = null;
@@ -222,8 +226,8 @@ public abstract class Character {
     public boolean canAttack(Character target) {
         if (canDoSomething()) {
             for (EffectType effectType : target.getActiveEffects().keySet()) {
-                if (effectType.getEffectCategory().equals(EffectCategory.PROTECTION) && (getEffectProbability(effectType))) {
-                        display.displayInfo(getName() + " couldn't attack " + target.getName() + " because they are " + effectType.getConsequenceMessage());
+                if (effectType.getEffectCategory().equals(EffectCategory.PROTECTION) && (target.getEffectProbability(effectType))) {
+                    display.displayInfo(getName() + " couldn't attack " + target.getName() + " because they are " + effectType.getConsequenceMessage());
                     return false;
                 }
             }
@@ -254,7 +258,7 @@ public abstract class Character {
         Iterator<Map.Entry<EffectType, ActiveEffect>> it = activeEffects.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<EffectType, ActiveEffect> entry = it.next();
-            if (entry.getValue().getNbOfRoundsLeft() == 0) {
+            if (entry.getValue().getNbOfRoundsLeft() == 1) {
                 actionBeforeEffectRemoval(entry.getKey());
                 it.remove();
             }

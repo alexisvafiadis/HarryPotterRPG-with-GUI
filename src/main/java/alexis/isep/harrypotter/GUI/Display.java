@@ -25,7 +25,7 @@ public class Display {
     private List<Color> colors;
     private List<String> messages;
     private String currentMessage;
-    private int defaultWritingDelay = 40;
+    private int defaultWritingDelay = 36;
     private final int FAST_WRITING_DELAY = 15;
     private final int VERY_FAST_WRITING_DELAY = 2;
     @FXML
@@ -70,7 +70,7 @@ public class Display {
         charIndex = 0;
         currentMessage = messages.get(messageIndex);
         textLabel.setTextFill(colors.get(messageIndex));
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(FAST_WRITING_DELAY), event -> {
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(defaultWritingDelay), event -> {
             if (charIndex < currentMessage.length()) {
                 String substring = currentMessage.substring(0, charIndex + 1);
                 setText(substring);

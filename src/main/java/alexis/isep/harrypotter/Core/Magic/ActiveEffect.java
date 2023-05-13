@@ -15,6 +15,10 @@ public class ActiveEffect {
         return nbOfRoundsLeft;
     }
 
+    public void incrementNbOfRoundsLeft() {
+        this.nbOfRoundsLeft = nbOfRoundsLeft + 1;
+    }
+
     public double getValue() {
         return value;
     }

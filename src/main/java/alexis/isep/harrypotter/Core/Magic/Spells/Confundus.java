@@ -11,7 +11,7 @@ public class Confundus extends SimpleSpell {
     private final int EFFECT_DURATION = 4;
 
     public Confundus(Game game, Character wizard) {
-        super(game, wizard, "Confundus", Color.LIGHTBLUE, 5, 1, 0.38, 0.24);
+        super(game, wizard, "Confundus", Color.LIGHTBLUE, 5, 1, 0.39, 0.24);
     }
 
     public void cast(Character target) {

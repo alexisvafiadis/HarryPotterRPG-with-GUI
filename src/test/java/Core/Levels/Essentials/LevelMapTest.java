@@ -1,5 +1,6 @@
 package Core.Levels.Essentials;
 
+import alexis.isep.harrypotter.Core.Game.Levels.Level4;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Game.LevelMap;
 import alexis.isep.harrypotter.Core.Game.Level;
@@ -16,7 +17,7 @@ class LevelMapTest {
     @BeforeEach
     void setUp() {
         game = new Game();
-        map = new LevelMap(10,10);
+        map = new LevelMap(new Level4(game),10,10);
         Level level = new Level1(game);
         level.initialize();
     }

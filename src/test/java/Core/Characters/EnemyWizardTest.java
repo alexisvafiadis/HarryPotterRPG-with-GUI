@@ -20,6 +20,7 @@ class EnemyWizardTest {
     @BeforeEach
     void setUp() {
         game = new Game();
+        game.start();
         player = game.getPlayer();
         player.setDefaultAttributes();
         player.spawn();

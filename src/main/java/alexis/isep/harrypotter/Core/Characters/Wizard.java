@@ -58,7 +58,7 @@ public class Wizard extends Character{
         if (hasEffect(EffectType.RESISTANCE)) {
             damage = damage * activeEffects.get(EffectType.RESISTANCE).getValue();
         }
-        damage = damage * house.getDAMAGE_VULNERABILITY();
+        damage = damage * house.getDAMAGE_VULNERABILITY() * resistance;
         return damage;
     }
 

@@ -26,7 +26,7 @@ class BattleTest {
         enemy.spawn();
         Level1 level = new Level1(game);
         level.initialize();
-        battle = new Battle(game, level, wizard, enemy);
+        battle = new Battle(game, level, wizard, enemy,(e) -> System.out.println("test"));
     }
 
     @Test

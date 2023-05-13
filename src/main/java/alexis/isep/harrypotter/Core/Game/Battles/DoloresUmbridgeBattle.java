@@ -14,10 +14,12 @@ public class DoloresUmbridgeBattle extends Battle {
 
     public DoloresUmbridgeBattle(Game game, Level level, Wizard player, AbstractEnemy enemy, EventHandler<ActionEvent> e) {
         super(game, level, player, enemy,e);
+        System.out.println(((DoloresUmbridge) enemy).isDistracted());
     }
 
     @Override
     public boolean getBattleLossCondition() {
+        System.out.println(((DoloresUmbridge) enemy).isDistracted());
         return (super.getBattleLossCondition() || !enemy.isAlive() || !(((DoloresUmbridge) enemy).isDistracted()));
     }
 
@@ -29,6 +31,11 @@ public class DoloresUmbridgeBattle extends Battle {
     @Override
     public void displayBattleStartMessage() {
         display.displayInfo("Choose the right spells!");
+    }
+
+    @Override
+    public void displayBattleWinMessage() {
+
     }
 
     @Override

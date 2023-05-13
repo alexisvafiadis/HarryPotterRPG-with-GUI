@@ -18,7 +18,7 @@ public class SlugulusErecto extends SimpleSpell {
         use();
         if (isCastSuccessful(target)) {
             showSuccessfulCast(null);
-            target.giveEffect(EffectType.SLUG_VOMITING, new ActiveEffect(EFFECT_DURATION, 0.72));
+            target.giveEffect(EffectType.SLUG_VOMITING, new ActiveEffect(EFFECT_DURATION, 0.68));
         }
     }
 

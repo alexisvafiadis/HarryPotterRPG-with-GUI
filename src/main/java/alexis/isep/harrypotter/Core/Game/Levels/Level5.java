@@ -20,6 +20,8 @@ public class Level5 extends Level {
         player.spawn();
         super.start();
         doloresUmbridge = new DoloresUmbridge(game);
+        doloresUmbridge.spawn();
+        System.out.println(doloresUmbridge.isDistracted());
         display.setOnFinish((finish) -> {
             startBattle(new DoloresUmbridgeBattle(game, this, player, doloresUmbridge,(e) -> handleDoloresUmbridgeBattle()));
         });
