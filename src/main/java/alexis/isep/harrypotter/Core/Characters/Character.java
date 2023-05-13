@@ -1,12 +1,12 @@
 package alexis.isep.harrypotter.Core.Characters;
 
-import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
-import alexis.isep.harrypotter.Core.Levels.Level4;
+import alexis.isep.harrypotter.Core.Game.Battle;
+import alexis.isep.harrypotter.Core.Game.Levels.Level4;
 import alexis.isep.harrypotter.GUI.Display;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Weapon;
-import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
+import alexis.isep.harrypotter.Core.Game.LevelMap;
 import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
 import alexis.isep.harrypotter.Core.Magic.EffectCategory;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
@@ -67,7 +67,7 @@ public abstract class Character {
     }
 
     public void attack(Character target) {
-        final boolean fromPlayer = (this instanceof Wizard);
+        final boolean fromPlayer = isPlayer();
         if (canAttack(target)) {
             double damage = getPhysicalDamage();
             if (hasWeapon() && !hasEffect(EffectType.DISARM)) {
@@ -75,8 +75,12 @@ public abstract class Character {
             }
             final String information;
             if (fromPlayer) {
+                String weapon = "fist";
+                if (currentWeapon != null) {
+                    weapon = currentWeapon.toString();
+                }toString();
+                information = "You have attacked " + target.getName() + " with your " + weapon + ".";
                 damage = ((Wizard) this).amplifyDamage(damage);
-                information = "You have damaged " + target.getName();
             }
             else {
                 damage = ((Wizard) target).defendDamage(damage);
@@ -97,7 +101,7 @@ public abstract class Character {
         battle.handleCharacterAction(this,isPlayer);
     }
     public void finishRoundAction() {
-        battle.handleCharacterAction(this,(this instanceof Wizard));
+        battle.handleCharacterAction(this,isPlayer());
     }
 
     public void decideWhichRoundAction() {
@@ -160,7 +164,7 @@ public abstract class Character {
             HP = HP + hp_restore;
         }
         if (isInBattle()) {
-            battle.getBattleController().playUpdateHPAnimation(this instanceof Wizard);
+            battle.getBattleController().playUpdateHPAnimation(isPlayer());
         }
     }
 
@@ -170,6 +174,7 @@ public abstract class Character {
 
     public abstract String getName();
     public Image getImage() {
+        System.out.println("Tried to get image of path " + "/alexis/isep/harrypotter/images/characters/" + getName() + ".png");
         return new Image(getClass().getResource("/alexis/isep/harrypotter/images/characters/" + getName() + ".png").toString(), true);
     }
 
@@ -186,11 +191,6 @@ public abstract class Character {
                 currentWeapon = null;
             }
         }
-    }
-
-    public void removeEffect(EffectType et) {
-        actionBeforeEffectRemoval(et);
-        activeEffects.remove(et);
     }
 
     public void actionBeforeEffectRemoval(EffectType et) {
@@ -243,11 +243,13 @@ public abstract class Character {
             double damage = activeEffects.get(EffectType.EXCRUCIATING_PAIN).getValue() / activeEffects.get(EffectType.EXCRUCIATING_PAIN).getNbOfRoundsLeft();
             display.displayInfo(getName() + " " + EffectType.EXCRUCIATING_PAIN.getConsequenceMessage());
             damage(damage);
+            display.setOnFinish((e) -> battle.getBattleController().playUpdateHPAnimation(isPlayer()));
         }
         if (hasEffect(EffectType.BURN)) {
             double damage = activeEffects.get(EffectType.BURN).getValue();
             display.displayInfo(getName() + " " + EffectType.BURN.getConsequenceMessage());
             damage(damage);
+            display.setOnFinish((e) -> battle.getBattleController().playUpdateHPAnimation(isPlayer()));
         }
         Iterator<Map.Entry<EffectType, ActiveEffect>> it = activeEffects.entrySet().iterator();
         while (it.hasNext()) {
@@ -260,16 +262,6 @@ public abstract class Character {
         for (EffectType effectType : activeEffects.keySet()) {
             activeEffects.get(effectType).reduceNbOfRounds();
         }
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-        this.inputParser = game.getInputParser();
-        this.display = game.getDisplay();
     }
 
     public LevelMap getMap() {
@@ -303,6 +295,20 @@ public abstract class Character {
             map.setTile(positionX, positionY, charTile);
         }
         return isPositionAvailable;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+        this.inputParser = game.getInputParser();
+        this.display = game.getDisplay();
+    }
+
+    public boolean isPlayer() {
+        return (this instanceof Wizard);
     }
 
     public Map<EffectType, ActiveEffect> getActiveEffects() {

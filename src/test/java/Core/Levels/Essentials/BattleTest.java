@@ -3,8 +3,8 @@ import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Enemies.Troll;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
 import alexis.isep.harrypotter.GUI.Game;
-import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
-import alexis.isep.harrypotter.Core.Levels.Level1;
+import alexis.isep.harrypotter.Core.Game.Battle;
+import alexis.isep.harrypotter.Core.Game.Levels.Level1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

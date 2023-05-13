@@ -2,9 +2,6 @@ package alexis.isep.harrypotter.GUI;
 
 import alexis.isep.harrypotter.Console.ConsoleColors;
 import alexis.isep.harrypotter.Core.Characters.Character;
-import alexis.isep.harrypotter.GUI.DialogController;
-import alexis.isep.harrypotter.GUI.Game;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -12,15 +9,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class Display {
     private Game game;
@@ -31,7 +25,7 @@ public class Display {
     private List<Color> colors;
     private List<String> messages;
     private String currentMessage;
-    private int DEFAULT_WRITING_DELAY = 40;
+    private int defaultWritingDelay = 40;
     private final int FAST_WRITING_DELAY = 15;
     private final int VERY_FAST_WRITING_DELAY = 2;
     @FXML
@@ -43,10 +37,13 @@ public class Display {
         this.game = game;
         messages = new ArrayList<>();
         colors = new ArrayList<>();
+        if (game.isInDebugMode()) {
+            defaultWritingDelay = VERY_FAST_WRITING_DELAY;
+        }
     }
 
     public void adaptTextSize(double resizeCoeff) {
-        double leftAnchor = 0.16 / resizeCoeff;
+        double leftAnchor = 0.15 / resizeCoeff;
         double topAnchor = 0.3 / resizeCoeff;
         AnchorPane.setLeftAnchor(textLabel, dialogPane.getPrefWidth() * leftAnchor);
         AnchorPane.setTopAnchor(textLabel, dialogPane.getPrefHeight() * topAnchor);
@@ -73,7 +70,7 @@ public class Display {
         charIndex = 0;
         currentMessage = messages.get(messageIndex);
         textLabel.setTextFill(colors.get(messageIndex));
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(VERY_FAST_WRITING_DELAY), event -> {
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(FAST_WRITING_DELAY), event -> {
             if (charIndex < currentMessage.length()) {
                 String substring = currentMessage.substring(0, charIndex + 1);
                 setText(substring);
@@ -111,7 +108,7 @@ public class Display {
         slowPrint(announcement, Color.YELLOW);
     }
 
-    public void announceDiscovery(String finding) { slowPrint(finding, Color.CYAN); }
+    public void announceDiscovery(String finding) { slowPrint(finding, Color.DARKCYAN); }
 
     public void announceFail(String fail) { slowPrint(fail, Color.RED); }
 

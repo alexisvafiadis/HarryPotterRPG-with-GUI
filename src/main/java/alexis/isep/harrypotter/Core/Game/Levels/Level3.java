@@ -1,11 +1,12 @@
-package alexis.isep.harrypotter.Core.Levels;
+package alexis.isep.harrypotter.Core.Game.Levels;
 
 import alexis.isep.harrypotter.Core.Characters.Enemies.Dementor;
+import alexis.isep.harrypotter.Core.Game.Level;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.Spells.Expectopatronum;
 import alexis.isep.harrypotter.Core.Magic.Spells.Lumos;
 
-public class Level3 extends Level{
+public class Level3 extends Level {
     private boolean expectoPatronumUsed;
 
     public Level3(Game game) {
@@ -19,7 +20,7 @@ public class Level3 extends Level{
         player.spawn();
         super.start();
         expectoPatronumUsed = false;
-        dementorBattleUntilExpectoPatronum();
+        display.setOnFinish((e) -> dementorBattleUntilExpectoPatronum());
     }
 
     public void dementorBattleUntilExpectoPatronum() {

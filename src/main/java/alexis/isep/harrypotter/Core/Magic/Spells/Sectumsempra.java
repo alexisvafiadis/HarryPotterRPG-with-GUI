@@ -9,7 +9,7 @@ public class Sectumsempra extends SimpleSpell {
     private final double DEFAULT_DAMAGE = 40;
 
     public Sectumsempra(Game game, Character wizard) {
-        super(game, wizard, "Sectumsempra", Color.MAROON,5, 1, 0.26, 0.5);
+        super(game, wizard, "Sectumsempra", Color.MAROON,5, 1, 0.26, 0.3);
         setForbidden(true);
     }
 

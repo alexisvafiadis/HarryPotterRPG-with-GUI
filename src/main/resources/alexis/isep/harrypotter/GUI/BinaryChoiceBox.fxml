@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:id="BinaryChoiceBox" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="alexis.isep.harrypotter.GUI.ChoiceGridController"
+            prefHeight="120.0" prefWidth="450">
+    <HBox fx:id="BinaryHBox" prefHeight="120.0" prefWidth="450">
+        <children>
+            <Button fx:id="yesButton" mnemonicParsing="false" onAction="#handleActionButtonEvent" prefHeight="120.0" prefWidth="225.0" text="Yes">
+                <font>
+                    <Font name="Avenir Next Condensed Regular" size="50.0" />
+                </font>
+            </Button>
+            <Button fx:id="noButton" mnemonicParsing="false" onAction="#handleActionButtonEvent" prefHeight="120.0" prefWidth="225.0" text="No" GridPane.columnIndex="1">
+                <font>
+                    <Font name="Avenir Next Condensed Regular" size="50.0" />
+                </font>
+            </Button>
+        </children>
+    </HBox>
+</AnchorPane>
+

@@ -1,4 +1,4 @@
-package alexis.isep.harrypotter.Core.Levels.Essentials;
+package alexis.isep.harrypotter.Core.Game;
 
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.GUI.*;
@@ -8,9 +8,8 @@ import alexis.isep.harrypotter.Core.Characters.Wizard;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.ItemType;
 import alexis.isep.harrypotter.Core.Items.Weapon;
-import alexis.isep.harrypotter.Core.Levels.Level;
-import alexis.isep.harrypotter.Core.Levels.Level2;
-import alexis.isep.harrypotter.Core.Levels.Level3;
+import alexis.isep.harrypotter.Core.Game.Levels.Level2;
+import alexis.isep.harrypotter.Core.Game.Levels.Level3;
 import alexis.isep.harrypotter.Core.Magic.*;
 import alexis.isep.harrypotter.Core.Magic.Spells.*;
 import javafx.event.ActionEvent;
@@ -62,43 +61,65 @@ public class Battle {
     public boolean getBattleLossCondition() {
         return (!player.isAlive());
     }
-
     public boolean getBattleWinCondition() {
         return (!enemy.isAlive());
     }
 
     public void enemyAction() {
         game.closeSubWindows();
-        display.setOnFinish((e) -> {
-            if (roundNumber % enemy.getAttackDelay() == 0) {
-                enemy.act();
-            }
-            else {
-                display.displayInfo(enemy.getName() + " is preparing for its next attack.");
-                finishRound();
-            }
-        });
+        if (enemy.isAlive()) {
+            display.setOnFinish((e) -> {
+                if (roundNumber % enemy.getAttackDelay() == 0) {
+                    enemy.act();
+                } else {
+                    display.displayInfo(enemy.getName() + " is preparing for its next attack.");
+                    finishRound();
+                }
+            });
+        }
+        else {
+            actionOnBattleEnd();
+        }
     }
 
     public void finishRound() {
+        System.out.println("Round " + roundNumber + " finished.");
         display.setOnFinish((e) -> {
         enemy.finishRound();
         player.finishRound();
         roundNumber += 1;
         if (!getBattleContinueCondition()) {
-            if (!player.isAlive()) {
-                finish();
-                level.fail();
-            } else {
-                displayBattleWinMessage();
-                finish();
-                display.setOnFinish(onFinishedEventHandler);
-            }
+            actionOnBattleEnd();
         }
         else {
             askPlayerForAction();
         }
         });
+    }
+
+    public void actionOnBattleEnd() {
+        if (getBattleLossCondition()) {
+            actionIfLoss();
+        } else {
+            if (getBattleWinCondition()) {
+                actionIfWin();
+            }
+            else {
+                display.displayError("There has been an error, the battle is supposed to end but nobody seems to have won.");
+                askPlayerForAction();
+            }
+        }
+    }
+
+    public void actionIfWin() {
+        displayBattleWinMessage();
+        finish();
+        display.setOnFinish(onFinishedEventHandler);
+    }
+
+    public void actionIfLoss() {
+        finish();
+        display.setOnFinish((e) -> level.fail());
     }
     public void askPlayerForAction() {
         display.displayInfo("What do you want to do? Choose an action.");
@@ -226,6 +247,9 @@ public class Battle {
                 ((SimpleSpell) spell).cast(enemy);
             }
         }
+        else {
+            warnUselessSpellAndGoBack();
+        }
     }
 
     public void playerCastItemSpell(String spellChoice, int itemIndex) {
@@ -315,7 +339,7 @@ public class Battle {
 
     public void warnAndGoBack(String message) {
         display.announceFail(message);
-        display.setOnFinish((e) -> goBackAndAskPlayerForAction());
+        goBackAndAskPlayerForAction();
     }
 
     public void handleCharacterAction(Character character, boolean fromPlayer) {

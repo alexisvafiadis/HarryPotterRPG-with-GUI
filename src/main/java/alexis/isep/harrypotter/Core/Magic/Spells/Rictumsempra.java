@@ -17,8 +17,8 @@ public class Rictumsempra extends SimpleSpell {
     public void cast(Character target) {
         use();
         if (isCastSuccessful(target)) {
-            target.giveEffect(EffectType.LAUGH, new ActiveEffect(EFFECT_DURATION, 0.6));
             showSuccessfulCast(target.getName() + "'s contorted into a grimace of pain and mirth");
+            target.giveEffect(EffectType.LAUGH, new ActiveEffect(EFFECT_DURATION, 0.6));
         }
     }
 

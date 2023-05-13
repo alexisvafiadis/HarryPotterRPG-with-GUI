@@ -1,11 +1,12 @@
-package alexis.isep.harrypotter.Core.Levels;
+package alexis.isep.harrypotter.Core.Game.Levels;
 
 import alexis.isep.harrypotter.Core.Characters.Enemies.Troll;
+import alexis.isep.harrypotter.Core.Game.Level;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.Spells.Stupefy;
 import alexis.isep.harrypotter.Core.Magic.Spells.WingardiumLeviosa;
 
-public class Level1 extends Level{
+public class Level1 extends Level {
 
     public Level1(Game game) {
         super(game, "The Philosopher’s Stone", "Toilets of the Dungeon", 1, false);

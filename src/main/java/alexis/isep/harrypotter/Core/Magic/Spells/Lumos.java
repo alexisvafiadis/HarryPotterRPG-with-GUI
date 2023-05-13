@@ -2,7 +2,7 @@ package alexis.isep.harrypotter.Core.Magic.Spells;
 
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.GUI.Game;
-import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
+import alexis.isep.harrypotter.Core.Game.LevelMap;
 import alexis.isep.harrypotter.Core.Magic.Spell;
 import javafx.scene.paint.Color;
 

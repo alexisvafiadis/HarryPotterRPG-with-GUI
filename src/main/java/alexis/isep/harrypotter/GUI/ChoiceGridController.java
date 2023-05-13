@@ -1,6 +1,6 @@
 package alexis.isep.harrypotter.GUI;
 
-import alexis.isep.harrypotter.Core.Levels.Level4;
+import alexis.isep.harrypotter.Core.Game.Levels.Level4;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -8,14 +8,14 @@ import javafx.scene.paint.Color;
 public class Expectopatronum extends Spell {
 
     public Expectopatronum(Game game, Wizard wizard) {
-        super(game, wizard, "Expecto Patronum", Color.WHITE, 5, 1, 0.05, 0);
+        super(game, wizard, "Expecto Patronum", Color.WHITE, 5, 1, 0.05, 0.1);
     }
 
     public boolean cast() {
         use();
         boolean isCastSuccessful = isCastSuccessful();
         if (isCastSuccessful) {
-            showSuccessfulCast("summoned a glowing, silvery animal called Patronus to repel the Dementors.");
+            showSuccessfulCast("summoned a glowing, silvery animal called Patronus that instantly repels the Dementors.");
         }
         return isCastSuccessful;
     }

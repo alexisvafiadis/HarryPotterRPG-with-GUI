@@ -1,13 +1,12 @@
-package alexis.isep.harrypotter.Core.Levels;
+package alexis.isep.harrypotter.Core.Game.Levels;
 
 import alexis.isep.harrypotter.Core.Characters.Enemies.DoloresUmbridge;
+import alexis.isep.harrypotter.Core.Game.Level;
 import alexis.isep.harrypotter.GUI.Game;
-import alexis.isep.harrypotter.Core.Levels.Essentials.DoloresUmbridgeBattle;
+import alexis.isep.harrypotter.Core.Game.Battles.DoloresUmbridgeBattle;
 import alexis.isep.harrypotter.Core.Magic.Spells.Reducto;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
-public class Level5 extends Level{
+public class Level5 extends Level {
     private DoloresUmbridge doloresUmbridge;
 
     public Level5(Game game) {
@@ -21,8 +20,9 @@ public class Level5 extends Level{
         player.spawn();
         super.start();
         doloresUmbridge = new DoloresUmbridge(game);
-        doloresUmbridge.spawn();
-        startBattle(new DoloresUmbridgeBattle(game, this, player, doloresUmbridge,(e) -> handleDoloresUmbridgeBattle()));
+        display.setOnFinish((finish) -> {
+            startBattle(new DoloresUmbridgeBattle(game, this, player, doloresUmbridge,(e) -> handleDoloresUmbridgeBattle()));
+        });
     }
 
     public void handleDoloresUmbridgeBattle() {

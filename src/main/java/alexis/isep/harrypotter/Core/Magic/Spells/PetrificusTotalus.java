@@ -17,8 +17,8 @@ public class PetrificusTotalus extends SimpleSpell {
     public void cast(Character target) {
         use();
         if (isCastSuccessful(target)) {
-            target.giveEffect(EffectType.STUN, new ActiveEffect(EFFECT_DURATION, 1));
             showSuccessfulCast(" froze " + target.getName() + "'s body completely, becoming unmovable");
+            target.giveEffect(EffectType.STUN, new ActiveEffect(EFFECT_DURATION, 1));
         }
     }
 

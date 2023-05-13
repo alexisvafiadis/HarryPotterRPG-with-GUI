@@ -1,16 +1,13 @@
 package alexis.isep.harrypotter.GUI;
 
-import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
-import alexis.isep.harrypotter.Core.Levels.Level;
+import alexis.isep.harrypotter.Core.Game.LevelMap;
+import alexis.isep.harrypotter.Core.Game.Level;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
-
-import java.util.Map;
 
 public class LevelMapController {
     private LevelMap map;

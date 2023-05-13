@@ -28,6 +28,7 @@ public class Wizard extends Character{
     private double spellDamageMultiplier = 1;
     private double accuracy = 0.8;
     private double resistance = 1;
+    private int currentPageIndex = 0;
 
     public Wizard(Game game) {
         super(game, 100, 5, 0.95,null,'Y',1);
@@ -227,5 +228,15 @@ public class Wizard extends Character{
 
     public void setHouse(House house) {
         this.house = house;
+    }
+
+    public int getCurrentPageIndex() {
+        return currentPageIndex;
+    }
+    public void incrementCurrentPageIndex() {
+        currentPageIndex++;
+    }
+    public void decrementCurrentPageIndex() {
+        currentPageIndex--;
     }
 }

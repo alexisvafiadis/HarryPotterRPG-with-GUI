@@ -17,8 +17,8 @@ public class Confundus extends SimpleSpell {
     public void cast(Character target) {
         use();
         if (isCastSuccessful()) {
-            target.giveEffect(EffectType.CONFUSION, new ActiveEffect(EFFECT_DURATION, 0.6));
             showSuccessfulCast("visibly disoriented " + target.getName());
+            target.giveEffect(EffectType.CONFUSION, new ActiveEffect(EFFECT_DURATION, 0.6));
         }
     }
 

@@ -1,7 +1,6 @@
 package alexis.isep.harrypotter.Core.Magic.Spells;
 
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Levels.Level4;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.Weapon;

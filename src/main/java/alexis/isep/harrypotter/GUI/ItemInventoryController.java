@@ -1,8 +1,7 @@
 package alexis.isep.harrypotter.GUI;
 
 import alexis.isep.harrypotter.Core.Items.Item;
-import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
-import alexis.isep.harrypotter.Core.Levels.Level;
+import alexis.isep.harrypotter.Core.Game.Battle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

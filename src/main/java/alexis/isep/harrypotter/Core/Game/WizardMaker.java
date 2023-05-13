@@ -1,21 +1,16 @@
 package alexis.isep.harrypotter.Core.Game;
 
-import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
-import alexis.isep.harrypotter.GUI.BattleController;
-import alexis.isep.harrypotter.GUI.CreateCharacterController;
-import alexis.isep.harrypotter.GUI.Display;
-import alexis.isep.harrypotter.Console.InputParser;
-import alexis.isep.harrypotter.Core.Characters.Characteristics.Pet;
-import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Items.Wand;
 import alexis.isep.harrypotter.Core.Items.WandCore;
 import alexis.isep.harrypotter.Core.Items.Wood;
+import alexis.isep.harrypotter.GUI.CreateCharacterController;
+import alexis.isep.harrypotter.GUI.Display;
+import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.Core.Items.Wand;
 import alexis.isep.harrypotter.Core.Magic.Spells.Confundus;
 import alexis.isep.harrypotter.Core.Magic.Spells.Engorgio;
 import alexis.isep.harrypotter.Core.Magic.Spells.Expelliarmus;
 import alexis.isep.harrypotter.GUI.Game;
 
-import java.util.HashMap;
 import java.util.Random;
 
 public class WizardMaker {
@@ -45,23 +40,29 @@ public class WizardMaker {
         game.setScene("/alexis/isep/harrypotter/GUI/Introduction.fxml",null);
         game.addDialogPane(1);
         display.displayInfo("Welcome to Hogwarts, " + player.getName() + "!");
-        display.displayInfo("You chose the pet " + player.getPet() + ". I hope you two will get along!");
-        makeWand();
-        teachBasicSpells();
+        assignWand();
+        if (!game.isInDebugMode()) {
+            display.displayInfo("You chose the pet " + player.getPet() + ". I hope you two will get along!");
+            displayWandInformation();
+            teachBasicSpells();
+        }
         display.setOnFinish((e) -> game.mainGame());
     }
 
-
-    public void makeWand() {
-        display.displayInfo("It's now time to give you your wand. Let me search for the right one for you... ");
+    public void assignWand() {
         Random random = new Random();
         int wandCoreIndex = random.nextInt(WandCore.values().length);
         WandCore wandCore = WandCore.values()[wandCoreIndex];
         int woodIndex = random.nextInt(Wood.values().length);
         Wood wood = Wood.values()[woodIndex];
         player.setWand(new Wand(wandCore, wood, 1,player));
-        display.displayInfo("........            \n Found it! It's an amazing wand, made of " + wandCore.toString() + " and " + wood.toString());
-        display.displayInfo("I'm sure you'll make great use of it.");
+    }
+
+    public void displayWandInformation() {
+        display.displayInfo("It's now time to give you your wand. Let me search for the right one for you... ");
+        Wand wand = player.getWand();
+        display.displayInfo("............................ " +
+        "\n Found it! It's an amazing wand, made of " + wand.getCore().toString() + " and " + wand.getWood().toString() + ". I'm sure you'll make great use of it.");
     }
 
     public void teachBasicSpells() {

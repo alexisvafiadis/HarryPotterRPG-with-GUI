@@ -1,12 +1,13 @@
-package alexis.isep.harrypotter.Core.Levels;
+package alexis.isep.harrypotter.Core.Game.Levels;
 
 import alexis.isep.harrypotter.Core.Characters.Enemies.Basilisk;
+import alexis.isep.harrypotter.Core.Game.Level;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Weapon;
 import alexis.isep.harrypotter.Core.Magic.Spells.Accio;
 import alexis.isep.harrypotter.Core.Magic.Spells.PetrificusTotalus;
 
-public class Level2 extends Level{
+public class Level2 extends Level {
 
     public Level2(Game game) {
         super(game, "The Chamber of Secrets","the Chamber of Secrets", 2, false);
@@ -16,9 +17,11 @@ public class Level2 extends Level{
     public void start() {
         player.spawn();
         super.start();
-        Basilisk basilisk = new Basilisk(game);
-        basilisk.spawn();
-        startBattle(basilisk);
+        display.setOnFinish((e) -> {
+            Basilisk basilisk = new Basilisk(game);
+            basilisk.spawn();
+            startBattle(basilisk);
+        });
     }
 
     @Override

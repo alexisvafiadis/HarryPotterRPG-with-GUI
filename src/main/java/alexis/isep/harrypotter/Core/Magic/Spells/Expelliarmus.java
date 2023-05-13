@@ -2,6 +2,7 @@ package alexis.isep.harrypotter.Core.Magic.Spells;
 
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Characters.EnemyWizard;
+import alexis.isep.harrypotter.Core.Characters.Wizard;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.ActiveEffect;
 import alexis.isep.harrypotter.Core.Magic.EffectType;
@@ -16,15 +17,15 @@ public class Expelliarmus extends SimpleSpell {
     }
 
     public void cast(Character target) {
-        if (!target.hasWeapon() && !(target instanceof EnemyWizard)) {
+        if (!target.hasWeapon() && !((target instanceof EnemyWizard) || (target instanceof Wizard))) {
             displayCustomFailMessage("failed to cast Expelliarmus because " + target.getName() + " doesn't have a weapon.");
             wizard.decideWhichRoundAction();
         }
         else {
             use();
             if (isCastSuccessful(target)) {
-                target.giveEffect(EffectType.DISARM, new ActiveEffect(EFFECT_DURATION, 1));
                 showSuccessfulCast(null);
+                target.giveEffect(EffectType.DISARM, new ActiveEffect(EFFECT_DURATION, 1));
             }
         }
     }

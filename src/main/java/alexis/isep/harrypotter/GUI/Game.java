@@ -3,9 +3,9 @@ package alexis.isep.harrypotter.GUI;
 import alexis.isep.harrypotter.Console.InputParser;
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Game.SortingHat;
+import alexis.isep.harrypotter.Core.Game.Level;
+import alexis.isep.harrypotter.Core.Game.Levels.*;
 import alexis.isep.harrypotter.Core.Game.WizardMaker;
-import alexis.isep.harrypotter.Core.Levels.*;
 import alexis.isep.harrypotter.Core.Magic.Spells.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,12 +22,13 @@ import java.util.*;
 
 public class Game extends javafx.application.Application{
     private final String GAME_TITLE = "Harry Potter At Home";
+    //SET DEBUG MODE TO TRUE TO GO FASTER AND TEST THE GAME AND FALSE TO PLAY NORMALLY
+    private final boolean DEBUG_MODE = true;
     private Display display;
     private InputParser inputParser;
     private Wizard player;
     private Level currentLevel;
     private Stage stage;
-    private final boolean DEBUG_MODE = false;
     private final List<Class<?>> levels = new ArrayList<>();
     public static final String GAME_ROOT = "/alexis/isep/harrypotter/";
 
@@ -62,6 +63,9 @@ public class Game extends javafx.application.Application{
     public void mainGame() {
         if (isInDebugMode()) {
             teachAllSpells();
+            player.upgradeAccuracy(100);
+            player.upgradeHP(100);
+            player.upgradeDamage(100);
         }
         levels.add(Level.class);
         levels.add(Level1.class);
@@ -71,10 +75,13 @@ public class Game extends javafx.application.Application{
         levels.add(Level5.class);
         levels.add(Level6.class);
         levels.add(Level7.class);
-        teachAllSpells();
-        setLevel(4);
+        setLevel(6);
     }
     public void nextLevel() {
+        if (currentLevel.getNumber() == levels.size() - 1) {
+            finish();
+            return;
+        }
         setLevel(currentLevel.getNumber() + 1);
     }
 
@@ -112,7 +119,9 @@ public class Game extends javafx.application.Application{
     }
 
     public void finish() {
-        display.congratulate("You have finished the game, congratulations!");
+        addDialogPane(1);
+        display.congratulate("You have finished the game, congratulations!!!");
+        display.setOnFinish((e) -> System.out.println("Game finished"));
     }
 
     public void teachAllSpells() {
@@ -180,6 +189,10 @@ public class Game extends javafx.application.Application{
         List<String> listWindowsToClose = Arrays.asList(arrayWindowsToClose);
         ((AnchorPane) stage.getScene().getRoot()).getChildren().removeIf((node) -> node != null && listWindowsToClose.contains(node.getId()));
         //((AnchorPane) stage.getScene().getRoot()).getChildren().remove(((AnchorPane) stage.getScene().getRoot()).getChildren().size() - 1);
+    }
+
+    public void closeSubWindowById(String id) {
+        ((AnchorPane) stage.getScene().getRoot()).getChildren().removeIf((node) -> node != null && node.getId().equals(id));
     }
 
     public FXMLLoader loadFXML(String name) {

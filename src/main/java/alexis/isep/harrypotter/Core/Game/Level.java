@@ -1,4 +1,4 @@
-package alexis.isep.harrypotter.Core.Levels;
+package alexis.isep.harrypotter.Core.Game;
 
 import alexis.isep.harrypotter.GUI.*;
 import alexis.isep.harrypotter.Console.InputParser;
@@ -6,12 +6,10 @@ import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.ItemType;
-import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;

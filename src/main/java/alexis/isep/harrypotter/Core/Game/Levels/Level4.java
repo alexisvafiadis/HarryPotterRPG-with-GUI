@@ -1,20 +1,16 @@
-package alexis.isep.harrypotter.Core.Levels;
+package alexis.isep.harrypotter.Core.Game.Levels;
 
-import alexis.isep.harrypotter.Core.Characters.Enemies.Dementor;
 import alexis.isep.harrypotter.Core.Characters.Enemies.Voldemort;
+import alexis.isep.harrypotter.Core.Game.Level;
 import alexis.isep.harrypotter.GUI.ChoiceGridController;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Items.Item;
 import alexis.isep.harrypotter.Core.Items.ItemType;
-import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
+import alexis.isep.harrypotter.Core.Game.LevelMap;
 import alexis.isep.harrypotter.Core.Magic.Spells.*;
-import alexis.isep.harrypotter.GUI.PotionInventoryController;
 import javafx.scene.layout.AnchorPane;
 
-import java.util.HashMap;
-import java.util.Random;
-
-public class Level4 extends Level{
+public class Level4 extends Level {
     private final int MIN_POTTER_VOLDEMORT_DISTANCE = 4;
     private boolean hasPortkey;
     private Item portkey;
@@ -126,15 +122,15 @@ public class Level4 extends Level{
 
     @Override
     public void conclude() {
-        display.congratulate("Good job, you have gotten away!");
+        display.congratulate("Good job, you have gotten away from Voldemort and ensured your safety. But it may not be the last time you see him...");
         teachFunnySpells();
     }
 
     @Override
     public void introduce() {
         showLevelScene();
-        display.displayInfo("Voldemort and Peter Pettigrew are nearby. You should probably get away.");
-        display.displayInfo("You have to get close to the Portkey to attract it to you using Accio then use the Portkey");
+        display.displayInfo("Voldemort is nearby. You should probably get away.");
+        display.displayInfo("You have to get close to the Portkey to attract it to you using Accio then use the Portkey to return to Hogwarts.");
         display.displayInfo("If you get spotted by Voldemort, you will have to defend yourself.");
         display.displayInfo("I doubt you're skilled enough to survive yet, but we never know. Let me teach you Protego");
         (new Protego(game, player)).teach(player);

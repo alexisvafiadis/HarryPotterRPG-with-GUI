@@ -1,10 +1,11 @@
-package alexis.isep.harrypotter.Core.Levels.Essentials;
+package alexis.isep.harrypotter.Core.Game.Battles;
 
 import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Enemies.DoloresUmbridge;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
+import alexis.isep.harrypotter.Core.Game.Battle;
+import alexis.isep.harrypotter.Core.Game.Level;
 import alexis.isep.harrypotter.GUI.Game;
-import alexis.isep.harrypotter.Core.Levels.Level;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -31,6 +32,8 @@ public class DoloresUmbridgeBattle extends Battle {
     }
 
     @Override
-    public void displayBattleWinMessage() {
+    public void actionIfLoss() {
+        finish();
+        display.setOnFinish(onFinishedEventHandler);
     }
 }

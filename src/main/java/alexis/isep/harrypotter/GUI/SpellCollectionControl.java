@@ -4,12 +4,15 @@ import alexis.isep.harrypotter.Core.Characters.Wizard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
+import alexis.isep.harrypotter.Core.Game.Battle;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 public class SpellCollectionControl {
     private Wizard player;
+    @FXML
+    private AnchorPane SpellCollection;
     @FXML
     private Button spell1Button;
     @FXML
@@ -24,7 +27,6 @@ public class SpellCollectionControl {
     private ImageView previousPage;
     @FXML
     private Label currentPageLabel;
-    private int currentPageIndex;
 
     private Battle battle;
 
@@ -36,8 +38,7 @@ public class SpellCollectionControl {
 
     @FXML
     void initialize() {
-        currentPageIndex = 0;
-        showPage(0);
+        showPage(player.getCurrentPageIndex());
         nextPage.setOnMouseClicked((event) -> changePage(true));
         previousPage.setOnMouseClicked((event) -> changePage(false));
     }
@@ -52,14 +53,14 @@ public class SpellCollectionControl {
 
     public void changePage(boolean next) {
         if (next) {
-            if (currentPageIndex + 1 == getLastPageNumber()) {return;}
-            currentPageIndex += 1;
+            if (player.getCurrentPageIndex() + 1 == getLastPageNumber()) {return;}
+            player.incrementCurrentPageIndex();
         }
         else {
-            if (currentPageIndex == 0) { return;}
-            currentPageIndex -= 1;
+            if (player.getCurrentPageIndex() == 0) { return;}
+            player.decrementCurrentPageIndex();
         }
-        showPage(currentPageIndex);
+        showPage(player.getCurrentPageIndex());
     }
 
     public void showPage(int pageNumber) {

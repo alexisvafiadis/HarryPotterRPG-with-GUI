@@ -14,7 +14,7 @@ public class RonWeasley extends EnemyWizard {
         addSpell(new Stupefy(game, this), 2);
         addSpell(new Expelliarmus(game, this), 1);
         addSpell(new SlugulusErecto(game, this), 2);
-        setCustomBattleStartMessage("Don't underestimate me just because I'm not the most talented wizard. I will fight until I cannot move a muscle.");
+        setCustomBattleStartMessage("Don't underestimate me just because I'm not the most talented wizard. I'll fight until I cannot move a muscle.");
     }
 
     @Override

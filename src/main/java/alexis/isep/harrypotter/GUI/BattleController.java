@@ -4,7 +4,7 @@ import alexis.isep.harrypotter.Core.Characters.AbstractEnemy;
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Characters.EnemyWizard;
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
+import alexis.isep.harrypotter.Core.Game.Battle;
 import alexis.isep.harrypotter.Core.Magic.Spell;
 import alexis.isep.harrypotter.Core.Magic.Spells.ItemSpell;
 import alexis.isep.harrypotter.Core.Magic.Spells.Protego;
@@ -13,18 +13,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -129,9 +125,9 @@ public class BattleController {
 
     public void setHP() {
         playerHPBar.setProgress(player.getHP() / player.getMaxHP());
-        playerHP.setText(String.valueOf(player.getHP()));
+        playerHP.setText(String.valueOf(convertToInt(player.getHP())));
         enemyHPBar.setProgress(enemy.getHP() / enemy.getMaxHP());
-        enemyHP.setText(String.valueOf(enemy.getHP()));
+        enemyHP.setText(String.valueOf(convertToInt(enemy.getHP())));
     }
 
     public void playUpdateHPAnimation(boolean isPlayer) {
@@ -148,7 +144,8 @@ public class BattleController {
             HPLabel = enemyHP;
             character = battle.getEnemy();
         }
-        int newHP = (int) Math.ceil(character.getHP());
+        int newHP = convertToInt(character.getHP());
+        if (newHP == Integer.parseInt(HPLabel.getText())) {return ;}
         timeline = new Timeline();
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.ZERO, new KeyValue(HPBar.progressProperty(), HPBar.getProgress())),
@@ -193,21 +190,20 @@ public class BattleController {
             attackerXFactor = 8;
             attackerYFactor = 8;
         }
-        double toX, toY, rotateDuration, rotateAngle;
+        double toX, toY, rotateAngle;
         boolean offensive = !(spell instanceof Protego);
         if (offensive) {
             toX = getRealImageX(target);
             toY = getRealImageY(target);
-            rotateDuration = 1.5;
             rotateAngle = 360*4;
         }
         else {
-            toX = getRealImageX(attacker) + 50;
+            toX = (getRealImageX(attacker) + getRealImageX(target))/2;
             toY = getRealImageY(attacker);
-            rotateDuration = 3;
-            rotateAngle = 360*2;
+            rotateAngle = 0;
         }
-        SpellShape spellShape = new SpellShape(spell.getColor(), offensive);
+        int spellRadius = (int) Math.ceil(8/Math.sqrt(spell.getDefaultMasteryScore()));
+        SpellShape spellShape = new SpellShape(spellRadius,spell.getColor(), offensive);
         spellShape.toFront();
 
         // Create a TranslateTransition to move the spell from the player to the target
@@ -218,11 +214,12 @@ public class BattleController {
         translate.setToY(toY);
 
         // Create a RotateTransition to rotate the spell as it moves towards the target
-        RotateTransition rotate = new RotateTransition(Duration.seconds(rotateDuration), spellShape);
+        RotateTransition rotate = new RotateTransition(Duration.seconds(1.52), spellShape);
         rotate.setByAngle(rotateAngle);
         translate.setOnFinished(onFinishEventHandler);
         rotate.setOnFinished((e) -> {
             battlePane.getChildren().remove(spellShape);
+            playUpdateHPAnimation(!fromPlayer);
         });
 
         // Add the spell to the scene and play the timeline
@@ -308,6 +305,10 @@ public class BattleController {
         );
         timeline.setOnFinished(onFinishEventHandler);
         timeline.play();
+    }
+
+    public int convertToInt(double a) {
+        return (int) Math.ceil(a);
     }
 
 }

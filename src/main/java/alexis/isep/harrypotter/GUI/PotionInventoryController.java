@@ -1,10 +1,8 @@
 package alexis.isep.harrypotter.GUI;
 
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
 import alexis.isep.harrypotter.Core.Magic.Potion;
 import alexis.isep.harrypotter.Core.Magic.PotionType;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -12,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.PopupWindow;
 
 import java.util.HashMap;
 import java.util.Map;

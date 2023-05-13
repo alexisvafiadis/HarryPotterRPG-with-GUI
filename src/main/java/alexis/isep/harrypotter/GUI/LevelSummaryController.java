@@ -1,11 +1,9 @@
 package alexis.isep.harrypotter.GUI;
 
-import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Levels.Level;
+import alexis.isep.harrypotter.Core.Game.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 public class LevelSummaryController {

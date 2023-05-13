@@ -1,6 +1,6 @@
 package alexis.isep.harrypotter.Core.Items;
 
-import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
+import alexis.isep.harrypotter.Core.Game.LevelMap;
 
 public class Item {
     private LevelMap map;

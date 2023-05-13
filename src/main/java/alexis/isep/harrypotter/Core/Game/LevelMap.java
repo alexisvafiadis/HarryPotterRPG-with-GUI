@@ -1,14 +1,12 @@
-package alexis.isep.harrypotter.Core.Levels.Essentials;
+package alexis.isep.harrypotter.Core.Game;
 
 import alexis.isep.harrypotter.Core.Characters.Character;
 import alexis.isep.harrypotter.Core.Items.Item;
-import alexis.isep.harrypotter.Core.Levels.Level4;
+import alexis.isep.harrypotter.Core.Game.Levels.Level4;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.GUI.LevelMapController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 

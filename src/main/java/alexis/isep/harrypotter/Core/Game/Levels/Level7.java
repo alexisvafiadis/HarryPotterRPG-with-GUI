@@ -1,39 +1,30 @@
-package alexis.isep.harrypotter.Core.Levels;
+package alexis.isep.harrypotter.Core.Game.Levels;
 
 import alexis.isep.harrypotter.Core.Characters.Enemies.*;
+import alexis.isep.harrypotter.Core.Game.BattleListLevel;
 import alexis.isep.harrypotter.GUI.Game;
-import alexis.isep.harrypotter.Core.Levels.Essentials.Battle;
 
-public class Level7 extends Level{
+public class Level7 extends BattleListLevel {
 
     public Level7(Game game) {
-        super(game, "The Deathly Hallows","Great Hall", 7, false);
+        super(game, "The Deathly Hallows","Great Hall", 7, false,0);
     }
 
     @Override
     public void start() {
         player.spawn();
         super.start();
-        if (player.isAgainstDeathEaters()) {
-            BellatrixLestrange bellatrix = new BellatrixLestrange(game);
-            bellatrix.spawn();
-/*            new Battle(game,this,player,bellatrix);
-            Voldemort voldemort = new Voldemort(game);
-            voldemort.spawn();
-            new Battle(game,this,player,voldemort);
+        if (player.isAgainstDeathEaters())  {
+            enemies.add(new BellatrixLestrange(game));
+            enemies.add(new Voldemort(game));
+
         }
         else {
-            HarryPotter harry = new HarryPotter(game);
-            harry.spawn();
-            new Battle(game, this, player, harry);
-            RonWeasley ron = new RonWeasley(game);
-            ron.spawn();
-            new Battle(game, this, player, ron);
-            HermioneGranger hermione = new HermioneGranger(game);
-            hermione.spawn();
-            new Battle(game, this, player, hermione);*/
+            enemies.add(new RonWeasley(game));
+            enemies.add(new HermioneGranger(game));
+            enemies.add(new HarryPotter(game));
         }
-        finish();
+        display.setOnFinish((e) -> fightNextOpponentIfAny());
     }
 
     @Override

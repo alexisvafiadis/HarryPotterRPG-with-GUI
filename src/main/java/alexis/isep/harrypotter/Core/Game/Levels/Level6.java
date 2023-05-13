@@ -1,30 +1,25 @@
-package alexis.isep.harrypotter.Core.Levels;
+package alexis.isep.harrypotter.Core.Game.Levels;
 
 import alexis.isep.harrypotter.Core.Characters.Characteristics.House;
 import alexis.isep.harrypotter.Core.Characters.Enemies.DeathEater;
 import alexis.isep.harrypotter.Core.Characters.Enemies.Student;
-import alexis.isep.harrypotter.Core.Characters.EnemyWizard;
+import alexis.isep.harrypotter.Core.Game.BattleListLevel;
+import alexis.isep.harrypotter.GUI.BinaryChoiceBoxController;
 import alexis.isep.harrypotter.GUI.Game;
 import alexis.isep.harrypotter.Core.Magic.Spells.Sectumsempra;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-public class Level6 extends Level{
-    private List<EnemyWizard> enemies;
-    private int currentBattleIndex;
-
+public class Level6 extends BattleListLevel {
     public Level6(Game game) {
-        super(game, "The Half-blood Prince","Astronomy Tower", 6, true);
+        super(game, "The Half-blood Prince","Astronomy Tower", 6, true,70);
     }
 
     @Override
     public void start() {
-        enemies = new ArrayList<>();
-        currentBattleIndex = 0;
         player.spawn();
         super.start();
+    }
+
+    public void startBattles() {
         if (player.isAgainstDeathEaters())  {
             enemies.add(new DeathEater(game, "Alecto Carrow", 110, 1, 1.6, 4.2, "I'll make sure you regret ever crossing the Dark Lord."));
             enemies.add(new DeathEater(game, "Lucius Malfoy", 125, 0.9, 1.85, 3.3, "My loyalty lies with the Dark Lord."));
@@ -38,24 +33,7 @@ public class Level6 extends Level{
             enemies.add(new Student(game, "Ginny Weasley", 100, 0.85, 1.2, 3.4, "I may be small, but I can pack a punch."));
             enemies.add(new Student(game, "Cedric Diggory", 155, 0.8, 1.45, 4, "Let's make this a fair fight, shall we?"));
         }
-        finish();
-    }
-
-    public void fightNextOpponentIfAny() {
-        if (currentBattleIndex == 2) {
-            display.displayInfo("As your next opponents are shocked by your abilities, you are able to rest for a little and gain back some health...");
-            player.heal(70);
-        }
-        if (currentBattleIndex >= enemies.size()) {
-            finish();
-            return;
-        }
-        EnemyWizard enemy = enemies.get(currentBattleIndex);
-        enemy.spawn();
-        currentBattleIndex++;
-        startBattle(enemy, (e) -> {
-            fightNextOpponentIfAny();
-        });
+        display.setOnFinish((e) -> fightNextOpponentIfAny());
     }
 
     @Override
@@ -77,19 +55,25 @@ public class Level6 extends Level{
         showLevelScene();
         display.displayInfo("In this level, Hogwarts is under attack by the Death Eaters, a group of dark wizards and witches who are loyal to the evil Lord Voldemort.");
         display.displayInfo("As a student of Hogwarts, your duty is to defend your school and your fellow students from the impending attack.");
-        boolean againstDeathEaters = true;
         if (player.getHouse().equals(House.SLYTHERIN)) {
             display.displayInfo("As you are a Slytherin, you have the option to join the ranks of the Death Eaters and fight against your fellow students and former allies.");
             display.displayInfo("But remember, every decision you make in this level will have consequences. Choose your side wisely, as your actions will impact the rest of the game");
-            HashMap<Integer, String> validInputs = new HashMap<>();
-            validInputs.put(0,"No");
-            validInputs.put(1,"Yes");
-            int choice = inputParser.getNumberInput("So, do you wish to side with the Death Eaters?", validInputs,"for");
-            if (choice == 1) { againstDeathEaters = false; }
+            display.displayInfo("So, do you wish to stay on the side of your fellow students? Take the right decision...         ");
+            display.setOnFinish((e) -> {
+                game.showElement("BinaryChoiceBox",param-> new BinaryChoiceBoxController(this),3.2);
+            });
         }
         else {
             display.displayInfo("Therefore, you will fight against the Death Eaters.");
+            chooseSideAndFinishIntroduction(true);
         }
+    }
+
+    public void chooseSideAndFinishIntroduction(boolean againstDeathEaters) {
+        if (player.getHouse().equals(House.SLYTHERIN)) {
+            game.closeSubWindowById("BinaryChoiceBox");
+        }
+        player.setAgainstDeathEaters(againstDeathEaters);
         String enemies;
         if (againstDeathEaters) {  enemies = "death eaters"; }
         else { enemies = "students"; }
@@ -99,6 +83,7 @@ public class Level6 extends Level{
         (new Sectumsempra(game, player)).teach(player);
         player.setAgainstDeathEaters(againstDeathEaters);
         wishGoodLuck();
+        display.setOnFinish((e) -> startBattles());
     }
 
 

@@ -1,8 +1,7 @@
 package alexis.isep.harrypotter.GUI;
 
 import alexis.isep.harrypotter.Core.Characters.Wizard;
-import alexis.isep.harrypotter.Core.Levels.Level;
-import javafx.fxml.FXML;
+import alexis.isep.harrypotter.Core.Game.Level;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;

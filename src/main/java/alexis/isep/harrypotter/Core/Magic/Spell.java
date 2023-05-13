@@ -67,6 +67,11 @@ public abstract class Spell {
             wizard.decideWhichRoundAction();
             return false;
         }
+        if (wizard.hasEffect(EffectType.DISARM)) {
+            displayCustomFailMessage(getName() + " failed to cast " + name + " because they are disarmed.");
+            wizard.decideWhichRoundAction();
+            return false;
+        }
         double probability;
         boolean fromPlayer = (wizard instanceof Wizard);
         if (fromPlayer) {
@@ -107,7 +112,7 @@ public abstract class Spell {
             display.announceFail(game.getMessageStartHave(wizard) + " " + message);
         }
         else {
-            display.displayInfo(game.getMessageStartHave(wizard) + message);
+            display.displayInfo(game.getMessageStartHave(wizard) + " " + message);
         }
     }
 

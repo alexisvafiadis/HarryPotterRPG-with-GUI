@@ -1,9 +1,9 @@
 package Core.Levels.Essentials;
 
 import alexis.isep.harrypotter.GUI.Game;
-import alexis.isep.harrypotter.Core.Levels.Essentials.LevelMap;
-import alexis.isep.harrypotter.Core.Levels.Level;
-import alexis.isep.harrypotter.Core.Levels.Level1;
+import alexis.isep.harrypotter.Core.Game.LevelMap;
+import alexis.isep.harrypotter.Core.Game.Level;
+import alexis.isep.harrypotter.Core.Game.Levels.Level1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

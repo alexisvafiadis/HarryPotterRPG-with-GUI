@@ -6,7 +6,7 @@ import alexis.isep.harrypotter.GUI.Game;
 public class Basilisk extends Boss {
 
     public Basilisk(Game game) {
-        super(game, 90, 28, 1,null,'B',1,1);
+        super(game, 90, 30, 1,null,'B',1,1);
         setCustomBattleStartMessage("Hiss... Sssss...");
     }
 
