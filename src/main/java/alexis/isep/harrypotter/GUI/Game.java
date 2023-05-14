@@ -23,7 +23,7 @@ import java.util.*;
 public class Game extends javafx.application.Application{
     private final String GAME_TITLE = "Harry Potter At Home";
     //SET DEBUG MODE TO TRUE TO GO FASTER AND TEST THE GAME AND FALSE TO PLAY NORMALLY
-    private final boolean DEBUG_MODE = true;
+    private final boolean DEBUG_MODE = false;
     private Display display;
     private InputParser inputParser;
     private Wizard player;

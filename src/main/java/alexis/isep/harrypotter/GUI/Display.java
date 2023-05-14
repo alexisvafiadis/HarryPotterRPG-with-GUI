@@ -70,7 +70,7 @@ public class Display {
         charIndex = 0;
         currentMessage = messages.get(messageIndex);
         textLabel.setTextFill(colors.get(messageIndex));
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(VERY_FAST_WRITING_DELAY), event -> {
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(defaultWritingDelay), event -> {
             if (charIndex < currentMessage.length()) {
                 String substring = currentMessage.substring(0, charIndex + 1);
                 setText(substring);
