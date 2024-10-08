@@ -1,4 +1,4 @@
-# Harry Potter RPG Game
+# Harry Potter RPG Game (JavaFX)
 <img src="https://www.pause-canap.com/media/wysiwyg/Saga-harry-potter.jpg" alt="Harry Potter Theme Image" width="500px">=
 
 
@@ -6,6 +6,11 @@
 **Harry Potter at Home** is an interactive role-playing game (RPG) inspired by the magical world of Harry Potter. The game is designed to challenge players through seven levels of increasing difficulty, each based on a significant event from the Harry Potter saga. The project demonstrates skills in game development, object-oriented programming, and graphical interface design using JavaFX.
 
 The primary goal of the project is to build an immersive gameplay experience where the player assumes the role of a young wizard attending Hogwarts School of Witchcraft and Wizardry. As the player progresses, they learn new spells, battle iconic enemies, and use potions to heal or strengthen their abilities. 
+
+## Repository Information
+- **Master branch**: Contains the version of the game without sound effects.
+- **Dev branch**: Includes music and sound effects, although some sound effects may occasionally bug.
+- **Old game version**: [Click here](https://github.com/alexisvafiadis/HarryPotterRPG-with-Console) to access the outdated version of the game that uses the Console as the User Interface instead of a JavaFX application.
 
 ## Features & Functionality
 - **Character Creation**: At the start of the game, players create their wizard, choose a wand, and are sorted into one of the four Hogwarts houses (Gryffindor, Hufflepuff, Ravenclaw, Slytherin), each house offering unique gameplay advantages.
@@ -92,10 +97,3 @@ This directory includes unit tests to ensure the correctness of game logic.
 
 ### `target/`
 This is where the compiled project files, including the `.class` files, are stored after Maven builds the project. It also includes resources needed to run the application.
-
-
-### Repository information
-
-- **Master branch**: Contains the version of the game without sound effects.
-- **Dev branch**: Includes music and sound effects, although some sound effects may occasionally bug.
-- **Old game version**: Click here to access the outdated version of the game that uses the Console as the User Interface instead of a JavaFX application.
