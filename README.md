@@ -1,5 +1,5 @@
 # Harry Potter RPG Game (JavaFX)
-<img src="https://www.pause-canap.com/media/wysiwyg/Saga-harry-potter.jpg" alt="Harry Potter Theme Image" width="500px">=
+<img src="https://www.pause-canap.com/media/wysiwyg/Saga-harry-potter.jpg" alt="Harry Potter Theme Image" width="500px">
 
 
 ## Introduction
