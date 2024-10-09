@@ -3,7 +3,7 @@
 
 
 ## Introduction
-**Harry Potter at Home** is an interactive role-playing game (RPG) inspired by the magical world of Harry Potter. The game is designed to challenge players through seven levels of increasing difficulty, each based on a significant event from the Harry Potter saga. The project demonstrates skills in game development, object-oriented programming, and graphical interface design using JavaFX.
+**Harry Potter at Home** is an interactive role-playing game (RPG) inspired by the magical world of Harry Potter. The game is designed to challenge the player through seven levels of increasing difficulty, each based on a significant event from the Harry Potter saga. The project demonstrates skills in game development, object-oriented programming, and graphical interface design using JavaFX.
 
 The primary goal of the project is to build an immersive gameplay experience where the player assumes the role of a young wizard attending Hogwarts School of Witchcraft and Wizardry. As the player progresses, they learn new spells, battle iconic enemies, and use potions to heal or strengthen their abilities. 
 
@@ -13,17 +13,52 @@ The primary goal of the project is to build an immersive gameplay experience whe
 - **Old game version**: [Click here](https://github.com/alexisvafiadis/HarryPotterRPG-with-Console) to access the outdated version of the game that uses the Console as the User Interface instead of a JavaFX application.
 
 ## Features & Functionality
-- **Character Creation**: At the start of the game, players create their wizard, choose a wand, and are sorted into one of the four Hogwarts houses (Gryffindor, Hufflepuff, Ravenclaw, Slytherin), each house offering unique gameplay advantages.
-- **Spell System**: Players can learn and cast a variety of spells such as *Expelliarmus*, *Expecto Patronum*, and *Wingardium Leviosa*.
-- **Potion Inventory**: Players can collect and use potions during battles to regain health or improve their chances in combat.
-- **Seven Levels of Adventure**: Each level is based on a key event from the Harry Potter series:
-  - **Level 1**: Battle a Troll using *Wingardium Leviosa*.
-  - **Level 2**: Defeat the Basilisk in the Chamber of Secrets.
-  - **Level 3**: Face Dementors and use *Expecto Patronum*.
-  - **Level 4**: Escape Voldemort and Peter Pettigrew using *Accio* to summon the Portkey.
-  - **Level 5**: Distract Dolores Umbridge with fireworks.
-  - **Level 6**: Battle Death Eaters invading Hogwarts.
-  - **Level 7**: Final duel with Voldemort and Bellatrix Lestrange.
+
+### 1. Character Creation
+- **Wizard Creation**: At the start of the game, the player create their wizard, choosing a wand and being sorted into one of the four Hogwarts houses by the **Sorting Hat**:
+  - **Gryffindor**: Wizards are more resistant to damage.
+  - **Hufflepuff**: Potions are more effective.
+  - **Ravenclaw**: Wizards are more precise when casting spells.
+  - **Slytherin**: Wizards deal more damage with spells.
+
+### 2. Spell System
+- **Variety of Spells**: the player can learn and cast a broad range of spells, including:
+  - *Expelliarmus* to disarm opponents.
+  - *Expecto Patronum* to fend off Dementors.
+  - *Wingardium Leviosa* to lift and throw objects at enemies.
+  - *Sectumsempra* for slicing enemies.
+  - *Accio* to summon objects.
+  - *Protego* to summon a shield that wards off spells.
+    
+- **Learning and Mastery**: the player do not know all the spells from the start. They unlock new spells over time, either before or after each level. Each spell has its own difficulty level, and the player’s mastery increases the more they use the spell. The chance of failing a spell is high at first but decreases with practice.
+
+### 3. Combat System
+- **Turn-Based Combat**: The game uses a turn-based combat system where the player alternate between casting spells, using potions, looking around, and avoiding attacks.
+- **Damage and Sound Effects**: Battles are brought to life with dynamic sound effects, animations for spells, and damage feedback.
+- **Dodging Attacks**: At the start of the game, when the player's spell arsenal is limited, they can use the "Hide" option to increase the chance of dodging an attack, giving them time to develop their spells.
+- **Music and Animations**: The game features battle music, spell animations, and sound effects for a more immersive experience.
+
+### 4. Potion Inventory
+- **Potions**: the player can collect potions during their adventure. Potions can heal, boost power, or improve performance in combat. Hufflepuff wizards have a particular advantage as their potions are more effective.
+
+### 5. The Seven Levels
+The game is divided into seven levels, each based on key events from the Harry Potter series:
+
+- **Level 1: Troll Battle**: the player face a troll in the dungeons using *Wingardium Leviosa* to drop items on its head. Use *Engorgio* to enlarge the items for more damage.
+- **Level 2: Chamber of Secrets**: Battle the Basilisk. Gryffindor wizards use the Sword of Gryffindor, while others must summon the Basilisk's fang using *Accio* to defeat the creature.
+- **Level 3: Dementor Attack**: the player face Dementors at the lake in the Forbidden Forest, casting *Expecto Patronum* to drive them away.
+- **Level 4: Escape from Voldemort**: In the Little Hangleton Cemetery, the player must escape Voldemort and Peter Pettigrew. Summon the Portkey using *Accio* and flee to safety.
+- **Level 5: Distract Dolores Umbridge**: During an exam at Hogwarts, the player must distract Umbridge using various spells and eventually launch fireworks to cause chaos.
+- **Level 6: Death Eaters Attack Hogwarts**: Defend Hogwarts from Death Eaters using combat spells like *Sectumsempra*. Slytherin wizards can choose to betray Hogwarts and join the Death Eaters, fighting against the other students.
+  - **Choice to make**: Depending on the player's actions, they can either:
+    - Join the Death Eaters and fight their fellow students.
+    - Stay loyal to Hogwarts and battle the Death Eaters.
+- **Level 7: Final Battle**: the player face Voldemort and Bellatrix Lestrange in a climactic duel at Hogwarts. Use *Expelliarmus* to disarm Voldemort and beware of *Avada Kedavra*. If the player betrayed their friends in Level 6, they will also face off against Harry Potter, Hermione Granger, and Ron Weasley in this final showdown.
+
+### 7. Progression System
+- **Health and Damage**: After winning battles, the player can choose to increase their health points or their damage points, enhancing their wizard's ability to survive tougher enemies.
+
+
 
 ## Project Structure
 
@@ -98,8 +133,16 @@ This directory includes unit tests to ensure the correctness of game logic.
 ### `target/`
 This is where the compiled project files, including the `.class` files, are stored after Maven builds the project. It also includes resources needed to run the application.
 
+---
+
+
 ## Gameplay
 
+### Demo Video
+
+[Watch the full demo of the game](https://youtu.be/6hojVzXIa3c)
+
+### Screenshots
 Below are the screenshots showcasing various parts of the Harry Potter RPG game.
 
 ### 1. Wizard Creation
@@ -173,8 +216,3 @@ Below are the screenshots showcasing various parts of the Harry Potter RPG game.
 <img src="Gameplay Images/Level7 choice 2.png" alt="Level 7 Choice 2" width="500px"/>
 
 ---
-
-## Demo Video
-
-[Watch the full demo of the game](https://youtu.be/6hojVzXIa3c)
-
