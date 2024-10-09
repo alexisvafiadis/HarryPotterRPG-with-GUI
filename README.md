@@ -98,5 +98,85 @@ This directory includes unit tests to ensure the correctness of game logic.
 ### `target/`
 This is where the compiled project files, including the `.class` files, are stored after Maven builds the project. It also includes resources needed to run the application.
 
+## Gameplay
 
-https://youtu.be/6hojVzXIa3c
+Below are the screenshots showcasing various parts of the Harry Potter RPG game.
+
+### 1. Wizard Creation
+
+<img src="Gameplay%20Images/Home.png" alt="Wizard Creation" width="500px"/>
+
+---
+
+### 2. Combat
+
+<img src="Gameplay%20Images/Combat.png" alt="Combat Level 1" width="500px"/>
+
+---
+
+### 3. Potion Choice
+
+<img src="Gameplay%20Images/Potion%20Choice.png" alt="Potion Choice" width="150px"/>
+
+---
+
+### 4. Spell Choice
+
+<img src="Gameplay%20Images/Spell%20Choice.png" alt="Spell Choice" width="150px"/>
+
+---
+
+### 5. Level End
+
+<img src="Gameplay%20Images/Level%20End.png" alt="Level End" width="400px"/>
+
+---
+
+### 6. Level 2
+
+<img src="Gameplay%20Images/Level2.png" alt="Level 2" width="500px"/>
+
+---
+
+### 8. Level 4
+
+<img src="Gameplay%20Images/Level4.png" alt="Level 4" width="500px"/>
+
+---
+
+### 9. Level 5
+
+<img src="Gameplay%20Images/Level5.png" alt="Level 5" width="500px"/>
+
+---
+
+### 10. Level 6 (Betray the School)
+
+<img src="Gameplay%20Images/Level6.png" alt="Level 6 (Betray the School)" width="500px"/>
+
+---
+
+### 11. Level 6 (Stick with the School)
+
+<img src="Gameplay%20Images/Level6 choice2.png" alt="Level 6 Choice 2 (Stick with the School)" width="500px"/>
+
+---
+
+### 12. Level 7 (Betray the School)
+
+<img src="Gameplay%20Images/Level7.png" alt="Level 7" width="500px"/>
+
+---
+
+### 13. Level 7 (Stick with the School)
+
+<img src="Gameplay%20Images/Level7 choice2.png" alt="Level 7 Choice 2" width="500px"/>
+
+---
+
+## Demo Video
+
+Watch the full demo of the Harry Potter RPG game on YouTube:
+
+[Watch the demo video](https://youtu.be/6hojVzXIa3c)
+
