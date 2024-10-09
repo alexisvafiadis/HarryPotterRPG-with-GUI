@@ -158,7 +158,7 @@ Below are the screenshots showcasing various parts of the Harry Potter RPG game.
 
 ### 11. Level 6 (Stick with the School)
 
-<img src="Gameplay%20Images/Level6 choice2.png" alt="Level 6 Choice 2 (Stick with the School)" width="500px"/>
+<img src="Gameplay Images/Level6 choice 2.png" alt="Level 6 Choice 2 (Stick with the School)" width="500px"/>
 
 ---
 
@@ -170,13 +170,11 @@ Below are the screenshots showcasing various parts of the Harry Potter RPG game.
 
 ### 13. Level 7 (Stick with the School)
 
-<img src="Gameplay%20Images/Level7 choice2.png" alt="Level 7 Choice 2" width="500px"/>
+<img src="Gameplay Images/Level7 choice 2.png" alt="Level 7 Choice 2" width="500px"/>
 
 ---
 
 ## Demo Video
 
-Watch the full demo of the Harry Potter RPG game on YouTube:
-
-[Watch the demo video](https://youtu.be/6hojVzXIa3c)
+[Watch the full demo of the game](https://youtu.be/6hojVzXIa3c)
 
