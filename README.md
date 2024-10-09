@@ -3,7 +3,7 @@
 
 
 ## Introduction
-**Harry Potter at Home** is an interactive role-playing game (RPG) inspired by the magical world of Harry Potter. The game is designed to challenge the player through seven levels of increasing difficulty, each based on a significant event from the Harry Potter saga. The project demonstrates skills in game development, object-oriented programming, and graphical interface design using JavaFX.
+**Harry Potter at Home** is an interactive offline role-playing game (RPG) inspired by the magical world of Harry Potter made in Java. The game is designed to challenge the player through seven levels of increasing difficulty, each based on a significant event from the Harry Potter saga.
 
 The primary goal of the project is to build an immersive gameplay experience where the player assumes the role of a young wizard attending Hogwarts School of Witchcraft and Wizardry. As the player progresses, they learn new spells, battle iconic enemies, and use potions to heal or strengthen their abilities. 
 
@@ -132,6 +132,38 @@ This directory includes unit tests to ensure the correctness of game logic.
 
 ### `target/`
 This is where the compiled project files, including the `.class` files, are stored after Maven builds the project. It also includes resources needed to run the application.
+
+---
+
+
+## Used Technologies
+
+### 1. **Java**
+- The core of the application is developed using Java, for its object-oriented capabilities.
+
+### 2. **JavaFX**
+- JavaFX was used for building the graphical user interface (GUI) of the game.
+  - **FXML files** define the layout of the various scenes such as character creation, battles, and levels.
+  - **FXML Controllers** manage user interactions and dynamic behavior in the interface. For example:
+
+### 3. **Scene Builder**
+- **Scene Builder** was used to visually design JavaFX layouts through drag-and-drop creation of the user interface (UI).
+
+### 4. **Lombok**
+- **Lombok** was used to reduce boilerplate code in the project, especially in the creation of data models and entities.
+
+### 5. **JUnit**
+- **JUnit** was used for testing the core functionality of the game.
+  - Unit tests ensure that game mechanics, items, spells, and battles function as expected.
+
+### 6. **Maven**
+- **Maven** was used for project management and dependency handling.
+
+### 7. **Libraries**
+- External libraries for JavaFX are stored in the `lib/` folder, ensuring that the game has the necessary resources to run on different platforms:
+  - **`javafx-base-17-ea+2.jar`**: Core JavaFX base module.
+  - **`javafx-graphics-17-ea+2.jar`**: JavaFX graphics module for rendering scenes.
+  - **`javafx-media-17-ea+2.jar`**: JavaFX media module for handling audio files like background music and sound effects.
 
 ---
 
