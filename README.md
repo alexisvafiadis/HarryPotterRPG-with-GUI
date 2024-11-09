@@ -1,11 +1,91 @@
 # Harry Potter RPG Game (JavaFX)
 <img src="https://www.pause-canap.com/media/wysiwyg/Saga-harry-potter.jpg" alt="Harry Potter Theme Image" width="500px">
 
-
 ## Introduction
 **Harry Potter at Home** is an interactive offline role-playing game (RPG) inspired by the magical world of Harry Potter made in Java. The game is designed to challenge the player through seven levels of increasing difficulty, each based on a significant event from the Harry Potter saga.
 
 The primary goal of the project is to build an immersive gameplay experience where the player assumes the role of a young wizard attending Hogwarts School of Witchcraft and Wizardry. As the player progresses, they learn new spells, battle iconic enemies, and use potions to heal or strengthen their abilities. 
+
+## Gameplay
+
+### Demo Video
+
+[Watch the full demo of the game](https://youtu.be/6hojVzXIa3c)
+
+### Screenshots
+Below are the screenshots showcasing various parts of the Harry Potter RPG game.
+
+### 1. Wizard Creation
+
+<img src="Gameplay%20Images/Home.png" alt="Wizard Creation" width="500px"/>
+
+---
+
+### 2. Combat
+
+<img src="Gameplay%20Images/Combat.png" alt="Combat Level 1" width="500px"/>
+
+---
+
+### 3. Potion Choice
+
+<img src="Gameplay%20Images/Potion%20Choice.png" alt="Potion Choice" width="150px"/>
+
+---
+
+### 4. Spell Choice
+
+<img src="Gameplay%20Images/Spell%20Choice.png" alt="Spell Choice" width="150px"/>
+
+---
+
+### 5. Level End
+
+<img src="Gameplay%20Images/Level%20End.png" alt="Level End" width="400px"/>
+
+---
+
+### 6. Level 2
+
+<img src="Gameplay%20Images/Level2.png" alt="Level 2" width="500px"/>
+
+---
+
+### 8. Level 4
+
+<img src="Gameplay%20Images/Level4.png" alt="Level 4" width="500px"/>
+
+---
+
+### 9. Level 5
+
+<img src="Gameplay%20Images/Level5.png" alt="Level 5" width="500px"/>
+
+---
+
+### 10. Level 6 (Betray the School)
+
+<img src="Gameplay%20Images/Level6.png" alt="Level 6 (Betray the School)" width="500px"/>
+
+---
+
+### 11. Level 6 (Stick with the School)
+
+<img src="Gameplay Images/Level6 choice 2.png" alt="Level 6 Choice 2 (Stick with the School)" width="500px"/>
+
+---
+
+### 12. Level 7 (Betray the School)
+
+<img src="Gameplay%20Images/Level7.png" alt="Level 7" width="500px"/>
+
+---
+
+### 13. Level 7 (Stick with the School)
+
+<img src="Gameplay Images/Level7 choice 2.png" alt="Level 7 Choice 2" width="500px"/>
+
+---
 
 ## Repository Information
 - **Master branch**: Contains the version of the game without sound effects.
@@ -164,87 +244,3 @@ This is where the compiled project files, including the `.class` files, are stor
   - **`javafx-base-17-ea+2.jar`**: Core JavaFX base module.
   - **`javafx-graphics-17-ea+2.jar`**: JavaFX graphics module for rendering scenes.
   - **`javafx-media-17-ea+2.jar`**: JavaFX media module for handling audio files like background music and sound effects.
-
----
-
-
-## Gameplay
-
-### Demo Video
-
-[Watch the full demo of the game](https://youtu.be/6hojVzXIa3c)
-
-### Screenshots
-Below are the screenshots showcasing various parts of the Harry Potter RPG game.
-
-### 1. Wizard Creation
-
-<img src="Gameplay%20Images/Home.png" alt="Wizard Creation" width="500px"/>
-
----
-
-### 2. Combat
-
-<img src="Gameplay%20Images/Combat.png" alt="Combat Level 1" width="500px"/>
-
----
-
-### 3. Potion Choice
-
-<img src="Gameplay%20Images/Potion%20Choice.png" alt="Potion Choice" width="150px"/>
-
----
-
-### 4. Spell Choice
-
-<img src="Gameplay%20Images/Spell%20Choice.png" alt="Spell Choice" width="150px"/>
-
----
-
-### 5. Level End
-
-<img src="Gameplay%20Images/Level%20End.png" alt="Level End" width="400px"/>
-
----
-
-### 6. Level 2
-
-<img src="Gameplay%20Images/Level2.png" alt="Level 2" width="500px"/>
-
----
-
-### 8. Level 4
-
-<img src="Gameplay%20Images/Level4.png" alt="Level 4" width="500px"/>
-
----
-
-### 9. Level 5
-
-<img src="Gameplay%20Images/Level5.png" alt="Level 5" width="500px"/>
-
----
-
-### 10. Level 6 (Betray the School)
-
-<img src="Gameplay%20Images/Level6.png" alt="Level 6 (Betray the School)" width="500px"/>
-
----
-
-### 11. Level 6 (Stick with the School)
-
-<img src="Gameplay Images/Level6 choice 2.png" alt="Level 6 Choice 2 (Stick with the School)" width="500px"/>
-
----
-
-### 12. Level 7 (Betray the School)
-
-<img src="Gameplay%20Images/Level7.png" alt="Level 7" width="500px"/>
-
----
-
-### 13. Level 7 (Stick with the School)
-
-<img src="Gameplay Images/Level7 choice 2.png" alt="Level 7 Choice 2" width="500px"/>
-
----
