@@ -1,11 +1,6 @@
 # Harry Potter RPG Game (JavaFX)
 <img src="https://www.pause-canap.com/media/wysiwyg/Saga-harry-potter.jpg" alt="Harry Potter Theme Image" width="500px">
 
-## Introduction
-**Harry Potter at Home** is an interactive offline role-playing game (RPG) inspired by the magical world of Harry Potter made in Java. The game is designed to challenge the player through seven levels of increasing difficulty, each based on a significant event from the Harry Potter saga.
-
-The primary goal of the project is to build an immersive gameplay experience where the player assumes the role of a young wizard attending Hogwarts School of Witchcraft and Wizardry. As the player progresses, they learn new spells, battle iconic enemies, and use potions to heal or strengthen their abilities. 
-
 ## Gameplay
 
 ### Demo Video
@@ -84,6 +79,13 @@ Below are the screenshots showcasing various parts of the Harry Potter RPG game.
 ### 13. Level 7 (Stick with the School)
 
 <img src="Gameplay Images/Level7 choice 2.png" alt="Level 7 Choice 2" width="500px"/>
+
+---
+
+## Introduction
+**Harry Potter at Home** is an interactive offline role-playing game (RPG) inspired by the magical world of Harry Potter made in Java. The game is designed to challenge the player through seven levels of increasing difficulty, each based on a significant event from the Harry Potter saga.
+
+The primary goal of the project is to build an immersive gameplay experience where the player assumes the role of a young wizard attending Hogwarts School of Witchcraft and Wizardry. As the player progresses, they learn new spells, battle iconic enemies, and use potions to heal or strengthen their abilities. 
 
 ---
 
